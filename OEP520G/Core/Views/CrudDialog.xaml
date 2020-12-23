@@ -1,0 +1,121 @@
+﻿<UserControl
+    x:Class="OEP520G.Core.Views.CrudDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OEP520G.Core.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:xc="clr-namespace:OEP520G.Core"
+    Width="540"
+    Height="250"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="Window">
+            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
+            <Setter Property="ResizeMode" Value="NoResize" />
+            <Setter Property="ShowInTaskbar" Value="False" />
+            <Setter Property="SizeToContent" Value="WidthAndHeight" />
+            <Setter Property="WindowStyle" Value="ThreeDBorderWindow" />
+        </Style>
+    </prism:Dialog.WindowStyle>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="{x:Type DockPanel}">
+                <Setter Property="Margin" Value="12,5,12,5" />
+            </Style>
+
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="MinWidth" Value="120" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="DockPanel.Dock" Value="Left" />
+            </Style>
+
+            <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="9,0,20,0" />
+                <Setter Property="Padding" Value="5,0,5,0" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <Style
+                x:Key="OK"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="80" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Margin" Value="15,5,15,5" />
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+            <Style
+                x:Key="Cancel"
+                BasedOn="{StaticResource MaterialDesignFlatButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="80" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Margin" Value="15,5,15,5" />
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="9">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  輸入區 Start  -->
+        <StackPanel>
+            <DockPanel Visibility="{Binding Field1Visibility}">
+                <Label Content="{Binding Field1Label}" />
+                <TextBox IsEnabled="{Binding Field1Enabled}" Text="{Binding Field1}" />
+            </DockPanel>
+
+            <DockPanel Visibility="{Binding Field2Visibility}">
+                <Label Content="{Binding Field2Label}" />
+                <TextBox IsEnabled="{Binding Field2Enabled}" Text="{Binding Field2}" />
+            </DockPanel>
+
+            <DockPanel Visibility="{Binding Field3Visibility}">
+                <Label Content="{Binding Field3Label}" />
+                <TextBox IsEnabled="{Binding Field3Enabled}" Text="{Binding Field3}" />
+            </DockPanel>
+
+            <DockPanel Visibility="{Binding Field4Visibility}">
+                <Label Content="{Binding Field4Label}" />
+                <TextBox IsEnabled="{Binding Field4Enabled}" Text="{Binding Field4}" />
+            </DockPanel>
+        </StackPanel>
+        <!--  輸入區 End  -->
+
+        <!--  按鍵 Start  -->
+        <DockPanel
+            Grid.Row="1"
+            Margin="0,0,20,9"
+            LastChildFill="False">
+            <Button
+                Command="{Binding CloseDialogCommand}"
+                CommandParameter="Cancel"
+                Content="取消"
+                Style="{StaticResource Cancel}" />
+            <Button
+                Command="{Binding CloseDialogCommand}"
+                CommandParameter="OK"
+                Content="確定"
+                Style="{StaticResource OK}" />
+        </DockPanel>
+        <!--  按鍵 End  -->
+    </Grid>
+
+</UserControl>

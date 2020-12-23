@@ -1,0 +1,603 @@
+﻿<UserControl
+    x:Class="OEP520G.Parameter.Views.ServoParameter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:OEP520G="clr-namespace:OEP520G"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OEP520G.Parameter.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="SelectButton"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="110" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Margin" Value="5,3,5,3" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignTabRadioButton}" TargetType="{x:Type RadioButton}">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Margin" Value="2,1,2,1" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+
+            <!--  屬性欄  -->
+            <Style x:Key="ItemUnit" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="70" />
+                <Setter Property="Margin" Value="2,1,0,1" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <Style
+                x:Key="ItemField"
+                BasedOn="{StaticResource {x:Type TextBox}}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Margin" Value="9,1,0,1" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <Style x:Key="ItemTitle" TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0,1,0,1" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="DockPanel.Dock" Value="Left" />
+            </Style>
+
+            <Style
+                x:Key="ItemComboBox"
+                BasedOn="{StaticResource MaterialDesignComboBox}"
+                TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Margin" Value="9,1,0,1" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+                <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignSwitchToggleButton}" TargetType="{x:Type ToggleButton}">
+                <Setter Property="Margin" Value="30,1,138,1" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <!--  Channel選擇  -->
+            <Style
+                x:Key="ChannelSelectComboBox"
+                BasedOn="{StaticResource MaterialDesignComboBox}"
+                TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Margin" Value="9,0,80,0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+                <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <!--  框  -->
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="2,5,2,9" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="DockPanel.Dock" Value="Top" />
+            </Style>
+
+            <Style x:Key="Gap" TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="8" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
+            <StackPanel>
+                <Label
+                    Margin="0,0,20,0"
+                    VerticalAlignment="Top"
+                    Content="伺服參數設定"
+                    DockPanel.Dock="Top"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="Brown" />
+            </StackPanel>
+
+            <!--  上方軸選擇鍵 Start  -->
+            <RadioButton
+                Content="{Binding RadioCaptionX}"
+                GroupName="SelectAxisGroup"
+                IsChecked="{Binding AxisSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=X}" />
+
+            <RadioButton
+                Content="{Binding RadioCaptionY}"
+                GroupName="SelectAxisGroup"
+                IsChecked="{Binding AxisSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=Y}" />
+
+            <RadioButton
+                Content="{Binding RadioCaptionZ}"
+                GroupName="SelectAxisGroup"
+                IsChecked="{Binding AxisSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=Z}" />
+
+            <RadioButton
+                Content="{Binding RadioCaptionR}"
+                GroupName="SelectAxisGroup"
+                IsChecked="{Binding AxisSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=R}" />
+
+            <RadioButton
+                Content="{Binding RadioCaptionTray}"
+                GroupName="SelectAxisGroup"
+                IsChecked="{Binding AxisSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=TRAY}" />
+
+            <RadioButton
+                Content="{Binding RadioCaptionClamp}"
+                GroupName="SelectAxisGroup"
+                IsChecked="{Binding AxisSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=CLAMP}" />
+            <!--  上方軸選擇鍵 End  -->
+        </StackPanel>
+
+        <!--  下方資料區 Start  -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  左版面 Start  -->
+            <DockPanel LastChildFill="False">
+                <Border>
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="伺服驅動器參數"
+                            DockPanel.Dock="Top"
+                            Foreground="Brown" />
+
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                Width="220"
+                                ItemsSource="{Binding CommandModeList}"
+                                SelectedIndex="{Binding CommandModeSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="運動命令模式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding DirectionList}"
+                                SelectedIndex="{Binding PosToEncoderDirSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="運動命令輸出方向" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding PulseModeList}"
+                                SelectedIndex="{Binding PulseModeSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="脈衝輸出格式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="x25 ns" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding PulseWidth}" />
+                            <Label Content="脈衝輸出寬度" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding HighLimit}" />
+                            <Label Content="正方向過行程軟體邊界" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding LowLimit}" />
+                            <Label Content="負方向過行程軟體邊界" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding LimitSwitchlList}"
+                                SelectedIndex="{Binding OverTravelUpSensorModeSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="正極限開關配線方式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding LimitSwitchlList}"
+                                SelectedIndex="{Binding OverTravelDownSensorModeSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="負極限開關配線方式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="伺服馬達參數"
+                            DockPanel.Dock="Top"
+                            Foreground="Brown" />
+
+                        <DockPanel>
+                            <Label Content="RPM" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding Rpm}" />
+                            <Label Content="馬達最大安全轉速" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding EncoderTypeList}"
+                                SelectedIndex="{Binding EncoderTypeSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="編碼器格式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="PPR" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding Ppr}" />
+                            <Label Content="編碼器解析度" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding ExchangeList}"
+                                SelectedIndex="{Binding ABSwapSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="A/B相訊號是否交換" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding DirectionList}"
+                                SelectedIndex="{Binding AInverseSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="A相訊號是否反相" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding DirectionList}"
+                                SelectedIndex="{Binding BInverseSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="B相訊號是否反相" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding DirectionList}"
+                                SelectedIndex="{Binding CInverseSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="C相(Z相)訊號是否反相" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="倍" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding InputRateList}"
+                                SelectedIndex="{Binding InputRateSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="編碼器回授倍率" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="機構參數"
+                            DockPanel.Dock="Top"
+                            Foreground="Brown" />
+
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding GearRatio}" />
+                            <Label Content="齒輪箱齒輪比 (馬達/螺桿)" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding Pitch}" />
+                            <Label Content="導螺桿間隙值" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+            <!--  左版面 End  -->
+
+            <!--  中版面 Start  -->
+            <DockPanel Grid.Column="1" LastChildFill="False">
+                <Border>
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="伺服馬達加減速參數"
+                            DockPanel.Dock="Top"
+                            Foreground="Brown" />
+
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding CurveTypeList}"
+                                SelectedIndex="{Binding AccCurveSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="加速型式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="ms" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding AccelerationTime}" />
+                            <Label Content="加速時間" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding CurveTypeList}"
+                                SelectedIndex="{Binding DecCurveSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="減速型式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="ms" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding DecelerationTime}" />
+                            <Label Content="減速時間" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+
+                        <Border Style="{StaticResource Gap}" />
+
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding AccDecModeList}"
+                                SelectedIndex="{Binding AccDecModeSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="加減速模式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="復歸參數"
+                            DockPanel.Dock="Top"
+                            Foreground="Brown" />
+
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding GoHomeModeList}"
+                                SelectedItem="{Binding GoHomeModeSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="復歸模式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding GoHomeDirectList}"
+                                SelectedIndex="{Binding GoHomeDirectSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="復歸搜尋方向" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                ItemsSource="{Binding HomeSensorList}"
+                                SelectedIndex="{Binding HomeSensorSelected}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="原點感測器配線方式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding GoHomeIndex}" />
+                            <Label Content="編碼器INDEX訊號的編號" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="mm/s" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding GoHomeHightSpeed}" />
+                            <Label Content="高速設定值" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="mm/s" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding GoHomeLowSpeed}" />
+                            <Label Content="低速設定值" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="ms" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding GoHomeAccTime}" />
+                            <Label Content="加速時間" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="ms" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding GoHomeDecTime}" />
+                            <Label Content="減速時間" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding LogicHomeOffset}" />
+                            <Label Content="邏輯原點位移量" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <!--<Border>
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="運動極限值設定(做為軟體極限使用)"
+                            DockPanel.Dock="Top"
+                            Foreground="Brown" />
+
+                        <DockPanel>
+                            <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding AccelerationTime}" />
+                            <Label Content="最小座標極限" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding AccelerationTime}" />
+                            <Label Content="最大座標極限" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding AccelerationTime}" />
+                            <Label Content="最小編碼器極限" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding DecelerationTime}" />
+                            <Label Content="最大編碼器極限" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>-->
+
+            </DockPanel>
+            <!--  中版面 End  -->
+
+            <!--  右版面 Start  -->
+            <DockPanel Grid.Column="2" LastChildFill="False">
+                <Border>
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="速度比例設定"
+                            DockPanel.Dock="Top"
+                            Foreground="Brown" />
+
+                        <DockPanel>
+                            <Label Content="mm/sec" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding BaseSpeed, StringFormat=\{0:F3\}}" />
+                            <Label Content="基準進給速度" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="%" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding UltraHighSpeedRate, StringFormat={}{0:D}}" />
+                            <Label Content="超高速" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="%" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding HighSpeedRate, StringFormat={}{0:D}}" />
+                            <Label Content="高速" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="%" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding MiddleSpeedRate, StringFormat={}{0:D}}" />
+                            <Label Content="中速" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="%" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding LowSpeedRate, StringFormat={}{0:D}}" />
+                            <Label Content="低速" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="%" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding UltraLowSpeedRate, StringFormat={}{0:D}}" />
+                            <Label Content="超低速" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="連續運動功能"
+                            DockPanel.Dock="Top"
+                            Foreground="Brown" />
+
+                        <DockPanel>
+                            <ToggleButton IsChecked="{Binding PathBlending}" />
+                            <Label Content="連續運動功能開啟/關閉" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="定位確認功能"
+                            DockPanel.Dock="Top"
+                            Foreground="Brown" />
+
+                        <DockPanel>
+                            <ToggleButton x:Name="InPositionSwitch" IsChecked="{Binding InPositionOnOff}" />
+                            <Label Content="定位確認功能開啟/關閉" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel IsEnabled="{Binding IsChecked, ElementName=InPositionSwitch}">
+                            <Label Content="" Style="{StaticResource ItemUnit}" />
+                            <ComboBox
+                                Width="180"
+                                ItemsSource="{Binding InPositionModeList}"
+                                SelectedIndex="{Binding InPosMode}"
+                                Style="{StaticResource ItemComboBox}" />
+                            <Label Content="定位控制模式" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel IsEnabled="{Binding IsChecked, ElementName=InPositionSwitch}">
+                            <Label Content="ms" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding InPosMaxCheckTime}" />
+                            <Label Content="定位確認最大檢查時間" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel IsEnabled="{Binding IsChecked, ElementName=InPositionSwitch}">
+                            <Label Content="ms" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding InPosSettleTime}" />
+                            <Label Content="定位確認持續時間" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel IsEnabled="{Binding IsChecked, ElementName=InPositionSwitch}">
+                            <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding InPosTolerance}" />
+                            <Label Content="定位誤差容許範圍" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="跟隨誤差偵測功能"
+                            DockPanel.Dock="Top"
+                            Foreground="Brown" />
+                        <DockPanel>
+                            <ToggleButton x:Name="TrackErrorSwitch" IsChecked="{Binding TrackErrorOnOff}" />
+                            <Label Content="跟隨誤差偵測功能開啟/關閉" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                        <DockPanel IsEnabled="{Binding IsChecked, ElementName=TrackErrorSwitch}">
+                            <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding TrackErrorLimit}" />
+                            <Label Content="跟隨誤差容許範圍" Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+            <!--  右版面 End  -->
+        </Grid>
+        <!--  下方資料區 End  -->
+    </StackPanel>
+
+</UserControl>

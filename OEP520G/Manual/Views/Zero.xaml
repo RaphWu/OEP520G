@@ -1,0 +1,516 @@
+﻿<UserControl
+    x:Class="OEP520G.Manual.Views.Zero"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:OEP520G="clr-namespace:OEP520G"
+    xmlns:Prism="http://prismlibrary.com/"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OEP520G.Manual.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Prism:ViewModelLocator.AutoWireViewModel="True"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="GoHomeButton"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Height" Value="50" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+
+            <Style
+                x:Key="FuncButton"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Height" Value="60" />
+                <Setter Property="Margin" Value="15" />
+            </Style>
+
+            <Style
+                x:Key="FuncButtonAccent"
+                BasedOn="{StaticResource MaterialDesignRaisedAccentButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Height" Value="60" />
+                <Setter Property="Margin" Value="15" />
+            </Style>
+
+            <Style x:Key="PositionLabel" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="90" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="PulseLabel" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="90" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="{DynamicResource SecondaryAccentBrush}" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="EncLabel" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="90" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="SeaGreen" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="AxisStatusLabel" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontWeight" Value="Regular" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="950" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--  左版面  -->
+        <Label
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="原點復歸"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Brown" />
+        <Canvas Margin="-45,-10,45,10">
+
+            <!--  X軸 Start  -->
+            <Border
+                Canvas.Left="149"
+                Canvas.Top="58"
+                Width="488"
+                Height="144"
+                Background="GainsBoro"
+                BorderBrush="Black"
+                BorderThickness="2,2,2,2" />
+            <Button
+                x:Name="ResetButtonX"
+                Canvas.Left="224"
+                Canvas.Top="105"
+                Command="{Binding GoHomeCommand}"
+                CommandParameter="X"
+                Content="{Binding ResetButtonCaption[0]}"
+                IsEnabled="{Binding InGoHomeStopEnabled, Converter={StaticResource BooleanToStringConverter}}"
+                Style="{StaticResource GoHomeButton}" />
+
+            <materialDesign:PackIcon
+                Canvas.Left="393"
+                Canvas.Top="133"
+                Width="20"
+                Height="20"
+                BorderBrush="Black"
+                Kind="ArrowRightBold"
+                RenderTransformOrigin="0.5,0.5">
+                <materialDesign:PackIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="4" ScaleY="2" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </materialDesign:PackIcon.RenderTransform>
+            </materialDesign:PackIcon>
+            <Label
+                Canvas.Left="358"
+                Canvas.Top="100"
+                Content="{Binding CommandPositionAxisX, StringFormat=\{0:F3\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="358"
+                Canvas.Top="80"
+                Content="{Binding PositionAxisX, StringFormat=\{0:F3\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="453"
+                Canvas.Top="100"
+                Content="{Binding PulseAxisX, StringFormat=\{0:D\}}"
+                Style="{StaticResource PulseLabel}" />
+            <Label
+                Canvas.Left="453"
+                Canvas.Top="80"
+                Content="{Binding EncAxisX, StringFormat=\{0:D\}}"
+                Style="{StaticResource EncLabel}" />
+            <Label
+                Canvas.Left="442"
+                Canvas.Top="110"
+                Content="{Binding StatusAxisX}"
+                Style="{StaticResource AxisStatusLabel}" />
+            <!--  X軸 End  -->
+
+            <!--  Y軸 Start  -->
+            <Border
+                Canvas.Left="150"
+                Canvas.Top="244"
+                Width="190"
+                Height="335"
+                Background="GainsBoro"
+                BorderBrush="Black"
+                BorderThickness="2,2,2,2" />
+
+            <materialDesign:PackIcon
+                Canvas.Left="235"
+                Canvas.Top="349"
+                Width="20"
+                Height="20"
+                BorderBrush="Black"
+                Kind="ArrowBottomBold"
+                RenderTransformOrigin="0.5,0.5">
+                <materialDesign:PackIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="4" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </materialDesign:PackIcon.RenderTransform>
+            </materialDesign:PackIcon>
+            <Label
+                Canvas.Left="200"
+                Canvas.Top="300"
+                Content="{Binding CommandPositionAxisY, StringFormat=\{0:F3\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="200"
+                Canvas.Top="279"
+                Content="{Binding PositionAxisY, StringFormat=\{0:F3\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="200"
+                Canvas.Top="258"
+                Content="{Binding PulseAxisY, StringFormat=\{0:D\}}"
+                Style="{StaticResource PulseLabel}" />
+            <Label
+                Canvas.Left="200"
+                Canvas.Top="225"
+                Content="{Binding EncAxisY, StringFormat=\{0:D\}}"
+                Style="{StaticResource EncLabel}" />
+            <Button
+                x:Name="ResetButtonY"
+                Canvas.Left="186"
+                Canvas.Top="404"
+                Command="{Binding GoHomeCommand}"
+                CommandParameter="Y"
+                Content="{Binding ResetButtonCaption[1]}"
+                IsEnabled="{Binding InGoHomeStopEnabled, Converter={StaticResource BooleanToStringConverter}}"
+                Style="{StaticResource GoHomeButton}" />
+            <Label
+                Canvas.Left="186"
+                Canvas.Top="459"
+                Content="{Binding StatusAxisY}"
+                Style="{StaticResource AxisStatusLabel}" />
+            <!--  Y軸 End  -->
+
+            <!--  Z軸 Start  -->
+            <materialDesign:PackIcon
+                Canvas.Left="713"
+                Canvas.Top="128"
+                Width="20"
+                Height="20"
+                BorderBrush="Black"
+                Kind="ArrowBottomBoldOutline"
+                RenderTransformOrigin="0.5,0.5">
+                <materialDesign:PackIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="4" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </materialDesign:PackIcon.RenderTransform>
+            </materialDesign:PackIcon>
+            <Button
+                x:Name="ResetButtonZ"
+                Canvas.Left="763"
+                Canvas.Top="98"
+                Command="{Binding GoHomeCommand}"
+                CommandParameter="Z"
+                Content="{Binding ResetButtonCaption[2]}"
+                IsEnabled="{Binding InGoHomeStopEnabled, Converter={StaticResource BooleanToStringConverter}}"
+                Style="{StaticResource GoHomeButton}" />
+            <Label
+                Canvas.Left="678"
+                Canvas.Top="76"
+                Content="{Binding CommandPositionAxisZ, StringFormat=\{0:F3\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="678"
+                Canvas.Top="55"
+                Content="{Binding PositionAxisZ, StringFormat=\{0:F3\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="678"
+                Canvas.Top="34"
+                Content="{Binding PulseAxisZ, StringFormat=\{0:D\}}"
+                Style="{StaticResource PulseLabel}" />
+            <Label
+                Canvas.Left="678"
+                Canvas.Top="13"
+                Content="{Binding EncAxisZ, StringFormat=\{0:D\}}"
+                Style="{StaticResource EncLabel}" />
+            <Label
+                Canvas.Left="763"
+                Canvas.Top="153"
+                Content="{Binding StatusAxisZ}"
+                Style="{StaticResource AxisStatusLabel}" />
+            <!--  Z軸 End  -->
+
+            <!--  R軸 Start  -->
+            <Border
+                Canvas.Left="336"
+                Canvas.Top="359"
+                Width="154"
+                Height="243"
+                Background="GainsBoro"
+                BorderBrush="Black"
+                BorderThickness="2,2,2,2" />
+            <materialDesign:PackIcon
+                Canvas.Left="405"
+                Canvas.Top="454"
+                Kind="ArrowRotateLeft"
+                RenderTransformOrigin="0.5,0.5">
+                <materialDesign:PackIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="4" ScaleY="4" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </materialDesign:PackIcon.RenderTransform>
+            </materialDesign:PackIcon>
+            <Label
+                Canvas.Left="368"
+                Canvas.Top="405"
+                Content="{Binding CommandPositionAxisR, StringFormat=\{0:F1\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="368"
+                Canvas.Top="384"
+                Content="{Binding PositionAxisR, StringFormat=\{0:F1\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="368"
+                Canvas.Top="363"
+                Content="{Binding PulseAxisR, StringFormat=\{0:D\}}"
+                Style="{StaticResource PulseLabel}" />
+            <Label
+                Canvas.Left="368"
+                Canvas.Top="339"
+                Content="{Binding EncAxisR, StringFormat=\{0:D\}}"
+                Style="{StaticResource EncLabel}" />
+            <Button
+                x:Name="ResetButtonR"
+                Canvas.Left="353"
+                Canvas.Top="500"
+                Command="{Binding GoHomeCommand}"
+                CommandParameter="R"
+                Content="{Binding ResetButtonCaption[3]}"
+                IsEnabled="{Binding InGoHomeStopEnabled, Converter={StaticResource BooleanToStringConverter}}"
+                Style="{StaticResource GoHomeButton}" />
+            <Label
+                Canvas.Left="353"
+                Canvas.Top="555"
+                Content="{Binding StatusAxisR}"
+                Style="{StaticResource AxisStatusLabel}" />
+            <!--  R軸 End  -->
+
+            <!--  Tray軸 Start  -->
+            <Border
+                Canvas.Left="596"
+                Canvas.Top="244"
+                Width="190"
+                Height="335"
+                Background="GainsBoro"
+                BorderBrush="Black"
+                BorderThickness="2,2,2,2" />
+            <Label
+                Canvas.Left="647"
+                Canvas.Top="300"
+                Content="{Binding CommandPositionAxisTray, StringFormat=\{0:F3\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="647"
+                Canvas.Top="279"
+                Content="{Binding PositionAxisTray, StringFormat=\{0:F3\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="647"
+                Canvas.Top="258"
+                Content="{Binding PulseAxisTray, StringFormat=\{0:D\}}"
+                Style="{StaticResource PulseLabel}" />
+            <Label
+                Canvas.Left="647"
+                Canvas.Top="224"
+                Content="{Binding EncAxisTray, StringFormat=\{0:D\}}"
+                Style="{StaticResource EncLabel}" />
+            <materialDesign:PackIcon
+                Canvas.Left="682"
+                Canvas.Top="349"
+                Width="20"
+                Height="20"
+                BorderBrush="Black"
+                Kind="ArrowBottomBold"
+                RenderTransformOrigin="0.5,0.5">
+                <materialDesign:PackIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="4" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </materialDesign:PackIcon.RenderTransform>
+            </materialDesign:PackIcon>
+            <Button
+                x:Name="ResetButtonTray"
+                Canvas.Left="632"
+                Canvas.Top="405"
+                Command="{Binding GoHomeCommand}"
+                CommandParameter="TRAY"
+                Content="{Binding ResetButtonCaption[4]}"
+                IsEnabled="{Binding InGoHomeStopEnabled, Converter={StaticResource BooleanToStringConverter}}"
+                Style="{StaticResource GoHomeButton}" />
+            <Label
+                Canvas.Left="632"
+                Canvas.Top="460"
+                Content="{Binding StatusAxisTray}"
+                Style="{StaticResource AxisStatusLabel}" />
+            <!--  Tray軸 End  -->
+
+            <!--  Clamp軸 Start  -->
+            <Border
+                Canvas.Left="313"
+                Canvas.Top="637"
+                Width="477"
+                Height="150"
+                Background="GainsBoro"
+                BorderBrush="Black"
+                BorderThickness="2,2,2,2" />
+            <materialDesign:PackIcon
+                Canvas.Left="542"
+                Canvas.Top="714"
+                Width="20"
+                Height="20"
+                BorderBrush="Black"
+                Kind="ArrowLeftBold"
+                RenderTransformOrigin="0.5,0.5">
+                <materialDesign:PackIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="4" ScaleY="2" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </materialDesign:PackIcon.RenderTransform>
+            </materialDesign:PackIcon>
+            <Label
+                Canvas.Left="506"
+                Canvas.Top="680"
+                Content="{Binding CommandPositionAxisClamp, StringFormat=\{0:F3\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="506"
+                Canvas.Top="660"
+                Content="{Binding PositionAxisClamp, StringFormat=\{0:F3\}}"
+                Style="{StaticResource PositionLabel}" />
+            <Label
+                Canvas.Left="410"
+                Canvas.Top="680"
+                Content="{Binding PulseAxisClamp, StringFormat=\{0:D\}}"
+                Style="{StaticResource PulseLabel}" />
+            <Label
+                Canvas.Left="410"
+                Canvas.Top="660"
+                Content="{Binding EncAxisClamp, StringFormat=\{0:D\}}"
+                Style="{StaticResource EncLabel}" />
+            <Button
+                x:Name="ResetButtonClamp"
+                Canvas.Left="601"
+                Canvas.Top="688"
+                Command="{Binding GoHomeCommand}"
+                CommandParameter="CLAMP"
+                Content="{Binding ResetButtonCaption[5]}"
+                IsEnabled="{Binding InGoHomeStopEnabled, Converter={StaticResource BooleanToStringConverter}}"
+                Style="{StaticResource GoHomeButton}" />
+            <Label
+                Canvas.Left="386"
+                Canvas.Top="693"
+                Content="{Binding StatusAxisClamp}"
+                Style="{StaticResource AxisStatusLabel}" />
+            <!--  Clamp軸 End  -->
+        </Canvas>
+
+        <!--  分隔線  -->
+        <Border
+            Grid.Column="1"
+            Margin="9,0,2,0"
+            BorderBrush="LightGray"
+            BorderThickness="2,0,0,0" />
+
+        <!--  右版面  -->
+        <StackPanel
+            Grid.Column="2"
+            Margin="0,20,0,0"
+            HorizontalAlignment="Stretch">
+            <Button
+                Command="{Binding GoHomeAllAxisCommand}"
+                Content="全軸復歸"
+                IsEnabled="{Binding InGoHomeStopEnabled, Converter={StaticResource BooleanToStringConverter}}"
+                Style="{StaticResource FuncButton}" />
+            <Button
+                Command="{Binding GoHomeAbortCommand}"
+                Content="停止復歸"
+                IsEnabled="{Binding InGoHomeRunningEnabled, Converter={StaticResource BooleanToStringConverter}}"
+                Style="{StaticResource FuncButton}" />
+
+            <!--  分隔線  -->
+            <Border
+                Margin="0,9,0,3"
+                BorderBrush="LightGray"
+                BorderThickness="2,2,0,0" />
+
+            <Button
+                Command="{Binding ServoResetCommand}"
+                Content="伺服軸&#x0a;錯誤重置"
+                IsEnabled="{Binding InGoHomeStopEnabled, Converter={StaticResource BooleanToStringConverter}}"
+                Style="{StaticResource FuncButtonAccent}" />
+
+            <Button
+                Content="標準裝置點"
+                Style="{StaticResource FuncButton}"
+                Visibility="Hidden" />
+            <Button
+                Command="{Binding TestCommand}"
+                Content="Test"
+                Style="{StaticResource FuncButton}" />
+        </StackPanel>
+    </Grid>
+
+</UserControl>

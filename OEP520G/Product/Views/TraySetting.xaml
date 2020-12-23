@@ -1,0 +1,479 @@
+﻿<UserControl
+    x:Class="OEP520G.Product.Views.TraySetting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:OEP520G="clr-namespace:OEP520G"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:OEP520G.Product.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:paz="clr-namespace:Wpf.Controls.PanAndZoom;assembly=Wpf.Controls.PanAndZoom"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!--<System:String x:Key="zoomBorder" />-->
+            <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="70" />
+                <Setter Property="Height" Value="35" />
+                <Setter Property="Margin" Value="5,0,5,0" />
+            </Style>
+
+            <!--  縮放區  -->
+            <Style x:Key="TrayVisualizeAxis" TargetType="{x:Type Line}">
+                <Setter Property="Stroke" Value="Black" />
+                <Setter Property="StrokeThickness" Value="1" />
+            </Style>
+
+            <!--  DataGrid  -->
+            <Style BasedOn="{StaticResource MaterialDesignDataGrid}" TargetType="{x:Type DataGrid}">
+                <Setter Property="materialDesign:DataGridAssist.CellPadding" Value="6 2 6 2" />
+                <Setter Property="materialDesign:DataGridAssist.ColumnHeaderPadding" Value="6 2 6 2" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Background" Value="WhiteSmoke" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="AutoGenerateColumns" Value="False" />
+                <Setter Property="CanUserAddRows" Value="False" />
+                <Setter Property="CanUserDeleteRows" Value="False" />
+                <Setter Property="CanUserReorderColumns" Value="False" />
+                <Setter Property="CanUserResizeColumns" Value="False" />
+                <Setter Property="CanUserResizeRows" Value="False" />
+                <Setter Property="CanUserSortColumns" Value="True" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="GridLinesVisibility" Value="All" />
+                <Setter Property="HorizontalGridLinesBrush" Value="Gainsboro" />
+                <Setter Property="VerticalGridLinesBrush" Value="Gainsboro" />
+                <Setter Property="SelectionMode" Value="Single" />
+                <Setter Property="SelectionUnit" Value="FullRow" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="Foreground" Value="Brown" />
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="TextBlock.TextAlignment" Value="Left" />
+            </Style>
+
+            <!--  解析度按鍵  -->
+            <Style
+                x:Key="NumberAdjectButtonStyle"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="15" />
+                <Setter Property="Height" Value="11" />
+                <Setter Property="Margin" Value="3,1,3,1" />
+                <Setter Property="Padding" Value="-5,-3,-5,0" />
+            </Style>
+
+            <!--  輸入框  -->
+            <Style
+                x:Key="Field"
+                BasedOn="{StaticResource MaterialDesignTextBox}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="MinWidth" Value="70" />
+                <Setter Property="Margin" Value="4,0,4,0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="{x:Type ComboBox}">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Margin" Value="0,0,4,0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+                <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+            </Style>
+
+            <Style x:Key="FieldLabel" TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0,9,0,9" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+
+            <Style x:Key="DataGridBorder" TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="5,0,5,0" />
+                <Setter Property="Padding" Value="1.5" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+
+            <!--  功能功鍵  -->
+            <Style
+                x:Key="FuncButtonStyle"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="60" />
+                <Setter Property="Height" Value="50" />
+                <Setter Property="Margin" Value="3,5,3,5" />
+            </Style>
+
+            <Style
+                x:Key="FuncToggleButtonStyle"
+                BasedOn="{StaticResource MaterialDesignActionToggleButton}"
+                TargetType="{x:Type ToggleButton}">
+                <Setter Property="Width" Value="60" />
+                <Setter Property="Height" Value="50" />
+                <Setter Property="Margin" Value="3,5,3,5" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding HandleLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label
+                Content="托盤進供料器描述"
+                FontSize="16"
+                FontWeight="Bold"
+                Foreground="Brown" />
+            <Button
+                Margin="80,0,0,10"
+                Command="{Binding RenewPointMatrixCommand}"
+                Content="重算全部排列點位"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+        </StackPanel>
+
+        <!--  左版面 Start  -->
+        <Grid DockPanel.Dock="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--  按鈕 Start  -->
+            <StackPanel
+                Margin="0,9,0,9"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Command="{Binding NewTrayCommand}"
+                    Content="{Binding NewTrayCaption}"
+                    IsEnabled="{Binding NewTrayEnabled}" />
+                <Button
+                    Command="{Binding CopyTrayCommand}"
+                    Content="{Binding CopyTrayCaption}"
+                    IsEnabled="{Binding CopyTrayEnabled}" />
+                <Button
+                    Command="{Binding RenameTrayCommand}"
+                    Content="{Binding RenameTrayCaption}"
+                    IsEnabled="{Binding RenameTrayEnabled}" />
+                <Button
+                    Command="{Binding DeleteTrayCommand}"
+                    Content="{Binding DeleteTrayCaption}"
+                    IsEnabled="{Binding DeleteTrayEnabled}" />
+            </StackPanel>
+            <!--  按鈕 End  -->
+
+            <!--  表格 Start  -->
+            <Border
+                Grid.Row="1"
+                Margin="5,0,5,9"
+                Style="{StaticResource DataGridBorder}">
+                <DataGrid
+                    x:Name="TrayListDataGrid"
+                    ItemsSource="{Binding TrayListSource}"
+                    SelectedIndex="{Binding TrayListSelectedIndex}"
+                    SelectedItem="{Binding TrayListSelectedItem}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            MinWidth="180"
+                            Binding="{Binding Path=Name}"
+                            Header="托盤名稱" />
+                        <DataGridTextColumn
+                            MinWidth="200"
+                            Binding="{Binding Path=Memo}"
+                            Header="註解" />
+                    </DataGrid.Columns>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeTrayCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DataGrid>
+            </Border>
+            <!--  表格 End  -->
+        </Grid>
+        <!--  左版面 End  -->
+
+        <!--  右版面 Start  -->
+        <DockPanel Margin="9" DockPanel.Dock="Right">
+
+            <!--  右上資料區 Start  -->
+            <Border DockPanel.Dock="Top">
+                <StackPanel>
+
+                    <!--  第1列 Start  -->
+                    <DockPanel Margin="12,3,20,3">
+                        <StackPanel
+                            Margin="20,0,0,0"
+                            DockPanel.Dock="Right"
+                            Orientation="Horizontal"
+                            Visibility="Hidden">
+                            <CheckBox DockPanel.Dock="Right" IsChecked="{Binding ShowAxisLine}" />
+                            <Label
+                                Content="使用托盤配置"
+                                DockPanel.Dock="Right"
+                                Style="{StaticResource FieldLabel}" />
+                        </StackPanel>
+                        <DockPanel Margin="5,0,9,0" DockPanel.Dock="Left">
+                            <Label
+                                Content="註解"
+                                DockPanel.Dock="Left"
+                                Style="{StaticResource FieldLabel}" />
+                            <TextBox
+                                MinWidth="250"
+                                Margin="9,0,5,0"
+                                Padding="5,0,3,0"
+                                HorizontalContentAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.Memo}" />
+                        </DockPanel>
+                    </DockPanel>
+                    <!--  第1列 End  -->
+
+                    <!--  第2列 Start  -->
+                    <DockPanel Margin="12,3,20,3">
+
+                        <!--  第1點位移量 Start  -->
+                        <StackPanel
+                            Margin="5,3,5,3"
+                            DockPanel.Dock="Left"
+                            Orientation="Horizontal">
+                            <Label Content="整體位移 X:" Style="{StaticResource FieldLabel}" />
+                            <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.OffsetX, StringFormat=\{0:F3\}}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding TextChangedCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                            <Label Content="mm" Style="{StaticResource FieldLabel}" />
+                        </StackPanel>
+                        <StackPanel
+                            Margin="5,3,5,3"
+                            DockPanel.Dock="Left"
+                            Orientation="Horizontal">
+                            <Label Content="Y:" Style="{StaticResource FieldLabel}" />
+                            <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.OffsetY, StringFormat=\{0:F3\}}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding TextChangedCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                            <Label Content="mm" Style="{StaticResource FieldLabel}" />
+                        </StackPanel>
+                        <!--  第1點位移量 End  -->
+
+                        <!--  排列方向 START  -->
+                        <StackPanel
+                            Margin="15,0,9,0"
+                            DockPanel.Dock="Left"
+                            Orientation="Horizontal">
+                            <Label Content="排列方向: " Style="{StaticResource FieldLabel}" />
+                            <ComboBox ItemsSource="{Binding DirectionSource}" SelectedItem="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.Direction, Converter={StaticResource TrayDirectionConverter}}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding RenewPointMatrixCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </StackPanel>
+                        <!--  排列方向 End  -->
+
+                        <!--  排列方式 START  -->
+                        <StackPanel
+                            Margin="5,3,5,3"
+                            DockPanel.Dock="Left"
+                            Orientation="Horizontal">
+
+                            <Label
+                                Margin="15,0,0,0"
+                                Content="排列方式: "
+                                Style="{StaticResource FieldLabel}" />
+                            <ComboBox ItemsSource="{Binding OrientationSource}" SelectedItem="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.Orientation, Converter={StaticResource TrayOrientationConverter}}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding RenewPointMatrixCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </StackPanel>
+                        <!--  排列方式 END  -->
+
+                    </DockPanel>
+                    <!--  第2列 End  -->
+                </StackPanel>
+            </Border>
+
+            <StackPanel DockPanel.Dock="Top">
+                <!--  第3列 Start  -->
+                <DockPanel
+                    Margin="12,3,12,3"
+                    DockPanel.Dock="Top"
+                    IsEnabled="{Binding DataAreaEnabled}"
+                    LastChildFill="False">
+                    <!--  長寬 Start  -->
+                    <StackPanel
+                        Margin="5,3,5,3"
+                        DockPanel.Dock="Left"
+                        Orientation="Horizontal">
+                        <Label Content="分組長寬 X:" Style="{StaticResource FieldLabel}" />
+                        <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.TotalX, StringFormat=\{0:D\}}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction Command="{Binding RenewPointMatrixCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                    </StackPanel>
+
+                    <StackPanel
+                        Margin="5,3,5,3"
+                        DockPanel.Dock="Left"
+                        Orientation="Horizontal">
+                        <Label Content="Y:" Style="{StaticResource FieldLabel}" />
+                        <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.TotalY, StringFormat=\{0:D\}}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction Command="{Binding RenewPointMatrixCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                    </StackPanel>
+                    <!--  長寬 End  -->
+
+                </DockPanel>
+                <!--  第3列 End  -->
+            </StackPanel>
+            <!--  右上資料區 End  -->
+
+            <!--  Pan&Zoom Start  -->
+            <DockPanel Margin="0,9,0,0">
+                <!--  功能鍵 Start  -->
+                <StackPanel Margin="9,0,0,0" DockPanel.Dock="Right">
+                    <ToggleButton
+                        Content="顯示&#xA;編號"
+                        IsChecked="{Binding ShowAxisLine}"
+                        Style="{StaticResource FuncToggleButtonStyle}" />
+                    <ToggleButton
+                        Content="輔助&#xA;顯示"
+                        IsChecked="{Binding AuxiliaryDisplay}"
+                        Style="{StaticResource FuncToggleButtonStyle}" />
+                    <Button
+                        Click="AutoFit_Click"
+                        Content="最佳&#xA;視野"
+                        Style="{StaticResource FuncButtonStyle}" />
+                    <Slider
+                        x:Name="ScaleSlider"
+                        MinHeight="300"
+                        LargeChange="10"
+                        Maximum="10"
+                        Minimum="-10"
+                        Orientation="Vertical"
+                        SmallChange="1"
+                        Style="{StaticResource MaterialDesignDiscreteSlider}"
+                        Value="{Binding ScaleRate}" />
+                </StackPanel>
+                <!--  功能鍵 End  -->
+
+                <!--  孔位圖縮放區 Start  -->
+                <paz:ZoomBorder
+                    x:Name="zoomBorder"
+                    Background="CornflowerBlue"
+                    ClipToBounds="True"
+                    Focusable="True"
+                    Stretch="Uniform"
+                    ZoomSpeed="1.1">
+                    <Canvas
+                        x:Name="TrayVisualize"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                        <!--  X軸  -->
+                        <Line
+                            Style="{StaticResource TrayVisualizeAxis}"
+                            Visibility="{Binding ShowAxisLine, Converter={StaticResource BooleanToVisibleCollapsedConverter}}"
+                            X1="-2000"
+                            X2="2000"
+                            Y1="{Binding ZoomOriginY}"
+                            Y2="{Binding ZoomOriginY}" />
+                        <!--  Y軸  -->
+                        <Line
+                            Style="{StaticResource TrayVisualizeAxis}"
+                            Visibility="{Binding ShowAxisLine, Converter={StaticResource BooleanToVisibleCollapsedConverter}}"
+                            X1="{Binding ZoomOriginX}"
+                            X2="{Binding ZoomOriginX}"
+                            Y1="-2000"
+                            Y2="2000" />
+
+                        <!--  Tray孔 Start  -->
+                        <ItemsControl ItemsSource="{Binding TrayVisualizeSource}">
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type ContentPresenter}">
+                                    <Setter Property="Canvas.Left" Value="{Binding PosX}" />
+                                    <Setter Property="Canvas.Top" Value="{Binding PosY}" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid
+                                        x:Name="gItem"
+                                        Width="40"
+                                        Height="40"
+                                        MouseRightButtonDown="MouseRightButtonDown"
+                                        Tag="{Binding Tag}">
+                                        <Border Background="{Binding BgColor}" BorderThickness="1" />
+                                        <Label
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Content="{Binding Title}"
+                                            FontSize="12"
+                                            FontWeight="Regular" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <!--  Tray孔 End  -->
+                    </Canvas>
+                </paz:ZoomBorder>
+                <!--  孔位圖縮放區 End  -->
+            </DockPanel>
+            <!--  Pan&Zoom END  -->
+        </DockPanel>
+        <!--  右版面 End  -->
+    </DockPanel>
+</UserControl>

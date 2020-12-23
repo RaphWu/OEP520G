@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>Imageproject</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Server\TcpipServer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CSharpCore">
+      <HintPath>..\..\CSharpCore\CSharpCore\bin\Release\netcoreapp3.1\CSharpCore.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Windows.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="TIS.Imaging.ICImagingControl35">
+      <HintPath>TIS.Imaging.ICImagingControl35.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

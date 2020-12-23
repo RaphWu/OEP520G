@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="Imageproject.VisionClient.ClientPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Imageproject.VisionClient"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Client"
+    mc:Ignorable="d">
+
+    <Grid>
+        <local:HostControl
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            ExeName="D:\\OneDrive\\MyCodes\\OEP520G 資料區\\( Code )\\TCP IP COM V2\\Client\\Client\\bin\\Debug\\Client.exe" />
+    </Grid>
+</Page>

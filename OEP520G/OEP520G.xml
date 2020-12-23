@@ -1,0 +1,3590 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OEP520G</name>
+    </assembly>
+    <members>
+        <member name="T:OEP520G.App">
+            <summary>
+            App.xaml的互動邏輯
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:OEP520G.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:OEP520G.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:OEP520G.InverseBooleanConverter">
+            <summary>
+            Converter: bool反相
+            </summary>
+            <example>參閱: https://blog.csdn.net/qq_40666028/article/details/96188486 </example>
+        </member>
+        <member name="T:OEP520G.BooleanToVisibleHiddenConverter">
+            <summary>
+            Converter: bool互轉Visible/Hidden
+            </summary>
+        </member>
+        <member name="T:OEP520G.BooleanToVisibleCollapsedConverter">
+            <summary>
+            Converter: bool互轉Visible/Collapsed
+            </summary>
+        </member>
+        <member name="T:OEP520G.BooleanToVisibleCollapsedInvertConverter">
+            <summary>
+            Converter: bool互轉Visible/Collapsed(反相)
+            </summary>
+        </member>
+        <member name="T:OEP520G.BooleanToStringConverter">
+            <summary>
+            Converter: bool互轉文字
+            </summary>
+        </member>
+        <member name="T:OEP520G.EnumBooleanConverter">
+            <summary>
+            Converter: RadioButton的item互轉Enum
+            </summary>
+            <example>參閱: https://stackoverflow.com/questions/9212873/binding-radiobuttons-group-to-a-property-in-wpf </example>
+        </member>
+        <member name="T:OEP520G.TrayOrientationConverter">
+            <summary>
+            Converter: Tray排列方式轉換
+            </summary>
+        </member>
+        <member name="T:OEP520G.TrayDirectionConverter">
+            <summary>
+            Converter: Tray排列方向轉換
+            </summary>
+        </member>
+        <member name="T:OEP520G.RadioButtonToStringConverter">
+            <summary>
+            Converter: RadioButton用，將ConverterParameter的設定值存入IsChecked繫結的變數
+            </summary>
+        </member>
+        <member name="T:OEP520G.RadioButtonToIntConverter">
+            <summary>
+            Converter: RadioButton用，將ConverterParameter的設定值存入IsChecked繫結的變數
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.AutoOperation">
+            <summary>
+            自動作業
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoOperation.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoOperation.WriteParameter">
+            <summary>
+            將參數寫入參數檔
+            iniFile.WriteIniFile(SectionName, "[屬性名稱]", [屬性值]));
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoOperation.ReadParameter">
+            <summary>
+            從參數檔讀取參數
+            [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(SectionName, "[屬性名稱]", "[預設值]"));
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.AutoOperationStatus">
+            <summary>
+            自動作業狀態操作
+            </summary>
+        </member>
+        <member name="P:OEP520G.Automatic.AutoOperationStatus.AutoIsInOperation">
+            <summary>
+            自動作業是否運轉中
+            </summary>
+        </member>
+        <member name="P:OEP520G.Automatic.AutoOperationStatus.ServoGroupId">
+            <summary>
+            伺服軸群組
+            </summary>
+        </member>
+        <member name="P:OEP520G.Automatic.AutoOperationStatus.AssemblySideStatus">
+            <summary>
+            組裝側狀態
+            </summary>
+        </member>
+        <member name="P:OEP520G.Automatic.AutoOperationStatus.ClampSideStatus">
+            <summary>
+            夾爪側狀態
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoOperationStatus.IsRunning">
+            <summary>
+            返回isRunning旗標
+            </summary>
+            <returns>isRunning旗標</returns>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoOperationStatus.SetRunning(System.Boolean)">
+            <summary>
+            設定isRunning旗標
+            </summary>
+            <param name="status">旗標狀態</param>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoOperationStatus.SwitchServoGroup(OEP520G.Automatic.EServoGroup)">
+            <summary>
+            切換伺服軸群組代號
+            </summary>
+            <param name="servoGroup">指定代號</param>
+            <remarks>
+            1.必須在伺服軸全都在停止運動狀態時才可切換。<br/>
+            2.若指定為Switch(預設)，則交換；否則切換為指定值。
+            </remarks>
+        </member>
+        <member name="T:OEP520G.Automatic.AutoProcedure">
+            <summary>
+            自動作業程序
+            </summary>
+        </member>
+        <member name="F:OEP520G.Automatic.AutoProcedure._targetQuantity">
+            <summary>
+            目標產出數量
+            </summary>
+        </member>
+        <member name="F:OEP520G.Automatic.AutoProcedure._outputQuantity">
+            <summary>
+            目前產出數量
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoProcedure.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoProcedure.GetQuantity">
+            <summary>
+            取得目前產出數量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoProcedure.StartRunning(OEP520G.Automatic.EAutomaticOperationMode,System.Int32,System.Threading.CancellationTokenSource)">
+            <summary>
+            執行自動作業
+            </summary>
+            <param name="mode">自動模式</param>
+            <param name="targetQuantity">目標產出數量</param>
+            <param name="cts">取消權杖</param>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoProcedure.StopAutoOperation(System.Int32)">
+            <summary>
+            結束自動運轉，重設目標產出數，且繼續完成組裝
+            <list type="number">
+            <item>最少結束產出數 = 目前產出數 + 4</item>
+            <item>if (最少結束產出數 &gt;= 原目標產出數) => 目標產出數不變<br/>
+                  else 目標產出數 = 取較大者(最少結束產出數, 欲重設的產出數)</item>
+            </list>
+            </summary>
+            <param name="targetQuantity">欲重設的產出數</param>
+            <returns>重設後的目標產出數</returns>
+        </member>
+        <member name="T:OEP520G.Automatic.SequenceData">
+            <summary>
+            生產步驟動作規劃
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.SequenceData.Equals(System.Object)">
+            <summary>
+            比對兩個SequenceData是否一模一樣
+            </summary>
+            <returns>比對結果</returns>
+        </member>
+        <member name="T:OEP520G.Automatic.SequenceData">
+            <summary>
+            生產動作規劃(供DataGrid記錄是否被變更)
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.AutoSequence">
+            <summary>
+            生產步驟資料，設定動作步驟的順序及內容
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoSequence.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoSequence.WriteParameter(System.Collections.Generic.List{OEP520G.Automatic.SequenceData})">
+            <summary>
+            先更新AutoSequenceList，再寫入參數檔
+            </summary>
+            <param name="sde">更新資料來源</param>
+            <remarks>尚未實現DB，先土法鍊鋼</remarks>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoSequence.WriteParameter">
+            <summary>
+            將AutoSequenceList寫入參數檔
+            iniFile.WriteIniFile(SectionName, "[屬性名稱]", [屬性值]));
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoSequence.ReadParameter">
+            <summary>
+            從參數檔讀取參數
+            [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(SectionName, "[屬性名稱]", "[預設值]"));
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.AutoSequence.SortData">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.Discard">
+            <summary>
+            抛料作業
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.Discard.AssembleDiscardAll">
+            <summary>
+            吸嘴全抛料
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.Discard.AssembleDiscard(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            吸嘴抛料
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+        </member>
+        <member name="M:OEP520G.Automatic.Discard.AssembleDiscardWithAxisMove(OEP520G.Parameter.ENozzleId[],System.Boolean)">
+            <summary>
+            吸嘴抛料
+            </summary>
+            <param name="nozzleIdList">吸嘴ID列表</param>
+            <param name="servoPositioning">伺服軸是否先定位</param>
+        </member>
+        <member name="M:OEP520G.Automatic.Discard.ClampDiscard(System.Boolean,System.Boolean)">
+            <summary>
+            夾爪抛料
+            </summary>
+            <param name="clamp1">夾爪1</param>
+            <param name="clamp2">夾爪2</param>
+        </member>
+        <member name="M:OEP520G.Automatic.Discard.ClampDiscardWithAxisMove(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            夾爪抛料
+            </summary>
+            <param name="clamp1">夾爪1</param>
+            <param name="clamp2">夾爪2</param>
+            <param name="servoPositioning">伺服軸是否先定位</param>
+        </member>
+        <member name="M:OEP520G.Automatic.Discard.StageDiscard">
+            <summary>
+            台車抛料
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.Discard.StageDiscardWithAxisMove(System.Boolean)">
+            <summary>
+            台車抛料
+            </summary>
+            <param name="servoPositioning">伺服軸是否先定位</param>
+            <remarks>固定使用Clamp2</remarks>
+        </member>
+        <member name="M:OEP520G.Automatic.Discard.DiscardAll">
+            <summary>
+            執行吸嘴及夾爪全抛料
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.EAutomaticOperationMode">
+            <summary>
+            自動模式選擇
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.EServoGroup">
+            <summary>
+            伺服軸群組代號
+            </summary>
+        </member>
+        <member name="F:OEP520G.Automatic.EServoGroup.XY_ClampTray">
+            <summary>
+            X、Y一組；Clamp、Tray一組
+            </summary>
+        </member>
+        <member name="F:OEP520G.Automatic.EServoGroup.XTray_ClampY">
+            <summary>
+            X、Tray一組；Clamp、Y一組
+            </summary>
+        </member>
+        <member name="F:OEP520G.Automatic.EServoGroup.Switch">
+            <summary>
+            分組切換，用於SwitchServoGroup()的引數使用
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.ESideStatus">
+            <summary>
+            組裝側或夾爪側的狀態代號
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.GetPart.ClampGetBarrel">
+            <summary>
+            夾爪從料盤夾取Barrel
+            </summary>
+            <remarks>固定使用Clamp1</remarks>
+        </member>
+        <member name="M:OEP520G.Automatic.GetPart.ClampPutBarrel">
+            <summary>
+            夾爪從料盤夾取Barrel
+            </summary>
+            <remarks>固定使用Clamp1</remarks>
+        </member>
+        <member name="M:OEP520G.Automatic.GetPart.ClampGetProduct(System.Boolean)">
+            <summary>
+            夾爪從Stage夾取成品/半成品
+            </summary>
+            <remarks>固定使用Clamp2</remarks>
+            <param name="stageClampCloseWhenFinished">夾取結束後是否關閉台車夾片? (自動作業取成品、放Barrel的連續動作時使用false)</param>
+        </member>
+        <member name="M:OEP520G.Automatic.ViewModels.AutoOperationViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.ViewModels.AutoOperationViewModel.WriteData">
+            <summary>
+            1.儲存至Module
+            2.利用CompositeCommand執行Save按鈕
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.ViewModels.AutoOperationViewModel.ReadData">
+            <summary>
+            讀取參數
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.ViewModels.AutoOperationViewModel.AutomaticRuning">
+            <summary>
+            自動運轉
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.ViewModels.AutoOperationViewModel.QuantityChange">
+            <summary>
+            變更生產數量
+            </summary>
+        </member>
+        <member name="F:OEP520G.Automatic.ViewModels.AutoSequenceViewModel._ea">
+            <summary>
+            Event Aggregator
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.ViewModels.AutoSequenceViewModel.#ctor(Prism.Events.IEventAggregator)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.ViewModels.AutoSequenceViewModel.SwProduct(System.String)">
+            <inheritdoc/>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="M:OEP520G.Automatic.ViewModels.AutoSequenceViewModel.AfterSwProduct(System.String)">
+            <inheritdoc/>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="M:OEP520G.Automatic.ViewModels.AutoSequenceViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.ViewModels.AutoSequenceViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="P:OEP520G.Automatic.ViewModels.AutoSequenceViewModel.AllowEdit">
+            <summary>
+            允許編輯
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.Views.AbnormalStatistics">
+            <summary>
+            AbnormalStatistics.xaml 的互動邏輯
+            </summary>
+            <summary>
+            AbnormalStatistics
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.Views.AbnormalStatistics.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.Views.AutoOperation">
+            <summary>
+            AutoOperation.xaml 的互動邏輯
+            </summary>
+            <summary>
+            AutoOperation
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.Views.AutoOperation.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.Views.AutoSequence">
+            <summary>
+            AutoSequence.xaml 的互動邏輯
+            </summary>
+            <summary>
+            AutoSequence
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.Views.AutoSequence.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Automatic.Views.GlueParameters">
+            <summary>
+            GlueParameters.xaml 的互動邏輯
+            </summary>
+            <summary>
+            GlueParameters
+            </summary>
+        </member>
+        <member name="M:OEP520G.Automatic.Views.GlueParameters.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.ApplicationCommands">
+            <summary>
+            CompositeCommand介面
+            </summary>
+            <example>參閱: https://prismlibrary.com/docs/composite-commands.html </example>
+        </member>
+        <member name="F:OEP520G.Core.ApplicationCommands.WriteCommand">
+            <summary>
+            參數存檔頂層命令
+            </summary>
+        </member>
+        <member name="F:OEP520G.Core.Common.log">
+            <summary>
+            Logger
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.PointXY">
+            <summary>
+            XY軸座標點
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.PointXYZ">
+            <summary>
+            XYZ軸座標點
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.IntPointXY">
+            <summary>
+            XY軸座標點
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.IntPointXYZ">
+            <summary>
+            XYZ軸座標點
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.LongPointXY">
+            <summary>
+            XY軸座標點
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.LongPointXYZ">
+            <summary>
+            XYZ軸座標點
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.ECrudInstruction">
+            <summary>
+            資料處理分類
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.CRUD.InstructionParse(System.String)">
+            <summary>
+            解析資料處理命令，將字串形式轉為 ECrudCommand 形式
+            </summary>
+            <param name="instruction">輸入的指令</param>
+            <returns>EDataBaseCommand命令格式</returns>
+        </member>
+        <member name="T:OEP520G.Core.CrudDialogReceiver">
+            <summary>
+            CRUD資料傳回的事件聚合器
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.CrudDialogData">
+            <summary>
+            CRUD對話框的回傳資料
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.DapperHelper">
+            <summary>
+            Dapper 的 string 擴充方法，讓 DbString 更方便使用
+            1.必須有安裝Dapper
+            2.藉由 IsAnsi、IsFixedLength 這兩個屬性組合出 varchar、nvarchar、char、nchar 四種 SQL Data Type
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.DapperHelper.ToVarchar(System.String)">
+            <summary>
+            Length of the string is default 4000
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.DapperHelper.ToVarchar(System.String,System.Int32)">
+            <summary>
+            Length of the string -1 for max
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.DapperHelper.ToChar(System.String)">
+            <summary>
+            Length of the string is default 4000
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.DapperHelper.ToChar(System.String,System.Int32)">
+            <summary>
+            Length of the string -1 for max
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.DapperHelper.ToNVarchar(System.String)">
+            <summary>
+            Length of the string is default 4000
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.DapperHelper.ToNVarchar(System.String,System.Int32)">
+            <summary>
+            Length of the string -1 for max
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.DapperHelper.ToNChar(System.String)">
+            <summary>
+            Length of the string is default 4000
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.DapperHelper.ToNChar(System.String,System.Int32)">
+            <summary>
+            Length of the string -1 for max
+            </summary>
+        </member>
+        <member name="F:OEP520G.Core.GlobalString.SpeedName">
+            <summary>
+            軸速度名稱
+            </summary>
+            <remarks>
+            0:最高速 1:高速 2:中速 3:低速 4:最低速
+            </remarks>
+        </member>
+        <member name="T:OEP520G.Core.WindowTitleSetter">
+            <summary>
+            接收主視窗Title標題的事件聚合器
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.StatusBarSetter">
+            <summary>
+            接收主視窗Title標題的事件聚合器
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.SwitchProduct">
+            <summary>
+            品種更換的共用事件聚合器：當作業品種有更換時，會發佈此事件
+            </summary>
+            <remarks> string => 新品種ID </remarks>
+        </member>
+        <member name="T:OEP520G.Core.AfterSwitchProduct">
+            <summary>
+            品種更換的共用事件聚合器：當作業品種有更換時，會發佈此事件
+            </summary>
+            <remarks> string => 新品種ID </remarks>
+        </member>
+        <member name="T:OEP520G.Core.SQLite">
+            <summary>
+            資料庫
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.SQLite.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="F:OEP520G.Core.SQLite.DB_FILE_EXT_NAME">
+            <summary>
+            資料庫檔案的副檔名
+            </summary>
+        </member>
+        <member name="F:OEP520G.Core.SQLite.DB_FILE_NAME_SYSTEM">
+            <summary>
+            DB Name: 機台參數檔案名稱
+            </summary>
+        </member>
+        <member name="P:OEP520G.Core.SQLite.DB_FILE_NAME_PRODUCT">
+            <summary>
+            DB Name: 產品參數檔案名稱
+            此檔案名稱由品種切換功能設定
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.SQLite.SwProduct(System.String)">
+            <inheritdoc/>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="M:OEP520G.Core.SQLite.AfterSwProduct(System.String)">
+            <inheritdoc/>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_INFORMATION">
+            Table Name: DB資訊表        
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_DATUM_POINT">
+            Table Name: 基準點
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_CAMERA">
+            Table Name: 相機
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_CLAMP">
+            Table Name: 夾爪
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_PLATFORM">
+            Table Name: 平台(測高平台)
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_DISCARD">
+            Table Name: 抛料點
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_STAGE">
+            Table Name: 台車
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_STAGE_ROTATE">
+            Table Name: 台車旋轉位移
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_NOZZLE">
+            Table Name: 不分吸嘴的參數(基準吸嘴)
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_NOZZLES">
+            Table Name: 各支吸嘴參數
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_TRAY">
+            Table Name: 托盤整體參數
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_TRAY_ARRANGEMENT">
+            Table Name: 托盤各組排列組合
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_TRAY_POINT_MATRIX">
+            Table Name: 托盤點位表
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_TRAY_MASK">
+            Table Name: 托盤無效點位
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_TRAY_FEEDER">
+            Table Name: 托盤進供料器
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_DISPENSER">
+            Table Name: 點膠基本座標
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_DISPENSER_GROUP">
+            Table Name: 點膠參數列表
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_DISPENSER_ACTION">
+            Table Name: 點膠動作列表
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_DISPENSER_SEQUENCE">
+            Table Name: 點膠動作順序
+        </member>
+        <member name="F:OEP520G.Core.SQLite.TABLE_NAME_AUTO_SEQUENCE">
+            Table Name: 自動作業生產順序設定
+        </member>
+        <member name="T:OEP520G.Core.StatusBarName">
+            <summary>
+            訊息識別字
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.StatusBarData">
+            <summary>
+            主視窗Title標題資料
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.StatusBar.ShowStatusBarMessage(System.String)">
+            <summary>
+            顯示StatusBar訊息(簡化版)
+            </summary>
+            <param name="msg">要顯示的訊息</param>
+        </member>
+        <member name="M:OEP520G.Core.ViewModels.CrudDialogViewModel.#ctor(Prism.Events.IEventAggregator)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.ViewModels.CrudDialogViewModel.OnDialogClosed">
+            <summary>
+            Dialog關閉時處理
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.ViewModels.CrudDialogViewModel.OnDialogOpened(Prism.Services.Dialogs.IDialogParameters)">
+            <summary>
+            Dialog開啟時處理
+            </summary>
+            <param name="parameters">傳入參數</param>
+        </member>
+        <member name="F:OEP520G.Core.ViewModels.MessageDialogViewModel._closeDialogCommand">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.Views.CrudDialog">
+            <summary>
+            CrudDialog.xaml 的互動邏輯
+            </summary>
+            <summary>
+            CrudDialog
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.Views.CrudDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.Views.MessageDialog">
+            <summary>
+            MessageDialog.xaml 的互動邏輯
+            </summary>
+            <summary>
+            MessageDialog
+            </summary>
+        </member>
+        <member name="M:OEP520G.Core.Views.MessageDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Core.WindowTitleData">
+            <summary>
+            主視窗Title標題資料
+            </summary>
+        </member>
+        <member name="T:OEP520G.Functions.FlyDataStruct">
+            <summary>
+            飛行資料結構
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.FlyCorrect.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.FlyCorrect.StartCorrect(EPCIO.EServoSpeed,System.String,System.Threading.CancellationTokenSource)">
+            <summary>
+            飛行校正前置作業
+            </summary>
+            <param name="flySpeed">飛行速度</param>
+            <param name="flyWaySelected">飛行模式("ENC"/"TIMER")</param>
+            <param name="cts">取消權杖</param>
+        </member>
+        <member name="M:OEP520G.Functions.FlyCorrect.FlyByEncoder">
+            <summary>
+            座標中斷法: 飛行主流程
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.FlyCorrect.EncIsrFunction(ENCINT_EX@)">
+            <summary>
+            座標中斷法: EPCIO ISR
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.FlyCorrect.TimeIntegralCalculate">
+            <summary>
+            時間標記法數據推算
+            </summary>
+            <remarks>讀取各吸嘴座標回原值，重新推算各吸嘴的時間標記。</remarks>
+            <returns>計算是否完成</returns>
+        </member>
+        <member name="M:OEP520G.Functions.FlyCorrect.FlyByTime">
+            <summary>
+            時間標記法 前置作業
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.ISR.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.ISR.EmsPress(System.Object,System.EventArgs)">
+            <summary>
+            緊急停止
+            </summary>
+        </member>
+        <member name="T:OEP520G.Functions.MeasureHeight">
+            <summary>
+            測高作業
+            </summary>
+        </member>
+        <member name="P:OEP520G.Functions.MeasureHeight.Result">
+            <summary>
+            測高結果
+            </summary>
+        </member>
+        <member name="P:OEP520G.Functions.MeasureHeight.IsFinished">
+            <summary>
+            測高作業是否正常結束
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.MeasureHeight.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.MeasureHeight.Start(System.Collections.Generic.List{System.Double},EPCIO.IoSystem.RemoteIo,System.Threading.CancellationTokenSource,System.Boolean)">
+            <summary>
+            測高作業啟動
+            </summary>
+            <param name="resolution">下降步進解析度</param>
+            <param name="sensor">用來檢知下降到位的Sensor</param>
+            <param name="negative">Sensor觸發是否須反相<br/>false: Sensor觸發時為有效<br/>true: Sensor未觸發時為有效</param>
+        </member>
+        <member name="M:OEP520G.Functions.MeasureHeight.StepMotion">
+            <summary>
+            測高作業
+            </summary>
+        </member>
+        <member name="T:OEP520G.Functions.ObjectMotion">
+            <summary>
+            物件之間的伺服移動
+            <list type="number">
+            <item>以「第一校正點」為機台基準點。</item>
+            <item>物件名稱：<br/>
+                  a. 基準點<br/>
+                  b. 固定物件：固定相機<br/>
+                  c. 可動物件：移動相機、吸嘴、台車、夾爪、膠針</item>
+            <item>實體軸座標系(各實體馬達軸的絕對座標)：<br/>
+                  a. 第一校正點 / 基準點 -> 基準點座標<br/>
+                  b. 物件所在的絕對軸座標 -> 軸座標<br/>
+                  c. 物件欲移動的目的地點 -> 目的地座標</item>
+            <item>基準點座標系(以第一校正點為原點的座標系)：<br/>
+                  馬達X軸物件(吸嘴、膠針)相對於基準點距離->基準相對座標(可能為負值)</item>
+            <item>取料座標系(TRAY盤相對於基準點)：<br/>
+                  取料座標 -> 取料座標</item>
+            <item>計算：(=>表示轉換方向)<br/>
+                  基準點座標 = 移動相機直接定位的軸座標絕對值<br/>基準相對座標 = 軸座標 - 基準點座標<br/>
+                  基準相對座標 => 目的地座標 = 基準點座標 - 基準相對座標 + 目的地座標</item>
+            <item>【重要】此物件的運動，均不預設運動速度，由呼叫者決定。</item>
+            <item>【重要】此物件的運動，均會等待運動的軸停止，才會返回呼叫者。</item>
+            </list>
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.PreMotion(System.Nullable{System.Double},System.Boolean)">
+            <summary>
+            運動前檢查
+            </summary>
+            <param name="standbyZ">運動結束後Z軸停止高度</param>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動<br/>注意：小心撞機，謹慎使用！</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.MotionFinished">
+            <summary>
+            運動結束後處理
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.MoveCameraToNozzle(OEP520G.Parameter.ENozzleId,System.Nullable{System.Double},System.Boolean)">
+            <summary>
+            移動相機->吸嘴
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+            <param name="standbyZ">運動結束後Z軸停止高度</param>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.NozzleToMoveCamera(OEP520G.Parameter.ENozzleId,System.Nullable{System.Double},System.Boolean)">
+            <summary>
+            吸嘴->移動相機
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+            <param name="standbyZ">運動結束後Z軸停止高度</param>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.ClampToMoveCamera">
+            <summary>
+            夾爪->移動相機
+            </summary>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.NozzleToFixCamera(OEP520G.Parameter.ENozzleId,System.Nullable{System.Double},System.Boolean)">
+            <summary>
+            吸嘴->固定相機
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+            <param name="standbyZ">運動結束後Z軸停止高度</param>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.DispenserToFixCamera(System.Nullable{System.Double},System.Boolean)">
+            <summary>
+            膠針->固定相機
+            </summary>
+            <param name="standbyZ">運動結束後Z軸停止高度</param>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.MoveCameraToStage(System.Boolean)">
+            <summary>
+            移動相機->台車
+            </summary>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.NozzleToStage(OEP520G.Parameter.ENozzleId,System.Boolean)">
+            <summary>
+            吸嘴->台車
+            </summary>
+            <param name="nozzleId">吸嘴ID(0~10)</param>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.DatumNozzleToStage(System.Boolean)">
+            <summary>
+            基準吸嘴->台車
+            </summary>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.ClampToStage(OEP520G.Parameter.EClampId)">
+            <summary>
+            夾爪->台車
+            </summary>
+            <param name="clampId">夾爪ID</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.DispenserToStage(System.Boolean)">
+            <summary>
+            膠針->台車
+            </summary>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.MoveCameraToClamp(System.Boolean)">
+            <summary>
+            移動相機->夾爪
+            </summary>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.NozzleToMeasurePlatform(OEP520G.Parameter.ENozzleId,System.Boolean)">
+            <summary>
+            吸嘴->測高平台
+            </summary>
+            <param name="nozzleId">吸嘴ID(0~10)</param>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.MoveCameraToPlatform(System.Boolean)">
+            <summary>
+            移動相機->測高平台
+            </summary>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.NozzleToDiscardBox(System.Boolean)">
+            <summary>
+            吸嘴->組裝側抛料盒
+            </summary>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="M:OEP520G.Functions.ObjectMotion.ClampToDiscardBox(System.Boolean)">
+            <summary>
+            夾爪->夾爪側抛料盒
+            </summary>
+            <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
+        </member>
+        <member name="T:OEP520G.Manual.LocalIo_No">
+            <summary>
+            Local Io擴充(DataGrid顯示用)
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.LocalIo_No.#ctor(System.Int32,System.String,System.String,System.Boolean)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="T:OEP520G.Manual.RemoteIo_No">
+            <summary>
+            Remote Io擴充(DataGrid顯示用)
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.RemoteIo_No.#ctor(System.Int32,System.String,System.Char,System.Boolean,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.IO.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.SetNozzleButton(System.Int32,System.Boolean)">
+            <summary>
+            設定吸嘴按鍵
+            </summary>
+            <param name="noz">吸嘴編號(0~10)</param>
+            <param name="value">On/Off值</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.SelectNozzle(System.String)">
+            <summary>
+            選擇吸嘴
+            </summary>
+            <param name="noz">吸嘴編號("0"~"10")</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.SelectNozzle(System.Int32)">
+            <summary>
+            選擇吸嘴
+            </summary>
+            <param name="noz">吸嘴編號(0~10)</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.UnselectNozzle(System.String)">
+            <summary>
+            取消選擇吸嘴
+            </summary>
+            <param name="noz">吸嘴編號("0"~"10")</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.UnselectNozzle(System.Int32)">
+            <summary>
+            取消選擇吸嘴
+            </summary>
+            <param name="noz">吸嘴編號(0~10)</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.SelectAllNozzle">
+            <summary>
+            選擇全部吸嘴
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.UnselectAllNozzle">
+            <summary>
+            取消選擇全部吸嘴
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.SetClampButton(System.Int32,System.Boolean)">
+            <summary>
+            設定夾爪按鍵
+            </summary>
+            <param name="clp">夾爪編號(0~1)</param>
+            <param name="value">On/Off值</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.SelectClamp(System.String)">
+            <summary>
+            選擇夾爪
+            </summary>
+            <param name="clp">夾爪編號("0"~"1")</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.SelectClamp(System.Int32)">
+            <summary>
+            選擇夾爪
+            </summary>
+            <param name="clp">夾爪編號(0~1)</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.UnselectClamp(System.String)">
+            <summary>
+            取消選擇夾爪
+            </summary>
+            <param name="clp">夾爪編號("0"~"1")</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.UnselectClamp(System.Int32)">
+            <summary>
+            取消選擇夾爪
+            </summary>
+            <param name="clp">夾爪編號(0~1)</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.SelectAllClamp">
+            <summary>
+            選擇全部夾爪
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.CylinderActionViewModel.UnselectAllClamp">
+            <summary>
+            取消選擇全部夾爪
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.IoActionViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.IoListViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.IoListViewModel.LioChanged(System.Object,EPCIO.IoEventArgs)">
+            <summary>
+            Local Io變更Event
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.IoListViewModel.RioChenged(System.Object,EPCIO.IoEventArgs)">
+            <summary>
+            Remote Io變更Event
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.IoListViewModel.RioOutput(System.String)">
+            <summary>
+            輸出動作
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.IoListViewModel.RefreshSource(OEP520G.Manual.ViewModels.IoListViewModel.EScreenCode)">
+            <summary>
+            更新DataGrid
+            </summary>
+        </member>
+        <member name="P:OEP520G.Manual.ViewModels.ObjectMoveViewModel.AxisZUpCommand">
+            <summary>
+            吸嘴動作: 0=>OFF 1=>吐氣 -1=>吸氣
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.ObjectChanged">
+            <summary>
+            選擇物件變更
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.StatusUpdate(System.Object,EPCIO.IoEventArgs)">
+            <summary>
+            狀態顯示Timer
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.ShowAllStatus">
+            <summary>
+            狀態顯示Timer
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.ShowStatus(System.String)">
+            <summary>
+            讀取狀態
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.UpdateStatus">
+            <summary>
+            更新畫面狀態顯示
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.AxisZUp">
+            <summary>
+            Z軸上昇
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.AxisZDown">
+            <summary>
+            Z軸下降
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.MovingCameraToObject">
+            <summary>
+            移動相機 -> 物件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.ObjectToMovingCamera">
+            <summary>
+            物件 -> 移動相機
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.ObjectToFixCamera">
+            <summary>
+            物件 -> 固定相機
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.ObjectToStage">
+            <summary>
+            物件 -> 台車
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.DoNozzleAction">
+            <summary>
+            吸嘴動作
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.CylinderUp">
+            <summary>
+            氣缸
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.NozzleVaccum">
+            <summary>
+            吸嘴吸氣
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.NozzleBlow">
+            <summary>
+            吸嘴吐氣
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.NozzleOff">
+            <summary>
+            吸嘴真空關閉
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.ClampClose">
+            <summary>
+            夾爪閉合
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ObjectMoveViewModel.ClampOpen">
+            <summary>
+            夾爪打開
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.ServoTesterViewModel.PositionReader">
+            <summary>
+            運動控制卡座標讀取Timer
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ServoTesterViewModel.#ctor(Prism.Events.IEventAggregator)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ServoTesterViewModel.SetSpeed">
+            <summary>
+            設定軸速度百分比
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ServoTesterViewModel.MoveTo(System.String)">
+            <summary>
+            移動指定軸至指定座標
+            </summary>
+            <param name="paras">
+            格式=>"軸,移動位置"
+            [0]:軸名稱
+            [1]:移動位置=>起點(START) 終點(END) 設定值(SETTING/省略)
+            </param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ServoTesterViewModel.MoveAllTo(System.String)">
+            <summary>
+            全部軸移動至指定座標
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ServoTesterViewModel.RepeatTestFinish">
+            <summary>
+            往返測試停止
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ServoTesterViewModel.RepeatTestStart">
+            <summary>
+            往返測試啟動
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ServoTesterViewModel.RepeatTestTask">
+            <summary>
+            往返測試啟動(新執行緒部分)
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ServoTesterViewModel.GetPosition(System.String)">
+            <summary>
+            使用滑鼠右鍵，取得特定座標值
+            </summary>
+            <param name="paras">
+            格式=>"軸,呼叫者,取得何值"
+            [0]:軸名稱
+            [1]:呼叫者=>起點(START) 終點(END) 設定值(SETTING)
+            [2]:取得何值=>軸座標(AXIS) 起點(START) 終點(END) 設定值(SETTING/省略)
+            </param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ServoTesterViewModel.checkTestAxis">
+            <summary>
+            確認測試軸
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.TeachingBoxViewModel.speedNameList">
+            <summary>
+            速度設定的標籤
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.TeachingBoxViewModel.speedColorList">
+            <summary>
+            速度設定的顏色
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.TeachingBoxViewModel.ResoultList">
+            <summary>
+            Jog移動距離級數(mm)
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.TeachingBoxViewModel.degreeList">
+            <summary>
+            Jog移動距離級數(度)
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.TeachingBoxViewModel.speedIndex">
+            <summary>
+            目前速度Index(0~4)
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.TeachingBoxViewModel.speedValue">
+            <summary>
+            目前速度值
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.TeachingBoxViewModel.speedRatio">
+            <summary>
+            目前速度比率
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.TeachingBoxViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.TeachingBoxViewModel.Jog(System.String)">
+            <summary>
+            JOG
+            </summary>
+            <param name="parameter">[軸,移動方向]</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.TeachingBoxViewModel.SpeedCycle(System.String)">
+            <summary>
+            速度循環
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.TeachingBoxViewModel.SetSpeedAppearance">
+            <summary>
+            設定速度按鍵文字及顏色
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.TeachingBoxViewModel.StandbyPosition">
+            <summary>
+            待機
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.TeachingBoxViewModel.MoveTo">
+            <summary>
+            移動
+            </summary>
+            <remarks>
+            若Z軸不在安全高度內
+            </remarks>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.TeachingBoxViewModel.GetCoorFrom">
+            <summary>
+            取得
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.TeachingBoxViewModel.ShiftTo">
+            <summary>
+            位移
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.TeachingBoxViewModel.ClearShift">
+            <summary>
+            清除
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.ZeroViewModel.AxisStatusUpdate">
+            <summary>
+            運動控制卡座標讀取Timer
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ZeroViewModel.#ctor(Prism.Events.IEventAggregator)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.ZeroViewModel.goHomeAxis">
+            <summary>
+            記錄復歸軸
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.ZeroViewModel.axisStatus">
+            <summary>
+            各軸前狀態
+            </summary>
+        </member>
+        <member name="F:OEP520G.Manual.ViewModels.ZeroViewModel.pressGoHomeAbort">
+            <summary>
+            是否按中斷復歸
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ZeroViewModel.GoHome(System.String)">
+            <summary>
+            單軸復歸
+            </summary>
+            <param name="servoId">要復歸的軸ID</param>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ZeroViewModel.GoHomeAllServo">
+            <summary>
+            全軸復歸
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ZeroViewModel.GoHomeAbort">
+            <summary>
+            中斷復歸
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ZeroViewModel.AfterGoHomeFinish">
+            <summary>
+            復歸動作結束後處理
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ZeroViewModel.ServoReset">
+            <summary>
+            伺服軸重置
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.ViewModels.ZeroViewModel.ScreenUpdatePolling(System.Object,System.EventArgs)">
+            <summary>
+            畫面顯示更新
+            </summary>
+        </member>
+        <member name="T:OEP520G.Manual.Views.AirPressureSetting">
+            <summary>
+            AirPressureSetting.xaml 的互動邏輯
+            </summary>
+            <summary>
+            AirPressureSetting
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.Views.AirPressureSetting.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Manual.Views.CylinderAction">
+            <summary>
+            CylinderAction.xaml 的互動邏輯
+            </summary>
+            <summary>
+            CylinderAction
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.Views.CylinderAction.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Manual.Views.IoAction">
+            <summary>
+            Nozzle.xaml 的互動邏輯
+            </summary>
+            <summary>
+            IoAction
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.Views.IoAction.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Manual.Views.IoList">
+            <summary>
+            IoList.xaml 的互動邏輯
+            </summary>
+            <summary>
+            IoList
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.Views.IoList.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Manual.Views.ObjectMove">
+            <summary>
+            ObjectMove.xaml 的互動邏輯
+            </summary>
+            <summary>
+            ObjectMove
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.Views.ObjectMove.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Manual.Views.ServoTester">
+            <summary>
+            ServoTester.xaml 的互動邏輯
+            </summary>
+            <summary>
+            ServoTester
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.Views.ServoTester.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Manual.Views.TeachingBox">
+            <summary>
+            TeachingBox.xaml 的互動邏輯
+            </summary>
+            <summary>
+            TeachingBox
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.Views.TeachingBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Manual.Views.Zero">
+            <summary>
+            Zero.xaml 的互動邏輯
+            </summary>
+            <summary>
+            Zero
+            </summary>
+        </member>
+        <member name="M:OEP520G.Manual.Views.Zero.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="F:OEP520G.Parameter.Camera.CAMERA_NAME_LIST">
+            <summary>
+            相機名稱
+            </summary>
+        </member>
+        <member name="P:OEP520G.Parameter.Camera.MoveCamera">
+            <summary>
+            移動相機參數
+            </summary>
+            <remarks>Origin值為移動相機拍照座標偏移值</remarks>
+        </member>
+        <member name="P:OEP520G.Parameter.Camera.FixCamera">
+            <summary>
+            固定相機參數
+            </summary>
+            <remarks>Origin值為固定相機軸座標</remarks>
+        </member>
+        <member name="F:OEP520G.Parameter.Camera.FileName">
+            <summary>
+            固定相機軸座標
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Camera.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Camera.WriteParameter">
+            <summary>
+            將參數寫入參數檔
+            </summary>
+            <remarks>
+            iniFile.WriteIniFile(SectionName, "[屬性名稱]", [屬性值]));
+            </remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Camera.ReadParameter">
+            <summary>
+            從參數檔讀取參數
+            </summary>
+            <remarks>
+            [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(SectionName, "[屬性名稱]", "[預設值]"));
+            </remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.ClampObject.#ctor(OEP520G.Parameter.EClampId,System.String)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="P:OEP520G.Parameter.Clamp.Clamp1">
+            <summary>
+            夾爪1
+            </summary>
+        </member>
+        <member name="P:OEP520G.Parameter.Clamp.Clamp2">
+            <summary>
+            夾爪2
+            </summary>
+        </member>
+        <member name="P:OEP520G.Parameter.Clamp.ClampList">
+            <summary>
+            夾爪列表
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.WriteParameter">
+            <summary>
+            將參數寫入參數檔
+            </summary>
+            <example>
+            iniFile.WriteIniFile(sectionName,"[屬性名稱]", [屬性值]));
+            </example>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ReadParameter">
+            <summary>
+            從參數檔讀取參數
+            </summary>
+            <example>
+            [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(sectionName,"[屬性名稱]","[預設值]"));
+            </example>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ClampSlideCylinderUp">
+            <summary>
+            夾爪滑台氣缸上升
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.IsClampSlideCylinderUp">
+            <summary>
+            檢查夾爪滑台氣缸是否在上升位置
+            </summary>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.WaitingForSlideCylinderUp">
+            <summary>
+            等待夾爪滑台氣缸到上升位置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ClampSlideCylinderDown">
+            <summary>
+            夾爪滑台氣缸下降
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.IsClampSlideCylinderDown">
+            <summary>
+            檢查夾爪滑台氣缸是否在下降位置
+            </summary>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.WaitingForSlideCylinderDown">
+            <summary>
+            等待夾爪滑台氣缸到下降位置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.AllClampUp">
+            <summary>
+            全部夾爪上升
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ClampUp(System.Boolean,System.Boolean)">
+            <summary>
+            夾爪上升動作
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要上升的夾爪</remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ClampUp(OEP520G.Parameter.EClampId)">
+            <summary>
+            夾爪上升動作
+            </summary>
+            <param name="clampId">選擇要上升的夾爪</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.IsClampUp(System.Boolean,System.Boolean)">
+            <summary>
+            檢查夾爪是否在上升位置
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要檢查的夾爪</remarks>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.WaitingForClampUp(System.Boolean,System.Boolean)">
+            <summary>
+            等待夾爪到上升位置
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要等待的夾爪</remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.AllClampDown">
+            <summary>
+            全部夾爪下降
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ClampDown(System.Boolean,System.Boolean)">
+            <summary>
+            夾爪下降動作
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要下降的夾爪</remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ClampDown(OEP520G.Parameter.EClampId)">
+            <summary>
+            夾爪下降動作
+            </summary>
+            <param name="clampId">選擇要下降的夾爪</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.IsClampDown(System.Boolean,System.Boolean)">
+            <summary>
+            檢查夾爪是否在下降位置
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要檢查的夾爪</remarks>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.WaitingForClampDown(System.Boolean,System.Boolean)">
+            <summary>
+            等待夾爪到上升位置
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要等待的夾爪</remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.AllClampOpen">
+            <summary>
+            全部夾爪打開
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ClampOpen(System.Boolean,System.Boolean)">
+            <summary>
+            夾爪打開動作
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要等待的夾爪</remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ClampOpen(OEP520G.Parameter.EClampId)">
+            <summary>
+            夾爪打開動作
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要打開的夾爪</remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.IsClampOpen(System.Boolean,System.Boolean)">
+            <summary>
+            檢查指定夾爪是否在打開狀態
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要檢查的夾爪</remarks>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.WaitingForClampOpen(System.Boolean,System.Boolean)">
+            <summary>
+            等待夾爪到打開位置
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要等待的夾爪</remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.AllClampClose">
+            <summary>
+            全部夾爪閉合
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ClampClose(System.Boolean,System.Boolean)">
+            <summary>
+            夾爪閉合動作
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要等待的夾爪</remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.ClampClose(OEP520G.Parameter.EClampId)">
+            <summary>
+            夾爪閉合動作
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要閉合的夾爪</remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.IsClampClose(System.Boolean,System.Boolean)">
+            <summary>
+            檢查指定夾爪是否在閉合狀態
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要檢查的夾爪</remarks>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Clamp.WaitingForClampClose(System.Boolean,System.Boolean)">
+            <summary>
+            等待夾爪到閉合位置
+            </summary>
+            <remarks>clamp1/clamp2: 選擇要等待的夾爪</remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Dispenser.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Dispenser.WriteParameter">
+            <summary>
+            將參數寫入參數檔
+            </summary>
+            <example>
+            iniFile.WriteIniFile(sectionName,"[屬性名稱]", [屬性值]));
+            </example>
+        </member>
+        <member name="M:OEP520G.Parameter.Dispenser.ReadParameter">
+            <summary>
+            從參數檔讀取參數
+            </summary>
+            <example>
+            [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(sectionName,"[屬性名稱]","[預設值]"));
+            </example>
+        </member>
+        <member name="T:OEP520G.Parameter.EClampId">
+            <summary>
+            夾爪Id
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.ENozzleId">
+            <summary>
+            吸嘴ID
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.FileList.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.FileList.SwProduct(System.String)">
+            <inheritdoc/>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="M:OEP520G.Parameter.FileList.AfterSwProduct(System.String)">
+            <inheritdoc/>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="T:OEP520G.Parameter.DatumPointInfo">
+            <summary>
+            基準點資料結構
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Machine.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Machine.WriteParameter">
+            <summary>
+            將參數寫入參數檔
+            iniFile.WriteIniFile(sectionName, "[屬性名稱]", [屬性值]));
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Machine.ReadParameter">
+            <summary>
+            從參數檔讀取參數
+            [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(sectionName, "[屬性名稱]", "[預設值]"));
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Machine.ShowMachineId">
+            <summary>
+            在標題列設定顯示機台ID
+            </summary>
+        </member>
+        <member name="P:OEP520G.Parameter.NozzleObject.Position">
+            <summary>
+            吸嘴校正座標(座標值)
+            </summary>
+        </member>
+        <member name="F:OEP520G.Parameter.Nozzle.MAX_NOZZLE">
+            <summary>
+            最大吸嘴數
+            </summary>
+        </member>
+        <member name="P:OEP520G.Parameter.Nozzle.DatumNozzleId">
+            <summary>
+            基準吸嘴編號
+            </summary>
+        </member>
+        <member name="P:OEP520G.Parameter.Nozzle.NozzleList">
+            <summary>
+            吸嘴資料表
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.WriteParameter">
+            <summary>
+            將參數寫入參數檔
+            </summary>
+            <example>
+            iniFile.WriteIniFile(sectionName,"[屬性名稱]", [屬性值]));
+            </example>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.ReadParameter">
+            <summary>
+            從參數檔讀取參數
+            </summary>
+            <example>
+            [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(sectionName,"[屬性名稱]","[預設值]"));
+            </example>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.ALlNozzleUp">
+            <summary>
+            全部吸嘴上升
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.NozzleUp(OEP520G.Parameter.ENozzleId[])">
+            <summary>
+            指定吸嘴的氣缸上升
+            </summary>
+            <param name="nozzleIdList">吸嘴ID列表</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.NozzleUp(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            指定吸嘴的氣缸上升
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.ALlNozzleDown">
+            <summary>
+            全部吸嘴下降
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.NozzleDown(OEP520G.Parameter.ENozzleId[])">
+            <summary>
+            指定吸嘴的氣缸下降
+            </summary>
+            <param name="nozzleIdList">吸嘴ID列表</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.NozzleDown(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            指定吸嘴的氣缸下降
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.IsAllNozzleUp">
+            <summary>
+            檢查全部吸嘴的氣缸是否在上升位置
+            </summary>
+            <returns>確認結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.IsNozzleUp(OEP520G.Parameter.ENozzleId[])">
+            <summary>
+            檢查指定吸嘴的氣缸是否在上升位置
+            </summary>
+            <param name="nozzleIdList">吸嘴ID列表</param>
+            <returns>確認結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.IsNozzleUp(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            檢查指定吸嘴的氣缸是否在上升位置
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+            <returns>確認結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.IsAllNozzleDown">
+            <summary>
+            檢查全部吸嘴的氣缸是否在下降位置
+            </summary>
+            <returns>true: 確認結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.IsNozzleDown(OEP520G.Parameter.ENozzleId[])">
+            <summary>
+            檢查指定吸嘴的氣缸是否在下降位置
+            </summary>
+            <param name="nozzleIdList">吸嘴ID列表</param>
+            <returns>確認結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.IsNozzleDown(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            檢查指定吸嘴的氣缸是否在下降位置
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+            <returns>確認結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.WaitingForAllNozzleUp">
+            <summary>
+            等待全部吸嘴到上升位置
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.WaitingForNozzleUp(OEP520G.Parameter.ENozzleId[])">
+            <summary>
+            等待指定吸嘴直到該吸嘴到上升位置
+            </summary>
+            <param name="nozzleIdlist">吸嘴ID列表</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.WaitingForNozzleUp(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            等待指定吸嘴直到該吸嘴到上升位置
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.WaitingForAllNozzleDown">
+            <summary>
+            等待全部吸嘴到下降位置
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.WaitingForNozzleDown(OEP520G.Parameter.ENozzleId[])">
+            <summary>
+            等待指定吸嘴直到該吸嘴到下降位置
+            </summary>
+            <param name="nozzleIdlist">吸嘴ID列表</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.WaitingForNozzleDown(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            等待指定吸嘴直到該吸嘴到下降位置
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.AllNozzleVaccumOn">
+            <summary>
+            全部吸嘴真空全開
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.NozzleVaccumOn(OEP520G.Parameter.ENozzleId[])">
+            <summary>
+            開啟指定吸嘴的真空吸氣、關閉吐氣
+            </summary>
+            <param name="nozzleIdList">吸嘴ID列表</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.NozzleVaccumOn(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            開啟指定吸嘴的真空吸氣、關閉吐氣
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.AllNozzleBlowOn">
+            <summary>
+            全部吸嘴吐氣全開
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.NozzleBlowOn(OEP520G.Parameter.ENozzleId[])">
+            <summary>
+            開啟指定吸嘴的吐氣、關閉真空吸氣
+            </summary>
+            <param name="nozzleIdList">吸嘴ID列表</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.NozzleBlowOn(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            開啟指定吸嘴的吐氣、關閉真空吸氣
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.AllNozzleOff">
+            <summary>
+            全部吸嘴真空/吐氣全關
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.NozzleOff(OEP520G.Parameter.ENozzleId[])">
+            <summary>
+            關閉指定吸嘴的真空吸氣及吐氣
+            </summary>
+            <param name="nozzleIdList">吸嘴ID列表</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.NozzleOff(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            關閉指定吸嘴的真空吸氣及吐氣
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.IsAllNozzleVaccumOn">
+            <summary>
+            檢查指定吸嘴是否真空有開啟
+            </summary>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.IsNozzleVaccumOn(OEP520G.Parameter.ENozzleId[])">
+            <summary>
+            檢查指定吸嘴是否真空有開啟
+            </summary>
+            <param name="nozzleIdList">吸嘴ID列表</param>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Nozzle.IsNozzleVaccumOn(OEP520G.Parameter.ENozzleId)">
+            <summary>
+            檢查指定吸嘴是否真空有開啟
+            </summary>
+            <param name="nozzleId">吸嘴ID</param>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.WriteParameter">
+            <summary>
+            將參數寫入參數檔
+            </summary>
+            <example>
+            iniFile.WriteIniFile(sectionName,"[屬性名稱]", [屬性值]);
+            </example>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.ReadParameter">
+            <summary>
+            從參數檔讀取參數
+            </summary>
+            <example>
+            [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(sectionName,"[屬性名稱]","[預設值]"));
+            </example>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.StageClampOpen">
+            <summary>
+            台車夾片打開
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.IsStageClampOpen">
+            <summary>
+            檢查台車夾片是否在打開狀態
+            </summary>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.WaitingForClampOpen">
+            <summary>
+            等待台車夾片到打開狀態
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.StageClampClose">
+            <summary>
+            台車夾片閉合
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.IsStageClampClose">
+            <summary>
+            檢查台車夾片是否在閉合狀態
+            </summary>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.WaitingForClampClose">
+            <summary>
+            等待台車夾片到閉合狀態
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.StageVaccumOff">
+            <summary>
+            台車真空關閉
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.IsStageVaccumOff">
+            <summary>
+            檢查台車真空是否在關閉狀態
+            </summary>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.WaitingForVaccumOff">
+            <summary>
+            等待台車真空關閉
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.StageVaccumOn">
+            <summary>
+            台車真空開啟
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.IsStageVaccumOn">
+            <summary>
+            檢查台車真空是否在開啟狀態
+            </summary>
+            <returns>檢查結果</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Stage.WaitingForVaccumOn">
+            <summary>
+            等待台車真空開啟
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.TrayObject">
+            <summary>
+            Tray盤資料結構
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.TrayExchange">
+            <summary>
+            CRUD用
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Tray">
+            <summary>
+            Tray盤
+            </summary>
+        </member>
+        <member name="P:OEP520G.Parameter.Tray.TrayList">
+            <summary>
+            Tray盤列表
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.WriteParameter">
+            <summary>
+            寫入參數檔
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.ReadParameter">
+            <summary>
+            從參數檔讀取全部Tray參數
+            </summary>
+            <remarks>
+            [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(SectionName, "[屬性名稱]", "[預設值]"));
+            </remarks>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.SetTrayMinimumDemand(OEP520G.Parameter.TrayObject)">
+            <summary>
+            將參數設定為最低需求狀態(預設值)
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.NewTray(OEP520G.Parameter.TrayExchange)">
+            <summary>
+            新建Tray盤
+            </summary>
+            <param name="te">TrayExchange</param>
+            <returns>是否新建成功</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.CopyTray(OEP520G.Parameter.TrayExchange)">
+            <summary>
+            複製Tray盤
+            </summary>
+            <param name="te">TrayExchange</param>
+            <returns>是否複製成功</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.RenameTray(OEP520G.Parameter.TrayExchange)">
+            <summary>
+            Tray更名
+            </summary>
+            <param name="te">TrayExchange</param>
+            <returns>是否更名成功</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.DeleteTray(OEP520G.Parameter.TrayObject)">
+            <summary>
+            刪除Tray盤
+            </summary>
+            <param name="ti"></param>
+            <returns>是否刪除成功</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.IsTrayExist(System.String)">
+            <summary>
+            檢查Tray盤名稱是否已存在
+            </summary>
+            <param name="name">Tray盤名稱</param>
+            <returns>True:名稱重覆 False:名稱不存在</returns>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.GetTray(System.String,OEP520G.Parameter.TrayObject@)">
+            <summary>
+            取得Tray資料
+            </summary>
+            <param name="name">Tray名稱</param>
+            <param name="ti">返回Tray</param>
+        </member>
+        <member name="M:OEP520G.Parameter.Tray.RearrangePointMatrix(OEP520G.Parameter.TrayObject)">
+            <summary>
+            PointMatrix重新排列
+            </summary>
+            <remarks>若要重新計算，須確認變更完成的參數：原點、對角線點、XY軸點位數</remarks>
+            <param name="ti">要重新排列的Tray</param>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.ClampViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.ClampViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.ClampViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.ClampViewModel.MovtToClamp(System.String)">
+            <summary>
+            移到此處
+            </summary>
+            <param name="clampId">夾爪編號</param>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.ClampViewModel.GetCoordination(System.String)">
+            <summary>
+            取得座標
+            </summary>
+            <param name="clampId">夾爪編號</param>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.ClampViewModel.ClampUp(System.String)">
+            <summary>
+            夾爪上升
+            </summary>
+            <param name="clampId">夾爪編號</param>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.ClampViewModel.ClampDown(System.String)">
+            <summary>
+            夾爪下降
+            </summary>
+            <param name="clampId">夾爪編號</param>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.DiscardBoxViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.DiscardBoxViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.DiscardBoxViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.DiscardBoxViewModel.ClampUp">
+            <summary>
+            夾爪上升
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.DiscardBoxViewModel.ClampDown">
+            <summary>
+            夾爪下降
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.FixCameraViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.FixCameraViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.FixCameraViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.MachineInfoViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.MachineInfoViewModel.HandleLoaded">
+            <summary>
+            Window Loaded
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.MachineInfoViewModel.ReadData">
+            <summary>
+            讀取Machine資料
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.MachineInfoViewModel.WriteData">
+            <summary>
+            儲存Machine資料
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.MotionCardParameterViewModel.#ctor(Prism.Events.IEventAggregator)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.MotionCardParameterViewModel.WriteData">
+            <summary>
+            存回參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.MotionCardParameterViewModel.GetData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.MoveCameraViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.MoveCameraViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.MoveCameraViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.NozzleViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.NozzleViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.NozzleViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.ServoParameterViewModel.#ctor(Prism.Events.IEventAggregator)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.ServoParameterViewModel.GetParameter">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.ServoParameterViewModel.WriteData">
+            <summary>
+            存回參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.StageViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.StageViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.StageViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.SystemReferPointViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.SystemReferPointViewModel.GetParameter">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.SystemReferPointViewModel.WriteData">
+            <summary>
+            存回參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.SystemReferPointViewModel.GetCoor(System.String)">
+            <summary>
+            取得座標
+            </summary>
+            <param name="para">儲存目標</param>
+        </member>
+        <member name="M:OEP520G.Parameter.ViewModels.SystemReferPointViewModel.MovtToHere(System.String)">
+            <summary>
+            移到此處
+            </summary>
+            <param name="para">移動目標</param>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.CameraParameterFix">
+            <summary>
+            CameraParameterFix.xaml 的互動邏輯
+            </summary>
+            <summary>
+            CameraParameterFix
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.CameraParameterFix.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.CameraParameterFly">
+            <summary>
+            CameraParameterFly.xaml 的互動邏輯
+            </summary>
+            <summary>
+            CameraParameterFly
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.CameraParameterFly.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.Clamp">
+            <summary>
+            Clamp.xaml 的互動邏輯
+            </summary>
+            <summary>
+            Clamp
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.Clamp.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.CleanGlueSetting">
+            <summary>
+            CleanGlueSetting.xaml 的互動邏輯
+            </summary>
+            <summary>
+            CleanGlueSetting
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.CleanGlueSetting.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.DiscardBox">
+            <summary>
+            DiscardBox.xaml 的互動邏輯
+            </summary>
+            <summary>
+            DiscardBox
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.DiscardBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.FixCamera">
+            <summary>
+            FixCamera.xaml 的互動邏輯
+            </summary>
+            <summary>
+            FixCamera
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.FixCamera.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.MachineInfo">
+            <summary>
+            SystemComp.xaml 的互動邏輯
+            </summary>
+            <summary>
+            MachineInfo
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.MachineInfo.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.MotionCardParameter">
+            <summary>
+            MotionCardParameter
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.MotionCardParameter.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.MoveCamera">
+            <summary>
+            MoveCamera.xaml 的互動邏輯
+            </summary>
+            <summary>
+            MoveCamera
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.MoveCamera.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.Nozzle">
+            <summary>
+            Nozzle.xaml 的互動邏輯
+            </summary>
+            <summary>
+            Nozzle
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.Nozzle.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.ServoParameter">
+            <summary>
+            ServoParameter
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.ServoParameter.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.Stage">
+            <summary>
+            Stage.xaml 的互動邏輯
+            </summary>
+            <summary>
+            Stage
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.Stage.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Parameter.Views.SystemReferPoint">
+            <summary>
+            SystemReferPoint.xaml 的互動邏輯
+            </summary>
+            <summary>
+            SystemReferPoint
+            </summary>
+        </member>
+        <member name="M:OEP520G.Parameter.Views.SystemReferPoint.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Picture.ETargetId">
+            <summary>
+            拍照對象列表
+            </summary>
+        </member>
+        <member name="T:OEP520G.Picture.IPictureIdList">
+            <summary>
+            相機品種列表操作
+            </summary>
+        </member>
+        <member name="M:OEP520G.Picture.IPictureIdList.GetPictureIdList">
+            <summary>
+            取得相機品種列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OEP520G.Picture.IServoMovingRequest.MoveToRelative(System.Double,System.Double,System.Double,System.Single,System.Double,System.Double)">
+            <summary>
+            相機的伺服軸移動請求
+            </summary>
+            <remarks>移動為相對距離，R軸單位為度，其餘單位為 mm。</remarks>
+        </member>
+        <member name="M:OEP520G.Picture.ITakePictureRequest.TakePictureRequest(OEP520G.Picture.ETargetId)">
+            <summary>
+            拍照請求
+            </summary>
+            <param name="objId">拍照對象</param>
+        </member>
+        <member name="P:OEP520G.Picture.ITakePictureRequest.TakePictureFinished">
+            <summary>
+            拍照是否成功完成
+            </summary>
+            <remarks>
+            1.送出拍照請求前，請求方將其設定為 false。<br/>
+            2.相機拍照結束(含演算結束)後，將其設定為 true。<br/>
+            3.
+            </remarks>
+        </member>
+        <member name="P:OEP520G.Picture.ITakePictureRequest.OffsetX">
+            <summary>
+            中心位移X
+            </summary>
+        </member>
+        <member name="P:OEP520G.Picture.ITakePictureRequest.OffsetY">
+            <summary>
+            中心位移Y
+            </summary>
+        </member>
+        <member name="P:OEP520G.Picture.ITakePictureRequest.Angle">
+            <summary>
+            角度
+            </summary>
+        </member>
+        <member name="T:OEP520G.Product.IProductManager">
+            <summary>
+            品種管理
+            </summary>
+            <remarks>
+            <list type="number">
+            <item>當品種管理員(ProductManager)執行品種切換後，會利用Prism Event Aggregator發佈ProductSwitch事件。</item>
+            <item>請在ViewModel物件繼承 IProductManager，<br/>
+            在建構函式引入Prism IEventAggregator，並訂閱ProductSwitch事件，<br/>
+            然後設定事件去呼叫自訂SwProduct函式。</item>
+            <item>若有需求無法在ViewModel執行切換品種作業時(亦即無法在建構函式引入Prism IEventAggregator)，<br/>
+            系統有提供備用的IEventAggregator，但儘量勿用此法(增加物件耦合度)。</item>
+            <item>詳細說明及範例請參閱原始檔註解。</item>
+            </list>
+            </remarks>
+        </member>
+        <member name="M:OEP520G.Product.IProductManager.SwProduct(System.String)">
+            <summary>
+            切換品種作業
+            </summary>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="M:OEP520G.Product.IProductManager.AfterSwProduct(System.String)">
+            <summary>
+            切換品種作業 (後續作業)
+            </summary>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="M:OEP520G.Product.MotionObj.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.MotionObj.ReadParameter">
+            <summary>
+            從參數檔讀取參數
+            [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(SectionName, "[屬性名稱]", "[預設值]"));
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.MotionObj.SaveParameter">
+            <summary>
+            將參數寫入參數檔
+            iniFile.WriteIniFile(SectionName, "[屬性名稱]", [屬性值]));
+            </summary>
+        </member>
+        <member name="T:OEP520G.Product.ProductData">
+            <summary>
+            品種資料結構
+            </summary>
+        </member>
+        <member name="T:OEP520G.Product.ProductExchange">
+            <summary>
+            資料交換用
+            </summary>
+        </member>
+        <member name="P:OEP520G.Product.ProductManager.ActiveProductId">
+            <summary>
+            有效品種ID
+            </summary>
+        </member>
+        <member name="P:OEP520G.Product.ProductManager.IsProductActived">
+            <summary>
+            品種ID是否有效
+            </summary>
+        </member>
+        <member name="P:OEP520G.Product.ProductManager.ProductList">
+            <summary>
+            品種列表
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.ReadParameter(System.String,OEP520G.Product.ProductData@)">
+            <summary>
+            從參數檔讀取品種資料，使用預設品種儲存資料夾
+            </summary>
+            <param name="id">品種ID</param>
+            <param name="prod">回傳的Buffer</param>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.ReadParameter(System.String,OEP520G.Product.ProductData@,System.String)">
+            <summary>
+            從參數檔讀取品種資料
+            </summary>
+            <param name="id">品種ID</param>
+            <param name="prod">回傳的Buffer</param>
+            <param name="dirPath">品種儲存資料夾'</param>
+            <returns>讀檔是否成功</returns>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.WriteParameter">
+            <summary>
+            將品種資料寫回參數檔，使用目前品種及預設品種儲存資料夾
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.WriteParameter(System.String)">
+            <summary>
+            將品種資料寫回參數檔，使用預設品種儲存資料夾
+            </summary>
+            <param name="id">品種ID</param>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.WriteParameter(System.String,System.String,OEP520G.Product.ProductData)">
+            <summary>
+            將品種資料寫回參數檔
+            </summary>
+            <param name="id">品種ID</param>
+            <param name="dirPath">品種儲存資料夾</param>
+            <param name="pd">品種資料。若不為null，可另指定要儲存的ProductData</param>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.WriteParameter(OEP520G.Product.ProductExchange,System.String,System.Boolean)">
+            <summary>
+            將品種資料(EditableData)寫回參數檔
+            </summary>
+            <param name="pe">EditableData資料</param>
+            <param name="dirPath">品種儲存資料夾</param>
+            <param name="SaveNewProductId">是否使用NewProductId做為Id</param>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.IsProductExist(System.String)">
+            <summary>
+            品種ID是否已存在
+            </summary>
+            <param name="id">品種ID</param>
+            <returns>True:存在  False:不存在</returns>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.GetIndex(System.String)">
+            <summary>
+            取得品種ID所在Index
+            </summary>
+            <param name="id">品種ID</param>
+            <returns>Index</returns>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.SwitchProduct(System.String)">
+            <summary>
+            切換品種
+            </summary>
+            <param name="productId">品種ID。空字串表示無品種ID有效</param>
+            <returns>切換是否完成</returns>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.RebuildProductList">
+            <summary>
+            重建品種列表
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.NewProduct(OEP520G.Product.ProductExchange)">
+            <summary>
+            建立新品種
+            </summary>
+            <param name="pe">資料物件</param>
+            <returns>執行是否完成</returns>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.CopyProduct(OEP520G.Product.ProductExchange)">
+            <summary>
+            複製品種
+            </summary>
+            <param name="pe">資料物件</param>
+            <returns>複製是否完成</returns>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.CopyProduct(System.String,System.String,OEP520G.Product.ProductExchange)">
+            <summary>
+            複製品種
+            </summary>
+            <param name="fromDir">被複製的品種資料夾</param>
+            <param name="toDir">複製目的品種資料夾</param>
+            <param name="pe">資料物件</param>
+            <returns>複製是否完成</returns>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.CopyProduct(System.String,System.String,System.String,System.String)">
+            <summary>
+            複製品種(兩品種完全複製，不可在同一資料夾)
+            </summary>
+            <param name="fromDir">被複製的品種資料夾</param>
+            <param name="toDir">複製目的品種資料夾</param>
+            <param name="toId">品種ID</param>
+            <returns>複製是否完成</returns>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.RenameProduct(OEP520G.Product.ProductExchange)">
+            <summary>
+            品種更名
+            </summary>
+            <param name="pe">資料物件</param>
+            <returns>更名是否完成</returns>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.DeleteProduct(System.String)">
+            <summary>
+            刪除品種
+            </summary>
+            <param name="id">品種ID</param>
+            <returns>刪除是否完成</returns>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.ImportProduct(System.String,System.String)">
+            <summary>
+            從外部讀入品種資料
+            </summary>
+            <param name="id">讀入品種ID</param>
+            <param name="dirPath">讀入品種資料夾</param>
+        </member>
+        <member name="M:OEP520G.Product.ProductManager.ExportProduct(System.String,System.String)">
+            <summary>
+            品種資料輸出
+            </summary>
+            <param name="id">品種ID</param>
+            <param name="ditPath">品種儲存資料夾</param>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.#ctor(Prism.Events.IEventAggregator,Prism.Services.Dialogs.IDialogService)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.HandleLoaded">
+            <summary>
+            Window Loaded
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.WriteData">
+            <summary>
+            儲存參數
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.NewProduct">
+            <summary>
+            新增品種
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.CopyProduct">
+            <summary>
+            複製品種
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.RenameProduct">
+            <summary>
+            變更名稱
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.DeleteProduct">
+            <summary>
+            刪除品種
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.ReceiveReturnData(OEP520G.Core.CrudDialogData)">
+            <summary>
+            訂閱事件，接收回傳的資料
+            </summary>
+            <param name="dpdData">Dialog回傳的資料內容</param>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.ActiveProduct">
+            <summary>
+            開啟品種
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.UpdateList">
+            <summary>
+            重建品種清單並更新畫面
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.ProductViewModel.ButtonStateChange">
+            <summary>
+            按鍵狀態設定
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TrayArrangementViewModel.#ctor(Prism.Events.IEventAggregator)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TrayArrangementViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TrayArrangementViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TrayArrangementViewModel.SwProduct(System.String)">
+            <inheritdoc/>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TrayArrangementViewModel.AfterSwProduct(System.String)">
+            <inheritdoc/>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="T:OEP520G.Product.ViewModels.Block">
+            <summary>
+            繪製方塊的資料
+            </summary>
+        </member>
+        <member name="T:OEP520G.Product.ViewModels.TraySettingViewModel.PanAndZoomRightClick">
+            <summary>
+            Pan And Zoom
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.#ctor(Prism.Events.IEventAggregator,Prism.Services.Dialogs.IDialogService,Prism.Ioc.IContainerExtension,Prism.Regions.IRegionManager)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.WriteData">
+            <summary>
+            資料存檔
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.SwProduct(System.String)">
+            <inheritdoc/>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.AfterSwProduct(System.String)">
+            <inheritdoc/>
+            <param name="productId">切換後的品種ID</param>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.SetButtonState">
+            <summary>
+            按鍵狀態設定
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.NewTray">
+            <summary>
+            新增Tray
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.CopyTray">
+            <summary>
+            複製Tray
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.RenameTray">
+            <summary>
+            Tray更名
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.DeleteTray">
+            <summary>
+            刪除Tray
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.ReceiveReturnData(OEP520G.Core.CrudDialogData)">
+            <summary>
+            訂閱事件，接收回傳的資料
+            </summary>
+            <param name="dpdData">Dialog回傳的資料內容</param>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.ChangeTray">
+            <summary>
+            TrayList選擇變更動作
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.RefreshTrayVisualizeSource">
+            <summary>
+            更新Tray繪圖區
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.AxisLineOnOff(System.Boolean)">
+            <summary>
+            座標軸顯示/隱藏
+            </summary>
+            <param name="OnOff">true:ON false:OFF</param>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.ReceiveRightClick(System.Int32)">
+            <summary>
+            滑鼠右鍵切換MASK
+            </summary>
+            <param name="blockId">方格id</param>
+        </member>
+        <member name="M:OEP520G.Product.ViewModels.TraySettingViewModel.DrawBlock(OEP520G.Parameter.TrayObject)">
+            <summary>
+            繪製Tray點位
+            </summary>
+        </member>
+        <member name="T:OEP520G.Product.Views.ProductView">
+            <summary>
+            Product.xaml 的互動邏輯
+            </summary>
+            <summary>
+            ProductView
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.Views.ProductView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Product.Views.TrayArrangement">
+            <summary>
+            TrayArrangement.xaml 的互動邏輯
+            </summary>
+            <summary>
+            TrayArrangement
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.Views.TrayArrangement.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Product.Views.TrayFeeder">
+            <summary>
+            TrayFeeder.xaml 的互動邏輯
+            </summary>
+            <summary>
+            TrayFeeder
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.Views.TrayFeeder.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Product.Views.TraySetting">
+            <summary>
+            TraySetting.xaml 的互動邏輯
+            </summary>
+            <summary>
+            TraySetting
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.Views.TraySetting.MouseRightButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            滑鼠右鍵點選方塊處理
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.Views.TraySetting.AutoFit_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            自動縮放最適大小
+            </summary>
+        </member>
+        <member name="M:OEP520G.Product.Views.TraySetting.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Properties.Resources">
+            <summary>
+              用於查詢當地語系化字串等的強類型資源類別。
+            </summary>
+        </member>
+        <member name="P:OEP520G.Properties.Resources.ResourceManager">
+            <summary>
+              傳回這個類別使用的快取的 ResourceManager 執行個體。
+            </summary>
+        </member>
+        <member name="P:OEP520G.Properties.Resources.Culture">
+            <summary>
+              覆寫目前執行緒的 CurrentUICulture 屬性，對象是所有
+              使用這個強類型資源類別的資源查閱。
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.CameraCorrectViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.ClampCorrectViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.ClampCorrectViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.ClampCorrectViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="F:OEP520G.Teaching.ViewModels.ClampCorrectViewModel.actionDelay">
+            <summary>
+            IO動作間Delay(ms)
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.ClampCorrectViewModel.StartCorrect">
+            <summary>
+            啟動校正
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.ClampCorrectViewModel.AllClampUp">
+            <summary>
+            全部夾爪上升
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.EccentricCorrectViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.EccentricCorrectViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.EccentricCorrectViewModel.GetData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.EccentricCorrectViewModel.MoveToVisionCenter">
+            <summary>
+            移至畫像中心
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.EccentricCorrectViewModel.AxisRZeroing">
+            <summary>
+            R軸復歸
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.EccentricCorrectViewModel.StartCorrect">
+            <summary>
+            校正開始
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.EccentricCorrectViewModel.CrooectPause">
+            <summary>
+            校正暫停
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.EccentricCorrectViewModel.StopCorrect">
+            <summary>
+            強制停止
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.EccentricCorrectViewModel.DataReset">
+            <summary>
+            數據重置
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.FlyingCorrectViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.FlyingCorrectViewModel.Update">
+            <summary>
+            將校正資料更新為飛行資料
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringHeightViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringHeightViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringHeightViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringHeightViewModel.CancelMeasureNozzle">
+            <summary>
+            停止測高
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringHeightViewModel.UpdateNewHeight(OEP520G.Parameter.ENozzleId,System.Double)">
+            <summary>
+            更新吸嘴測高值
+            </summary>
+            <param name="nozzleId">吸嘴ID(0~10)</param>
+            <param name="newHeight">新測高值</param>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringHeightViewModel.MeasureFinished">
+            <summary>
+            測高結束處理
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringHeightViewModel.MoveCameraToPlatform">
+            <summary>
+            將移動相機移至測高平台
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringHeightViewModel.GetCoor">
+            <summary>
+            取得目前座標
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringStageHeightViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringStageHeightViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringStageHeightViewModel.ReadData">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.MeasuringStageHeightViewModel.CancelMeasureNozzle">
+            <summary>
+            停止測高
+            </summary>
+        </member>
+        <member name="F:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.selectObjectId">
+            <summary>
+            物件ID 0:膠針 1~11:吸嘴
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.WriteData">
+            <summary>
+            全域Save事件
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.ReadData">
+            <summary>
+            讀取值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.StartCorrect">
+            <summary>
+            開始校正
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.UpdateCoordinate">
+            <summary>
+            使用buffCoor更新畫面
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.GetCoordinate">
+            <summary>
+            取得畫面選取物件的座標設定值到buffCoor
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.UpdateData">
+            <summary>
+            更新位移資料
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.ResetCoordinate">
+            <summary>
+            全部座標歸零
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.HeightMeasure">
+            <summary>
+            測高
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.NozzleUp">
+            <summary>
+            吸嘴上昇
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.NozzleToCcd">
+            <summary>
+            Nozzle => CCD
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.NozzleCorrectViewModel.CcdToNozzle">
+            <summary>
+            CCD => Nozzle
+            </summary>
+        </member>
+        <member name="F:OEP520G.Teaching.ViewModels.RotationCenterViewModel.doc">
+            <summary>
+            顯示本文
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.RotationCenterViewModel.#ctor">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.RotationCenterViewModel.GetParameter">
+            <summary>
+            取得參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.RotationCenterViewModel.WriteData">
+            <summary>
+            存回參數值
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.RotationCenterViewModel.MoveHere">
+            <summary>
+            移動旋轉中心座標
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.RotationCenterViewModel.GetCoor">
+            <summary>
+            取得軸座標
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.RotationCenterViewModel.StartCorrect">
+            <summary>
+            開始執行
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.ViewModels.RotationCenterViewModel.UpdateCoor">
+            <summary>
+            將畫像座標更新至旋轉中心座標
+            </summary>
+        </member>
+        <member name="T:OEP520G.Teaching.Views.CameraCorrect">
+            <summary>
+            CameraCorrect.xaml 的互動邏輯
+            </summary>
+            <summary>
+            CameraCorrect
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.Views.CameraCorrect.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Teaching.Views.ClampCorrect">
+            <summary>
+            ClampCorrect.xaml 的互動邏輯
+            </summary>
+            <summary>
+            ClampCorrect
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.Views.ClampCorrect.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Teaching.Views.EccentricCorrect">
+            <summary>
+            EccentricCorrect.xaml 的互動邏輯
+            </summary>
+            <summary>
+            EccentricCorrect
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.Views.EccentricCorrect.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Teaching.Views.FlyingCorrect">
+            <summary>
+            FlyingCorrect.xaml 的互動邏輯
+            </summary>
+            <summary>
+            FlyingCorrect
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.Views.FlyingCorrect.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Teaching.Views.MeasuringHeight">
+            <summary>
+            MeasuringHeight.xaml 的互動邏輯
+            </summary>
+            <summary>
+            MeasuringHeight
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.Views.MeasuringHeight.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Teaching.Views.MeasuringStageHeight">
+            <summary>
+            MeasuringStageHeight.xaml 的互動邏輯
+            </summary>
+            <summary>
+            MeasuringStageHeight
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.Views.MeasuringStageHeight.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Teaching.Views.NozzleCorrect">
+            <summary>
+            NozzleCorrect.xaml 的互動邏輯
+            </summary>
+            <summary>
+            NozzleCorrect
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.Views.NozzleCorrect.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Teaching.Views.RotationCenter">
+            <summary>
+            RotationCenter.xaml 的互動邏輯
+            </summary>
+            <summary>
+            RotationCenter
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.Views.RotationCenter.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Teaching.Views.TeachSystem">
+            <summary>
+            TeachSystem.xaml 的互動邏輯
+            </summary>
+            <summary>
+            TeachSystem
+            </summary>
+        </member>
+        <member name="M:OEP520G.Teaching.Views.TeachSystem.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:OEP520G.ViewModels.MainWindowViewModel.#ctor(Prism.Events.IEventAggregator,Prism.Services.Dialogs.IDialogService)">
+            <summary>
+            建構函式
+            </summary>
+        </member>
+        <member name="M:OEP520G.ViewModels.MainWindowViewModel.HandleLoaded">
+            <summary>
+            Window Loaded
+            </summary>
+        </member>
+        <member name="M:OEP520G.ViewModels.MainWindowViewModel.HandleClosing">
+            <summary>
+            Window Closing
+            </summary>
+        </member>
+        <member name="F:OEP520G.ViewModels.MainWindowViewModel.WindowTitle">
+            <summary>
+            主視窗Title儲存區
+            </summary>
+        </member>
+        <member name="M:OEP520G.ViewModels.MainWindowViewModel.TitleReceiver(OEP520G.Core.WindowTitleData)">
+            <summary>
+            Title接收處理(使用WindowTitleData結構)
+            </summary>
+            <param name="wt">WindowTitleData結構</param>
+        </member>
+        <member name="M:OEP520G.ViewModels.MainWindowViewModel.TitleReceiver(System.String,System.String)">
+            <summary>
+            Title接收處理(使用 鍵=值)
+            </summary>
+            <param name="key">鍵值</param>
+            <param name="title">標題</param>
+        </member>
+        <member name="M:OEP520G.ViewModels.MainWindowViewModel.StatusBarReceiver(OEP520G.Core.StatusBarName,System.String)">
+            <summary>
+            Title接收處理(使用 鍵=值)
+            </summary>
+            <param name="name">名稱</param>
+            <param name="msg">顯示內容</param>
+        </member>
+        <member name="M:OEP520G.ViewModels.MainWindowViewModel.StatusBarUpdateEvent(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            訊息更新事件
+            </summary>
+        </member>
+        <member name="T:OEP520G.Views.MainWindow">
+            <summary>
+            MainWindow.xaml的互動邏輯
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:OEP520G.Views.MainWindow.#ctor(Prism.Ioc.IContainerExtension,Prism.Regions.IRegionManager,Prism.Services.Dialogs.IDialogService)">
+            <summary>
+            Shell
+            </summary>
+        </member>
+        <member name="M:OEP520G.Views.MainWindow.MainWindow_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:OEP520G.Views.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:OEP520G.Views.ProductionStatistics">
+            <summary>
+            ProductionStatistics.xaml 的互動邏輯
+            </summary>
+            <summary>
+            ProductionStatistics
+            </summary>
+        </member>
+        <member name="M:OEP520G.Views.ProductionStatistics.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

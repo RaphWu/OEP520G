@@ -1,0 +1,883 @@
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:lex="http://wpflocalizeextension.codeplex.com"
+xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:prism="http://prismlibrary.com/"
+d:DesignHeight="815"
+d:DesignWidth="1280"
+lex:LocalizeDictionary.DesignCulture="zh-Hant"
+lex:ResxLocalizationProvider.DefaultAssembly="EPCIO6000"
+lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+prism:ViewModelLocator.AutoWireViewModel="True"
+FontFamily="Tahoma"
+Style="{StaticResource BaseUserControlStyle}"
+mc:Ignorable="d">
+
+
+xmlns:Constants="clr-namespace:EPCIO6000.Constants"
+xmlns:converters="clr-namespace:OEP520G.Core.Converters;assembly=OEP520G.Core"
+
+xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+
+
+
+xmlns:behavior="clr-namespace:Prism.Behaviors;"
+xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+
+xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+
+xmlns:behaviors="http://wpfwindowtoolkit.org/behaviors"
+xmlns:helpers="http://wpfwindowtoolkit.org/helpers"
+
+xmlns:sys="clr-namespace:System;assembly=mscorlib"
+xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+
+xmlns:paz="clr-namespace:Wpf.Controls.PanAndZoom;assembly=Wpf.Controls.PanAndZoom"
+UseLayoutRounding="True" SnapsToDevicePixels="True" TextOptions.TextFormattingMode="Display"
+
+
+MouseRightButtonDown="MouseRightButtonDown"
+
+
+
+
+
+
+
+//////////////////////////////////////////////
+
+Loaded="OnLoaded"
+Unloaded="OnUnloaded"
+
+<i:Interaction.Triggers>
+	<i:EventTrigger EventName="Loaded">
+		<i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+	</i:EventTrigger>
+	<i:EventTrigger EventName="Unloaded">
+		<i:InvokeCommandAction Command="{Binding UnloadedCommand}" />
+	</i:EventTrigger>
+</i:Interaction.Triggers>
+
+/********************
+ * System Commands
+ ********************/
+private ICommand _loadedCommand;
+public ICommand LoadedCommand
+	=> _loadedCommand ??= new DelegateCommand(OnLoaded);
+private void OnLoaded()
+{
+	_navigationService = _regionManager.Regions[Regions.Main].NavigationService;
+	_navigationService.RequestNavigate(PageKeys.Origin);
+}
+
+private ICommand _unloadedCommand;
+public ICommand UnloadedCommand
+	=> _unloadedCommand ??= new DelegateCommand(OnUnloaded);
+private void OnUnloaded()
+{
+	_regionManager.Regions.Remove(Regions.Main);
+	_rightPaneService.CleanUp();
+}
+
+
+<i:Interaction.Triggers>
+	<i:EventTrigger EventName="Loaded">
+		<i:InvokeCommandAction Command="{Binding HandleLoadedCommand}" />
+	</i:EventTrigger>
+	<i:EventTrigger EventName="Closing">
+		<i:InvokeCommandAction Command="{Binding HandleClosingCommand}" />
+	</i:EventTrigger>
+</i:Interaction.Triggers>
+
+
+//////////////////////////////////////////////
+using OEP520G.Core;
+using OEP520G.Parameter;
+using Prism;
+using Prism.Commands;
+using Prism.Mvvm;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+ : BindableBase, IActiveAware
+
+
+// View Active/Deactive & ApplicationCommands
+private bool _isActive = false;
+public bool IsActive
+{
+	get { return _isActive; }
+	set
+	{
+		_isActive = value;
+		OnIsActiveChanged();
+
+		if (value)
+		{
+		}
+		else
+		{
+		}
+	}
+}
+public event EventHandler IsActiveChanged;
+public DelegateCommand ApplyCommand { get; private set; }
+private void OnIsActiveChanged()
+{
+	ApplyCommand.IsActive = IsActive;
+	IsActiveChanged?.Invoke(this, new EventArgs());
+}
+
+/// <summary>
+/// 建構函式
+/// </summary>
+public xxxViewModel(IApplicationCommands applicationCommands)
+{
+	ApplyCommand = new DelegateCommand(ApplyData);
+	ApplyCommand = new DelegateCommand(ApplyData).ObservesCanExecute(() => CanApply);
+	applicationCommands.ApplyDataCommand.RegisterCommand(ApplyCommand);
+}
+
+/********************
+ * 參數作業
+ ********************/
+/// <summary>
+/// 存回資料
+/// </summary>
+public void ApplyData()
+{
+}
+
+/// <summary>
+/// 取得資料
+/// </summary>
+public void ReadData()
+{
+}
+
+/********************
+ * Command繫結
+ ********************/
+
+/********************
+ * Data繫結
+ ********************/
+// 是否允許執行ApplyCommand
+private bool _canApply = true;
+public bool CanApply
+{
+	get { return _canApply; }
+	set { SetProperty(ref _canApply, value); }
+}
+ 
+ 
+//////////////////////////////////////////////
+// 視窗Active/Deactive
+public event EventHandler IsActiveChanged;
+private bool _isActive = false;
+public bool IsActive
+{
+	get { return _isActive; }
+	set
+	{
+		_isActive = value;
+		if (value)
+		{
+		}
+		else
+		{
+		}
+	}
+}
+
+// 按鍵
+public DelegateCommand ACommand { get; private set; }
+
+// 全域Save事件
+public DelegateCommand WriteDataCommand { get; private set; }
+
+/// <summary>
+/// 建構函式
+/// </summary>
+public xxxViewModel()
+{
+
+	// 按鍵
+	ACommand = new DelegateCommand(A);
+	
+	// 全域Save事件
+	WriteDataCommand = new DelegateCommand(WriteData);
+	ApplicationCommands.WriteCommand.RegisterCommand(WriteDataCommand);
+}
+
+
+
+/********************
+ * 參數作業
+ ********************/
+/// <summary>
+/// 全域Save事件
+/// </summary>
+private void WriteData()
+{
+	if (IsActive)
+	{
+	}
+}
+
+/// <summary>
+/// 取得參數值
+/// </summary>
+public void ReadData()
+{
+}
+
+//////////////////////////////////////////////
+
+
+
+// Window Loaded
+public DelegateCommand HandleLoadedCommand { get; private set; }
+
+// Window Closing
+public DelegateCommand HandleClosingCommand { get; private set; }
+
+// 全域Save事件
+public DelegateCommand WriteDataCommand { get; private set; }
+
+
+// Window Loaded
+HandleLoadedCommand = new DelegateCommand(HandleLoaded);
+
+// Window Closing
+HandleClosingCommand = new DelegateCommand(HandleClosing);
+
+// 全域Save事件
+WriteDataCommand = new DelegateCommand(WriteData);
+ApplicationCommands.WriteCommand.RegisterCommand(WriteDataCommand);
+
+
+/// <summary>
+/// Window Loaded
+/// </summary>
+private void HandleLoaded()
+{
+}
+
+/// <summary>
+/// Window Closing
+/// </summary>
+private void HandleClosing()
+{
+}
+
+/// <summary>
+/// 全域Save事件
+/// </summary>
+private void WriteData()
+{
+	if (IsActive)
+	{
+	}
+}
+
+
+/********************
+ * 參數作業
+ ********************/
+/// <summary>
+/// 存回資料
+/// </summary>
+public void SaveData()
+{
+}
+
+/// <summary>
+/// 取得資料
+/// </summary>
+public void ReadData()
+{
+}
+
+
+/// <summary>
+/// 存回參數值
+/// </summary>
+public void SaveParameter()
+{
+}
+
+/// <summary>
+/// 取得參數值
+/// </summary>
+public void GetParameter()
+{
+}
+
+
+/********************
+ * 
+ ********************/
+
+// Singleton單例模式
+private static readonly Lazy<TeachingBox> lazy = new Lazy<TeachingBox>(() => new TeachingBox());
+public static TeachingBox Instance => lazy.Value;
+
+
+// Singleton單例模式
+private TeachingBox() { }
+public static TeachingBox Instance => Nested.instance;
+private class Nested
+{
+	static Nested() { }
+	internal static readonly TeachingBox instance = new TeachingBox();
+}
+
+
+/********************
+ * .ini檔作業
+ ********************/
+
+/********************
+ * 檔案作業
+ ********************/
+private readonly string FileName = FileList.NOZZLE_INI;
+private string sectionName;
+
+/// <summary>
+/// 將參數寫入參數檔
+/// </summary>
+/// <remarks>
+/// iniFile.WriteIniFile(SectionName, "[屬性名稱]", [屬性值]));
+/// </remarks>
+public void WriteParameter()
+{
+	// 參數檔檔案名稱
+	IniFile iniFile = new IniFile(FileName);
+}
+
+/// <summary>
+/// 從參數檔讀取參數
+/// </summary>
+/// <remarks>
+/// [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(SectionName, "[屬性名稱]", "[預設值]"));
+/// </remarks>
+public void ReadParameter()
+{
+	// 參數檔檔案名稱
+	IniFile iniFile = new IniFile(FileName);
+}
+
+/********************
+ * 檔案作業
+ ********************/
+private const string TABLE_NAME_EPCIO6000 = "EPCIO6000" + GlobalSQLite.DB_FILE_EXT_NAME;
+
+/// <summary>
+/// 將參數寫入參數檔
+/// </summary>
+public void WriteParameter()
+{
+}
+
+/// <summary>
+/// 從參數檔讀取參數
+/// </summary>
+public void ReadParameter()
+{
+}
+
+/********************
+ * 繫結
+ ********************/
+public bool NozzleSelect1
+{
+	get { return _nozzleSelect1; }
+	set { SetProperty(ref _nozzleSelect1, value); }
+}
+private bool _nozzleSelect1;
+
+
+
+<StackPanel>
+	<!--  上版面 Start  -->
+	<!--  上版面 End  -->
+
+	<!--  下版面 Start  -->
+	<!--  下版面 End  -->
+</StackPanel>
+
+
+<StackPanel Orientation="Horizontal">
+	<!--  左版面 Start  -->
+	<!--  左版面 End  -->
+
+	<!--  右版面 Start  -->
+	<!--  右版面 End  -->
+</StackPanel>
+
+
+<!--#region 上版面-->
+<!--#endregion-->
+
+<!--#region 下版面-->
+<!--#endregion-->
+
+
+
+<!--  分隔線  -->
+<Border
+	VerticalAlignment="Center"
+	BorderBrush="LightGray"
+	BorderThickness="2,2,0,0" />
+
+
+<Label
+	Content="點膠參數"
+	FontSize="16"
+	FontWeight="Bold"
+	Foreground="Brown" />
+
+
+<Label
+	HorizontalAlignment="Left"
+	Content="照射位置"
+	Foreground="Brown" />
+
+
+
+<TextBox
+	MinWidth="50"
+	Margin="5,0,5,0"
+	HorizontalContentAlignment="Center"
+	VerticalContentAlignment="Center"
+	Text="0" />
+
+
+
+<Button
+	MinWidth="100"
+	MinHeight="40"
+	Margin="0,20,0,0"
+	HorizontalAlignment="Center"
+	Content="測試" />
+
+
+<ComboBox
+	Width="120"
+	HorizontalContentAlignment="Center"
+	VerticalContentAlignment="Center"
+	materialDesign:ComboBoxAssist.ClassicMode="True"
+	materialDesign:ComboBoxAssist.ShowSelectedItem="True"
+	Foreground="Black">
+	<ComboBoxItem Content="DIS" />
+</ComboBox>
+
+
+
+<Style x:Key="Block" TargetType="{x:Type StackPanel}">
+	<Setter Property="Margin" Value="0,7,0,0" />
+	<Setter Property="VerticalAlignment" Value="Center" />
+	<Setter Property="HorizontalAlignment" Value="Center" />
+</Style>
+
+
+
+
+
+<RadioButton
+	Content="{Binding ResoultContent0}"
+	GroupName="ResoultSelector"
+	IsChecked="{Binding ResoultOption, Converter={StaticResource RadioButtonConverter}, ConverterParameter=0}"
+	Style="{StaticResource ResoultStyle}" />
+
+<Style
+	x:Key="ResoultStyle"
+	BasedOn="{StaticResource MaterialDesignTabRadioButton}"
+	TargetType="{x:Type RadioButton}">
+	<Setter Property="Width" Value="38" />
+	<Setter Property="Height" Value="40" />
+	<Setter Property="Margin" Value="1,0,1,0" />
+	<Setter Property="Padding" Value="0" />
+	<Setter Property="Cursor" Value="Hand" />
+</Style>
+
+
+
+
+<Style
+	x:Key="CoorToggleButtonStyle"
+	BasedOn="{StaticResource MaterialDesignActionToggleButton}"
+	TargetType="{x:Type ToggleButton}">
+	<Setter Property="FontWeight" Value="Regular" />
+	<Setter Property="FontSize" Value="16" />
+	<Setter Property="Width" Value="48" />
+	<Setter Property="Height" Value="48" />
+	<Setter Property="Margin" Value="3" />
+	<Setter Property="Padding" Value="0" />
+	<Setter Property="Cursor" Value="Hand" />
+</Style>
+
+<UserControl.Resources>
+	<ResourceDictionary>
+		<Style
+			x:Key="SelectButton"
+			BasedOn="{StaticResource MaterialDesignRaisedButton}"
+			TargetType="{x:Type Button}">
+			<Setter Property="Width" Value="110" />
+			<Setter Property="Height" Value="40" />
+			<Setter Property="Margin" Value="5,3,5,3" />
+			<Setter Property="FontWeight" Value="Regular" />
+		</Style>
+
+		<!--  屬性欄  -->
+		<Style x:Key="ItemUnit" TargetType="{x:Type Label}">
+			<Setter Property="Width" Value="70" />
+			<Setter Property="Margin" Value="2,1,0,1" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="HorizontalContentAlignment" Value="Left" />
+			<Setter Property="DockPanel.Dock" Value="Right" />
+		</Style>
+
+		<Style
+			x:Key="ItemField"
+			BasedOn="{StaticResource {x:Type TextBox}}"
+			TargetType="{x:Type TextBox}">
+			<Setter Property="Width" Value="120" />
+			<Setter Property="Margin" Value="9,1,0,1" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="VerticalAlignment" Value="Top" />
+			<Setter Property="DockPanel.Dock" Value="Right" />
+		</Style>
+
+		<Style
+			x:Key="ItemComboBox"
+			BasedOn="{StaticResource MaterialDesignComboBox}"
+			TargetType="{x:Type ComboBox}">
+			<Setter Property="Width" Value="120" />
+			<Setter Property="Margin" Value="9,1,0,1" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+			<Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+			<Setter Property="Foreground" Value="Black" />
+			<Setter Property="DockPanel.Dock" Value="Right" />
+		</Style>
+
+		<Style BasedOn="{StaticResource MaterialDesignSwitchToggleButton}" TargetType="{x:Type ToggleButton}">
+			<Setter Property="Margin" Value="30,1,138,1" />
+			<Setter Property="DockPanel.Dock" Value="Right" />
+		</Style>
+
+		<Style x:Key="ItemTitle" TargetType="{x:Type Label}">
+			<Setter Property="Margin" Value="0,1,0,1" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="HorizontalContentAlignment" Value="Right" />
+			<Setter Property="DockPanel.Dock" Value="Left" />
+		</Style>
+
+		<Style x:Key="ItemInfo" TargetType="{x:Type Label}">
+			<Setter Property="Width" Value="150" />
+			<Setter Property="Margin" Value="0,1,9,1" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="HorizontalContentAlignment" Value="Left" />
+			<Setter Property="DockPanel.Dock" Value="Right" />
+		</Style>
+
+		<!--  Channel選擇  -->
+		<Style
+			x:Key="ChannelSelectComboBox"
+			BasedOn="{StaticResource MaterialDesignComboBox}"
+			TargetType="{x:Type ComboBox}">
+			<Setter Property="Width" Value="120" />
+			<Setter Property="Margin" Value="9,0,80,0" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+			<Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+			<Setter Property="Foreground" Value="Black" />
+			<Setter Property="DockPanel.Dock" Value="Right" />
+		</Style>
+
+		<Style x:Key="ChannelSelectLabel" TargetType="{x:Type Label}">
+			<Setter Property="Margin" Value="0,1,9,1" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="HorizontalContentAlignment" Value="Right" />
+			<Setter Property="DockPanel.Dock" Value="Right" />
+		</Style>
+
+		<!--  框  -->
+
+		<Style x:Key="DataGridBorder"  TargetType="{x:Type Border}">
+			<Setter Property="Margin" Value="9" />
+			<Setter Property="Padding" Value="1.5" />
+			<Setter Property="BorderBrush" Value="LightGray" />
+			<Setter Property="BorderThickness" Value="2" />
+			<Setter Property="CornerRadius" Value="5" />
+		</Style>
+
+		<Style x:Key="Gap" TargetType="{x:Type Border}">
+			<Setter Property="Margin" Value="8" />
+			<Setter Property="BorderThickness" Value="0" />
+		</Style>
+	</ResourceDictionary>
+</UserControl.Resources>
+
+
+<UserControl.Resources>
+	<ResourceDictionary>
+		<!--  StackPanel  -->
+		<Style x:Key="NozzleSelect_StackPanel" TargetType="{x:Type StackPanel}">
+			<Setter Property="Margin" Value="4,1,0,1" />
+			<Setter Property="Orientation" Value="Horizontal" />
+		</Style>
+
+		<!--  CheckBox  -->
+
+		<Style BasedOn="{StaticResource MaterialDesignCheckBox}" TargetType="{x:Type CheckBox}">
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="materialDesign:CheckBoxAssist.CheckBoxSize" Value="20" />
+		</Style>
+
+		<!--  Label  -->
+		<Style x:Key="NozzleSelect_Label" TargetType="{x:Type Label}">
+			<Setter Property="Width" Value="60" />
+			<Setter Property="HorizontalContentAlignment" Value="Left" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+		</Style>
+
+		<!--  ComboBox  -->
+
+		<Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="{x:Type ComboBox}">
+			<Setter Property="Foreground" Value="Black" />
+			<Setter Property="Width" Value="100" />
+			<Setter Property="Margin" Value="0,0,4,0" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+			<Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+		</Style>
+
+		<!--  Button  -->
+
+		<Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}">
+			<Setter Property="Width" Value="110" />
+			<Setter Property="Height" Value="40" />
+			<Setter Property="Margin" Value="5" />
+			<Setter Property="FontWeight" Value="Regular" />
+		</Style>
+
+		<Style
+			x:Key="NozzleSelect_VisualButton"
+			BasedOn="{StaticResource MaterialDesignRaisedButton}"
+			TargetType="{x:Type Button}">
+			<Setter Property="FontWeight" Value="Regular" />
+			<Setter Property="Width" Value="65" />
+			<Setter Property="Height" Value="26" />
+			<Setter Property="Margin" Value="6,0,0,0" />
+			<Setter Property="Padding" Value="0" />
+		</Style>
+
+		<Style
+			x:Key="NozzleSelect_ActionButton"
+			BasedOn="{StaticResource MaterialDesignRaisedButton}"
+			TargetType="{x:Type Button}">
+			<Setter Property="FontWeight" Value="Regular" />
+			<Setter Property="Width" Value="35" />
+			<Setter Property="Height" Value="26" />
+			<Setter Property="Margin" Value="4,0,0,0" />
+			<Setter Property="Padding" Value="0" />
+		</Style>
+
+		<!--  ToggleButton  -->
+
+		<Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="{x:Type ToggleButton}">
+			<Setter Property="MinWidth" Value="80" />
+			<Setter Property="Height" Value="35" />
+			<Setter Property="Margin" Value="0,2,0,2" />
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="IsChecked" Value="True" />
+		</Style>
+
+		<!--  DataGrid  -->
+
+		<Style BasedOn="{StaticResource MaterialDesignDataGrid}" TargetType="{x:Type DataGrid}">
+			<Setter Property="materialDesign:DataGridAssist.CellPadding" Value="6 2 6 2" />
+			<Setter Property="materialDesign:DataGridAssist.ColumnHeaderPadding" Value="6 2 6 2" />
+			<Setter Property="Margin" Value="0" />
+			<Setter Property="Background" Value="WhiteSmoke" />
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="AutoGenerateColumns" Value="False" />
+			<Setter Property="CanUserAddRows" Value="False" />
+			<Setter Property="CanUserDeleteRows" Value="False" />
+			<Setter Property="CanUserReorderColumns" Value="False" />
+			<Setter Property="CanUserResizeColumns" Value="False" />
+			<Setter Property="CanUserResizeRows" Value="False" />
+			<Setter Property="CanUserSortColumns" Value="True" />
+			<Setter Property="IsReadOnly" Value="True" />
+			<Setter Property="GridLinesVisibility" Value="All" />
+			<Setter Property="HorizontalGridLinesBrush" Value="Gainsboro" />
+			<Setter Property="VerticalGridLinesBrush" Value="Gainsboro" />
+			<Setter Property="SelectionMode" Value="Single" />
+			<Setter Property="SelectionUnit" Value="FullRow" />
+		</Style>
+
+		<Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+			<Setter Property="FontSize" Value="12" />
+			<Setter Property="Foreground" Value="Brown" />
+			<Setter Property="FontWeight" Value="Regular" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
+		</Style>
+
+		<Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
+			<Setter Property="TextBlock.FontSize" Value="12" />
+			<Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+			<Setter Property="TextBlock.TextAlignment" Value="Left" />
+		</Style>
+
+		<Style x:Key="DataGridBorder" TargetType="{x:Type Border}">
+			<Setter Property="Margin" Value="9" />
+			<Setter Property="Padding" Value="1.5" />
+			<Setter Property="BorderBrush" Value="LightGray" />
+			<Setter Property="BorderThickness" Value="2" />
+			<Setter Property="CornerRadius" Value="5" />
+		</Style>
+
+	</ResourceDictionary>
+</UserControl.Resources>
+
+
+
+<Border Style="{StaticResource DataGridBorder}">
+	<DataGrid Name="FlyingCameraDgv">
+		<DataGrid.Columns>
+			<DataGridTextColumn
+				Binding="{Binding NozzleNo}"
+				Header="吸嘴"
+				IsReadOnly="True" />
+			<DataGridTextColumn
+				Binding="{Binding ShiftX, StringFormat='0.000'}"
+				Header="X位移" />
+			<DataGridTextColumn
+				Binding="{Binding ShiftY}"
+				Header="Y位移" />
+			<DataGridTextColumn
+				Binding="{Binding NewX}"
+				Header="新X" />
+			<DataGridTextColumn
+				Binding="{Binding NewY}"
+				CanUserSort="False"
+				Header="新Y" />
+			<DataGridCheckBoxColumn
+				Binding="{Binding IsUpdate}"
+				EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
+				ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+				Header="更新" />
+		</DataGrid.Columns>
+	</DataGrid>
+</Border>
+
+
+
+<Border Style="{StaticResource DataGridBorder}">
+	<DataGrid
+		x:Name="TrayDgv"
+		DockPanel.Dock="Bottom"
+		ItemsSource="{Binding TraySource}"
+		SelectedIndex="{Binding SelectedIndex}"
+		SelectedItem="{Binding SelectedItem}">
+		<DataGrid.Columns>
+			<DataGridTextColumn
+				MinWidth="200"
+				Binding="{Binding Name}"
+				Header="托盤資料ID" />
+			<DataGridTextColumn
+				MinWidth="250"
+				Binding="{Binding Memo}"
+				Header="註解" />
+		</DataGrid.Columns>
+	</DataGrid>
+</Border>
+
+<Style BasedOn="{StaticResource MaterialDesignDataGrid}" TargetType="{x:Type DataGrid}">
+	<Setter Property="materialDesign:DataGridAssist.CellPadding" Value="6 2 6 2" />
+	<Setter Property="materialDesign:DataGridAssist.ColumnHeaderPadding" Value="6 2 6 2" />
+	<Setter Property="Margin" Value="0" />
+	<Setter Property="Background" Value="WhiteSmoke" />
+	<Setter Property="BorderThickness" Value="0" />
+	<Setter Property="AutoGenerateColumns" Value="False" />
+	<Setter Property="CanUserAddRows" Value="False" />
+	<Setter Property="CanUserDeleteRows" Value="False" />
+	<Setter Property="CanUserReorderColumns" Value="False" />
+	<Setter Property="CanUserResizeColumns" Value="False" />
+	<Setter Property="CanUserResizeRows" Value="False" />
+	<Setter Property="CanUserSortColumns" Value="True" />
+	<Setter Property="IsReadOnly" Value="True" />
+	<Setter Property="GridLinesVisibility" Value="All" />
+	<Setter Property="HorizontalGridLinesBrush" Value="Gainsboro" />
+	<Setter Property="VerticalGridLinesBrush" Value="Gainsboro" />
+	<Setter Property="SelectionMode" Value="Single" />
+	<Setter Property="SelectionUnit" Value="FullRow" />
+</Style>
+
+<Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+	<Setter Property="FontSize" Value="14" />
+	<Setter Property="Foreground" Value="Brown" />
+	<Setter Property="FontWeight" Value="Regular" />
+	<Setter Property="HorizontalAlignment" Value="Center" />
+</Style>
+
+<Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
+	<Setter Property="TextBlock.FontSize" Value="14" />
+	<Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+	<Setter Property="TextBlock.TextAlignment" Value="Left" />
+</Style>
+
+
+
+
+DataTable dt;
+DataRow row;
+Random rnd = new Random();
+
+dt = new DataTable();
+dt.Columns.Add("No", typeof(long));
+dt.Columns.Add("MachineId", typeof(string));
+dt.Columns.Add("ProductId", typeof(string));
+dt.Columns.Add("StartTime", typeof(string));
+dt.Columns.Add("StopTime", typeof(string));
+dt.Columns.Add("CycleCount", typeof(long));
+dt.Columns.Add("PickCount", typeof(long));
+dt.Columns.Add("AbandonCount", typeof(long));
+dt.Columns.Add("AbandonRate", typeof(double));
+dt.Columns.Add("CycleTime", typeof(double));
+
+dt = new DataTable();
+dt.Columns.Add("No", typeof(int));
+dt.Columns.Add("IsEnable", typeof(bool));
+dt.Columns.Add("AbandonBoxName", typeof(string));
+dt.Columns.Add("MinX", typeof(double));
+dt.Columns.Add("MaxX", typeof(double));
+dt.Columns.Add("MinY", typeof(double));
+dt.Columns.Add("MaxY", typeof(double));
+dt.Columns.Add("AbandonHigh", typeof(double));
+
+row = dt.NewRow();
+row["No"] = 1;
+row["IsEnable"] = true;
+row["AbandonBoxName"] = "Auto Run";
+row["MinX"] = 0.0;
+row["MaxX"] = 0.0;
+row["MinY"] = 0.0;
+row["MaxY"] = 0.0;
+row["AbandonHigh"] = 5.0;
+dt.Rows.Add(row);
+
+ProdictionDataGrid.ItemsSource = dt.DefaultView;

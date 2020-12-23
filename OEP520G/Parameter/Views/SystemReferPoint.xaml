@@ -1,0 +1,709 @@
+﻿<UserControl
+    x:Class="OEP520G.Parameter.Views.SystemReferPoint"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OEP520G.Parameter.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="FuncButton"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="80" />
+                <Setter Property="Height" Value="35" />
+                <Setter Property="Margin" Value="7,5,7,5" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <Style
+                x:Key="Coordinate"
+                BasedOn="{StaticResource MaterialDesignTextBox}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="Width" Value="90" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="DockPanel.Dock" Value="Left" />
+            </Style>
+
+            <Style
+                x:Key="PictureSelect"
+                BasedOn="{StaticResource MaterialDesignComboBox}"
+                TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="160" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+                <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="DockPanel.Dock" Value="Left" />
+            </Style>
+
+            <Style x:Key="Title_AssemblyRefPoint" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Margin" Value="3" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="DockPanel.Dock" Value="Left" />
+            </Style>
+
+            <Style
+                x:Key="Title_BaseRefPoint"
+                BasedOn="{StaticResource Title_AssemblyRefPoint}"
+                TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="40" />
+            </Style>
+
+            <Style
+                x:Key="Title_Other"
+                BasedOn="{StaticResource Title_AssemblyRefPoint}"
+                TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="120" />
+            </Style>
+
+            <Style
+                x:Key="Title_Axis"
+                BasedOn="{StaticResource Title_AssemblyRefPoint}"
+                TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0,9,0,0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Width" Value="40" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <Label
+            Margin="0,0,0,12"
+            Content="系統參考座標點"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Brown" />
+        <StackPanel Orientation="Horizontal">
+
+            <StackPanel>
+                <!--  第一基準點座標點 Start  -->
+                <Border
+                    Margin="0,0,10,10"
+                    Padding="9"
+                    BorderBrush="LightGray"
+                    BorderThickness="2"
+                    CornerRadius="5">
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="第一基準點座標點"
+                            Foreground="Brown" />
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                Grid.Column="1"
+                                Content="X"
+                                Style="{StaticResource Title_Axis}" />
+                            <Label
+                                Grid.Column="2"
+                                Content="Y"
+                                Style="{StaticResource Title_Axis}" />
+
+                            <!--  座標 Start  -->
+                            <Label
+                                Grid.Row="1"
+                                Content="座標"
+                                Style="{StaticResource Title_BaseRefPoint}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding DatumPoint1X, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding DatumPoint1Y, StringFormat=\{0:F3\}}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Command="{Binding MovtToHereCommand}"
+                                CommandParameter="DATUM_POINT_1"
+                                Content="移到此處"
+                                Style="{StaticResource FuncButton}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Command="{Binding GetCoorCommand}"
+                                CommandParameter="DATUM_POINT_1"
+                                Content="取得座標"
+                                Style="{StaticResource FuncButton}" />
+                            <!--  座標 End  -->
+
+                            <!--  畫像 Start  -->
+                            <Label
+                                Grid.Row="2"
+                                Content="畫像"
+                                Style="{StaticResource Title_BaseRefPoint}" />
+                            <ComboBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Style="{StaticResource PictureSelect}">
+                                <ComboBoxItem Content="?" />
+                            </ComboBox>
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                Content="移至中心"
+                                Style="{StaticResource FuncButton}" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="3"
+                                Content="畫像參數"
+                                Style="{StaticResource FuncButton}" />
+                            <!--  畫像 End  -->
+
+                            <!--  確認頻率 Start  -->
+                            <Label
+                                Grid.Row="3"
+                                Grid.ColumnSpan="2"
+                                Content="確認頻率 0:無 1~"
+                                Style="{StaticResource Title_Other}" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding Frequency1, StringFormat={}{0:D}}" />
+                            <!--  確認頻率 END  -->
+
+                            <!--  容許誤差 START  -->
+                            <Label
+                                Grid.Row="4"
+                                Grid.ColumnSpan="2"
+                                Content="容許誤差(mm)"
+                                Style="{StaticResource Title_Other}" />
+                            <TextBox
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding Tolerance1, StringFormat=\{0:F3\}}" />
+                            <!--  容許誤差 END  -->
+                        </Grid>
+
+                        <!--  基準高度 START  -->
+                        <Border
+                            Margin="0,10,0,0"
+                            Padding="9"
+                            BorderBrush="LightGray"
+                            BorderThickness="2"
+                            CornerRadius="5">
+                            <StackPanel Orientation="Horizontal">
+                                <Label VerticalAlignment="Center" Content="第一基準點基準高度" />
+                                <TextBox Style="{StaticResource Coordinate}" Text="{Binding DatumPoint1Z, StringFormat=\{0:F3\}}" />
+                                <Label VerticalAlignment="Center" Content="mm" />
+                            </StackPanel>
+                        </Border>
+                        <!--  基準高度 END  -->
+                    </StackPanel>
+                </Border>
+                <!--  第一基準點座標點 End  -->
+
+                <!--  第二基準點座標點 Start  -->
+                <Border
+                    Margin="0,10,10,10"
+                    Padding="9"
+                    BorderBrush="LightGray"
+                    BorderThickness="2"
+                    CornerRadius="5">
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="第二基準點座標點"
+                            Foreground="Brown" />
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                Grid.Column="1"
+                                Content="X"
+                                Style="{StaticResource Title_Axis}" />
+                            <Label
+                                Grid.Column="2"
+                                Content="Y"
+                                Style="{StaticResource Title_Axis}" />
+
+                            <!--  座標 Start  -->
+                            <Label
+                                Grid.Row="1"
+                                Content="座標"
+                                Style="{StaticResource Title_BaseRefPoint}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding DatumPoint2X, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding DatumPoint2Y, StringFormat=\{0:F3\}}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Command="{Binding GetCoorCommand}"
+                                CommandParameter="DATUM_POINT_2"
+                                Content="取得座標"
+                                Style="{StaticResource FuncButton}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Command="{Binding MovtToHereCommand}"
+                                CommandParameter="DATUM_POINT_2"
+                                Content="移到此處"
+                                Style="{StaticResource FuncButton}" />
+                            <!--  座標 End  -->
+
+                            <!--  畫像 Start  -->
+                            <Label
+                                Grid.Row="2"
+                                Content="畫像"
+                                Style="{StaticResource Title_BaseRefPoint}" />
+                            <ComboBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Style="{StaticResource PictureSelect}">
+                                <ComboBoxItem Content="?" />
+                            </ComboBox>
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                Content="移至中心"
+                                Style="{StaticResource FuncButton}" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="3"
+                                Content="畫像參數"
+                                Style="{StaticResource FuncButton}" />
+                            <!--  畫像 End  -->
+
+                            <!--  確認頻率 Start  -->
+                            <Label
+                                Grid.Row="3"
+                                Grid.ColumnSpan="2"
+                                Content="確認頻率 0:無 1~"
+                                Style="{StaticResource Title_Other}" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding Frequency2, StringFormat={}{0:D}}" />
+                            <!--  確認頻率 END  -->
+
+                            <!--  容許誤差 START  -->
+                            <Label
+                                Grid.Row="4"
+                                Grid.ColumnSpan="2"
+                                Content="容許誤差(mm)"
+                                Style="{StaticResource Title_Other}" />
+                            <TextBox
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding Tolerance2, StringFormat=\{0:F3\}}" />
+                            <!--  容許誤差 END  -->
+                        </Grid>
+
+                        <!--  基準高度 START  -->
+                        <Border
+                            Margin="0,10,0,0"
+                            Padding="9"
+                            BorderBrush="LightGray"
+                            BorderThickness="2"
+                            CornerRadius="5">
+                            <StackPanel Orientation="Horizontal">
+                                <Label VerticalAlignment="Center" Content="第二基準點基準高度" />
+                                <TextBox Style="{StaticResource Coordinate}" Text="{Binding DatumPoint2Z, StringFormat=\{0:F3\}}" />
+                                <Label VerticalAlignment="Center" Content="mm" />
+                            </StackPanel>
+                        </Border>
+                        <!--  基準高度 END  -->
+                    </StackPanel>
+                </Border>
+                <!--  第二基準點座標點 End  -->
+            </StackPanel>
+
+            <StackPanel>
+                <!--  組裝測參考座標點 Start  -->
+                <Border
+                    Margin="10,0,10,10"
+                    Padding="9"
+                    BorderBrush="LightGray"
+                    BorderThickness="2"
+                    CornerRadius="5">
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="組裝側(後側)參考座標點"
+                            Foreground="Brown" />
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                Grid.Column="1"
+                                Content="X"
+                                Style="{StaticResource Title_Axis}" />
+                            <Label
+                                Grid.Column="2"
+                                Content="Y"
+                                Style="{StaticResource Title_Axis}" />
+                            <Label
+                                Grid.Column="3"
+                                Content="Z"
+                                Style="{StaticResource Title_Axis}" />
+
+                            <!--  抛料盒 START  -->
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Content="抛料盒座標"
+                                Style="{StaticResource Title_AssemblyRefPoint}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding AssembleDiscardBoxX, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding AssembleDiscardBoxY, StringFormat=\{0:F3\}}"
+                                Visibility="Hidden" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding AssembleDiscardBoxZ, StringFormat=\{0:F3\}}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Command="{Binding GetCoorCommand}"
+                                CommandParameter="ASSEMBLE_DISCARD_BOX"
+                                Content="取得座標"
+                                Style="{StaticResource FuncButton}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Command="{Binding MovtToHereCommand}"
+                                CommandParameter="ASSEMBLE_DISCARD_BOX"
+                                Content="移到此處"
+                                Style="{StaticResource FuncButton}" />
+                            <!--  抛料盒 END  -->
+
+                            <!--  測高平台 START  -->
+                            <Label
+                                Grid.Row="2"
+                                Content="測高平台座標"
+                                Style="{StaticResource Title_AssemblyRefPoint}" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding AssembleMeasureHeightPlatformX, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding AssembleMeasureHeightPlatformY, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="3"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding AssembleMeasureHeightPlatformZ, StringFormat=\{0:F3\}}" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="5"
+                                Command="{Binding GetCoorCommand}"
+                                CommandParameter="ASSEMBLE_MEASURE_HEIGHT_PLATFORM"
+                                Content="取得座標"
+                                Style="{StaticResource FuncButton}" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                Command="{Binding MovtToHereCommand}"
+                                CommandParameter="ASSEMBLE_MEASURE_HEIGHT_PLATFORM"
+                                Content="移到此處"
+                                Style="{StaticResource FuncButton}" />
+                            <!--  測高平台 END  -->
+
+                            <!--  黏土 START  -->
+                            <Label
+                                Grid.Row="3"
+                                Content="黏土座標"
+                                Style="{StaticResource Title_AssemblyRefPoint}" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding AssembleClayX, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding AssembleClayY, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="3"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding AssembleClayZ, StringFormat=\{0:F3\}}" />
+                            <Button
+                                Grid.Row="3"
+                                Grid.Column="5"
+                                Command="{Binding GetCoorCommand}"
+                                CommandParameter="ASSEMBLE_CLAY"
+                                Content="取得座標"
+                                Style="{StaticResource FuncButton}" />
+                            <Button
+                                Grid.Row="3"
+                                Grid.Column="4"
+                                Command="{Binding MovtToHereCommand}"
+                                CommandParameter="ASSEMBLE_CLAY"
+                                Content="移到此處"
+                                Style="{StaticResource FuncButton}" />
+                            <!--  黏土 END  -->
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <!--  組裝測參考座標點 End  -->
+
+                <!--  夾爪測參考座標點 Start  -->
+                <Border
+                    Margin="10"
+                    Padding="9"
+                    BorderBrush="LightGray"
+                    BorderThickness="2"
+                    CornerRadius="5">
+                    <StackPanel>
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="夾爪側(前側)參考座標點"
+                            Foreground="Brown" />
+
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                Grid.Column="1"
+                                Content="X"
+                                Style="{StaticResource Title_Axis}" />
+                            <Label
+                                Grid.Column="2"
+                                Content="Y"
+                                Style="{StaticResource Title_Axis}" />
+                            <Label
+                                Grid.Column="3"
+                                Content="Z"
+                                Style="{StaticResource Title_Axis}" />
+
+                            <!--  抛料盒 START  -->
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Content="抛料盒座標"
+                                Style="{StaticResource Title_AssemblyRefPoint}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding SemiFinishedDiscardBoxX, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding SemiFinishedDiscardBoxY, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding SemiFinishedDiscardBoxZ, StringFormat=\{0:F3\}}"
+                                Visibility="Hidden" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Command="{Binding GetCoorCommand}"
+                                CommandParameter="SEMI_FINISHED_DISCARD_BOX"
+                                Content="取得座標"
+                                Style="{StaticResource FuncButton}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Command="{Binding MovtToHereCommand}"
+                                CommandParameter="SEMI_FINISHED_DISCARD_BOX"
+                                Content="移到此處"
+                                Style="{StaticResource FuncButton}" />
+                            <!--  抛料盒 END  -->
+
+                            <!--  測高平台 START  -->
+                            <Label
+                                Grid.Row="2"
+                                Content="測高平台座標"
+                                IsEnabled="False"
+                                Style="{StaticResource Title_AssemblyRefPoint}" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                IsEnabled="False"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding SemiFinishedMeasureHeightPlatformX, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                IsEnabled="False"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding SemiFinishedMeasureHeightPlatformY, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="3"
+                                IsEnabled="False"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding SemiFinishedMeasureHeightPlatformZ, StringFormat=\{0:F3\}}" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="5"
+                                Margin="7,0,7,5"
+                                VerticalAlignment="Bottom"
+                                Command="{Binding GetCoorCommand}"
+                                CommandParameter="SEMI_FINISHED_MEASURE_HEIGHT_PLATFORM"
+                                Content="取得座標"
+                                IsEnabled="False"
+                                Style="{StaticResource FuncButton}" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                Command="{Binding MovtToHereCommand}"
+                                CommandParameter="SEMI_FINISHED_MEASURE_HEIGHT_PLATFORM"
+                                Content="移到此處"
+                                IsEnabled="False"
+                                Style="{StaticResource FuncButton}" />
+                            <!--  測高平台 END  -->
+
+                            <!--  黏土 START  -->
+                            <Label
+                                Grid.Row="3"
+                                Content="黏土座標"
+                                IsEnabled="False"
+                                Style="{StaticResource Title_AssemblyRefPoint}" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                IsEnabled="False"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding SemiFinishedClayX, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                IsEnabled="False"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding SemiFinishedClayY, StringFormat=\{0:F3\}}" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="3"
+                                IsEnabled="False"
+                                Style="{StaticResource Coordinate}"
+                                Text="{Binding SemiFinishedClayZ, StringFormat=\{0:F3\}}" />
+                            <Button
+                                Grid.Row="3"
+                                Grid.Column="5"
+                                Command="{Binding GetCoorCommand}"
+                                CommandParameter="SEMI_FINISHED_CLAY"
+                                Content="取得座標"
+                                IsEnabled="False"
+                                Style="{StaticResource FuncButton}" />
+                            <Button
+                                Grid.Row="3"
+                                Grid.Column="4"
+                                Command="{Binding MovtToHereCommand}"
+                                CommandParameter="SEMI_FINISHED_CLAY"
+                                Content="移到此處"
+                                IsEnabled="False"
+                                Style="{StaticResource FuncButton}" />
+                            <!--  黏土 END  -->
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <!--  夾爪測參考座標點 End  -->
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

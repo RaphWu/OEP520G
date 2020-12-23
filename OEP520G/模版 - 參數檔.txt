@@ -1,0 +1,63 @@
+﻿/// <summary>
+/// TODO: 參數檔說明
+/// TODO: Class名稱暫定xxxParameter
+/// TODO: 先定義好屬性，
+///       然後使用ReadParameter()設定從.ini檔讀入值及預設值，
+///       最後使用SaveParameter()設定要寫入.ini檔的參數
+/// TODO: 注意檔案名稱及Section名稱是否正確
+/// </summary>
+
+using CSharpCore;
+using System;
+using OEP520G.Modules;
+
+namespace OEP520G.Parameters
+{
+    public class xxxParameter
+    {
+        // Singleton單例模式
+        private static readonly Lazy<xxxParameter> lazy = new Lazy<xxxParameter>(() => new xxxParameter());
+        public static xxxParameter Instance => lazy.Value;
+        
+        // .ini存檔時檔案名稱及Section名稱
+        private readonly string FILE_NAME = Core.Core.PROJECT_FILE;
+
+        /// <summary>
+        /// 建構函式
+        /// </summary>
+        private xxxParameter()
+        {
+            ReadParameter();
+            SaveParameter();
+        }
+
+        /// <summary>
+        /// 從參數檔讀取參數
+        /// [屬性名稱] = [Type].Parse(iniFile.ReadIniFile(sectionName, "[屬性名稱]", "[預設值]"));
+        /// </summary>
+        public void ReadParameter()
+        {
+            IniFile iniFile = new IniFile(FILE_NAME);
+            string sectionName;
+
+            // TODO
+        }
+
+        /// <summary>
+        /// 將參數寫入參數檔
+        /// iniFile.WriteIniFile(sectionName, "[屬性名稱]", [屬性值]));
+        /// </summary>
+        public void SaveParameter()
+        {
+            IniFile iniFile = new IniFile(FILE_NAME);
+            string sectionName;
+            
+            // TODO
+        }
+
+        /********************
+         * 屬性定義
+         * *****************/
+        // TODO
+    }
+}

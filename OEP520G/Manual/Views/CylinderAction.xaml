@@ -1,0 +1,553 @@
+﻿<UserControl
+    x:Class="OEP520G.Manual.Views.CylinderAction"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:OEP520G.Teaching.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    x:Name="userControl"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Margin" Value="3,3,3,9" />
+            <Setter Property="Padding" Value="9,5,9,9" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+
+        <!--  目標選擇  -->
+        <Style
+            x:Key="TargetChoiceStyle"
+            BasedOn="{StaticResource MaterialDesignActionToggleButton}"
+            TargetType="{x:Type ToggleButton}">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <!--  目標選擇下方狀態標籤  -->
+        <Style x:Key="TargetLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="0,4,0,2" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+
+        <!--  按鍵  -->
+        <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Margin" Value="5,2,5,2" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+
+        <Style
+            x:Key="FuncButtonStyle"
+            BasedOn="{StaticResource MaterialDesignRaisedButton}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="75" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Margin" Value="5,2,5,2" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+
+        <!--  按鍵標籤  -->
+        <Style x:Key="FuncLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="Brown" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <!--  按鍵StackPanel  -->
+        <Style x:Key="ButtonGroupStyle" TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin" Value="5,0,5,0" />
+        </Style>
+
+        <!--  吸嘴Z軸高  -->
+        <Style
+            x:Key="ScaleZStyle"
+            BasedOn="{StaticResource MaterialDesignTabRadioButton}"
+            TargetType="{x:Type RadioButton}">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <StackPanel>
+        <Label
+            VerticalAlignment="Top"
+            Content="氣壓缸動作"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Brown" />
+
+        <StackPanel>
+            <!--  吸嘴 START  -->
+            <Border>
+                <StackPanel>
+                    <Label
+                        HorizontalAlignment="Left"
+                        Content="吸嘴"
+                        Foreground="Brown" />
+
+                    <!--  目標選擇:吸嘴 START  -->
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;1"
+                                IsChecked="{Binding NozzleSelect0}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="0" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="0" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;2"
+                                IsChecked="{Binding NozzleSelect1}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="1" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="1" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;3"
+                                IsChecked="{Binding NozzleSelect2}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="2" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="2" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;4"
+                                IsChecked="{Binding NozzleSelect3}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="3" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="3" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;5"
+                                IsChecked="{Binding NozzleSelect4}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="4" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="4" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;6"
+                                IsChecked="{Binding NozzleSelect5}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="5" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="5" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;7"
+                                IsChecked="{Binding NozzleSelect6}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="6" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="6" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;8"
+                                IsChecked="{Binding NozzleSelect7}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="7" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="7" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;9"
+                                IsChecked="{Binding NozzleSelect8}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="8" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="8" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;10"
+                                IsChecked="{Binding NozzleSelect9}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="9" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="9" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="吸嘴&#x0a;11"
+                                IsChecked="{Binding NozzleSelect10}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectNozzleCommand}" CommandParameter="10" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectNozzleCommand}" CommandParameter="10" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="關閉" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <!--  目標選擇:吸嘴 END  -->
+
+                    <!--  功能鍵 START  -->
+                    <DockPanel Margin="0,12,0,0" LastChildFill="False">
+                        <Grid DockPanel.Dock="Left">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="{Binding ActualWidth, ElementName=ScaleButton, Mode=OneWay}" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  吸吐氣動作 START  -->
+                            <Label Content="吸吐氣動作" Style="{StaticResource FuncLabelStyle}" />
+
+                            <Button
+                                Grid.Row="1"
+                                Command="{Binding InhaleCommand}"
+                                Content="吸氣" />
+                            <Button
+                                Grid.Row="2"
+                                Command="{Binding VaccumOffCommand}"
+                                Content="關閉" />
+                            <Button
+                                Grid.Row="3"
+                                Command="{Binding ExhaleCommand}"
+                                Content="吐氣" />
+                            <!--  吸吐氣動作 END  -->
+
+                            <!--  氣缸動作 START  -->
+                            <Label
+                                Grid.Column="2"
+                                Content="氣缸動作"
+                                Style="{StaticResource FuncLabelStyle}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Command="{Binding CylinderUpCommand}"
+                                Content="上" />
+                            <Button
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Command="{Binding CylinderDownCommand}"
+                                Content="下" />
+                            <!--  氣缸動作 END  -->
+
+                            <!--  Z軸動作 START  -->
+                            <Label
+                                Grid.Column="4"
+                                Grid.ColumnSpan="2"
+                                Content="Z軸動作"
+                                Style="{StaticResource FuncLabelStyle}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Command="{Binding AxisZUpCommand}"
+                                Content="上" />
+                            <Button
+                                Grid.Row="3"
+                                Grid.Column="4"
+                                Command="{Binding AxisZDownCommand}"
+                                Content="下" />
+                            <Grid
+                                Grid.Row="1"
+                                Grid.RowSpan="3"
+                                Grid.Column="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <RadioButton
+                                    x:Name="ScaleButton"
+                                    Grid.Row="0"
+                                    Content="0.01"
+                                    DockPanel.Dock="Top"
+                                    GroupName="ActionScaleZGroup"
+                                    IsChecked="{Binding ActionScaleZSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=0.01}"
+                                    Style="{StaticResource ScaleZStyle}" />
+                                <RadioButton
+                                    Grid.Row="1"
+                                    Content="0.05"
+                                    DockPanel.Dock="Top"
+                                    GroupName="ActionScaleZGroup"
+                                    IsChecked="{Binding ActionScaleZSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=0.05}"
+                                    Style="{StaticResource ScaleZStyle}" />
+                                <RadioButton
+                                    Grid.Row="2"
+                                    Content="0.1"
+                                    DockPanel.Dock="Top"
+                                    GroupName="ActionScaleZGroup"
+                                    IsChecked="{Binding ActionScaleZSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=0.1}"
+                                    Style="{StaticResource ScaleZStyle}" />
+                                <RadioButton
+                                    Grid.Row="3"
+                                    Content="1"
+                                    DockPanel.Dock="Top"
+                                    GroupName="ActionScaleZGroup"
+                                    IsChecked="{Binding ActionScaleZSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=1}"
+                                    Style="{StaticResource ScaleZStyle}" />
+                                <RadioButton
+                                    Grid.Row="4"
+                                    Content="5"
+                                    DockPanel.Dock="Bottom"
+                                    GroupName="ActionScaleZGroup"
+                                    IsChecked="{Binding ActionScaleZSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=5}"
+                                    Style="{StaticResource ScaleZStyle}" />
+                            </Grid>
+                            <!--  Z軸動作 END  -->
+                        </Grid>
+
+                        <!--  吸嘴選擇 START  -->
+                        <StackPanel DockPanel.Dock="Right">
+                            <!--  空白行對齊用  -->
+                            <Label Content="" Style="{StaticResource FuncLabelStyle}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="6"
+                                Command="{Binding SelectAllNozzleCommand}"
+                                Content="全部選取"
+                                Style="{StaticResource FuncButtonStyle}" />
+                            <Button
+                                Grid.Row="3"
+                                Grid.Column="6"
+                                Command="{Binding UnselectAllNozzleCommand}"
+                                Content="全部取消"
+                                Style="{StaticResource FuncButtonStyle}" />
+                        </StackPanel>
+                        <!--  吸嘴選擇 END  -->
+                    </DockPanel>
+                    <!--  功能鍵 END  -->
+                </StackPanel>
+            </Border>
+            <!--  吸嘴 END  -->
+
+            <!--  夾爪 START  -->
+            <Border>
+                <StackPanel>
+                    <Label
+                        HorizontalAlignment="Left"
+                        Content="夾爪"
+                        Foreground="Brown" />
+
+                    <!--  目標選擇:夾爪 START  -->
+                    <DockPanel LastChildFill="False">
+                        <StackPanel DockPanel.Dock="Left">
+                            <ToggleButton
+                                Content="夾爪&#x0a;1"
+                                IsChecked="{Binding ClampSelect0}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectClampCommand}" CommandParameter="0" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectClampCommand}" CommandParameter="0" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="鬆開" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <ToggleButton
+                                Content="夾爪&#x0a;2"
+                                IsChecked="{Binding ClampSelect1}"
+                                Style="{StaticResource TargetChoiceStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SelectClampCommand}" CommandParameter="1" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding UnselectClampCommand}" CommandParameter="1" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ToggleButton>
+                            <Label Content="鬆開" Style="{StaticResource TargetLabelStyle}" />
+                            <Label Content="上" Style="{StaticResource TargetLabelStyle}" />
+                        </StackPanel>
+
+                        <!--  夾爪選擇 START  -->
+                        <StackPanel DockPanel.Dock="Right">
+                            <StackPanel Style="{StaticResource ButtonGroupStyle}">
+                                <Button
+                                    Command="{Binding SelectAllClampCommand}"
+                                    Content="全部選取"
+                                    DockPanel.Dock="Top"
+                                    Style="{StaticResource FuncButtonStyle}" />
+                                <Button
+                                    Command="{Binding UnselectAllClampCommand}"
+                                    Content="全部取消"
+                                    DockPanel.Dock="Bottom"
+                                    Style="{StaticResource FuncButtonStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <!--  吸嘴選擇 END  -->
+                    </DockPanel>
+                    <!--  目標選擇:夾爪 END  -->
+
+                    <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+
+                        <!--  夾爪動作 START  -->
+                        <StackPanel Style="{StaticResource ButtonGroupStyle}">
+                            <Label
+                                Content="夾爪動作"
+                                DockPanel.Dock="Top"
+                                Style="{StaticResource FuncLabelStyle}" />
+                            <Button Command="{Binding ClampCloseCommand}" Content="夾取" />
+                            <Button Command="{Binding ClampOpenCommand}" Content="鬆開" />
+                        </StackPanel>
+                        <!--  夾爪動作 END  -->
+
+                        <!--  氣缸動作 START  -->
+                        <StackPanel Style="{StaticResource ButtonGroupStyle}">
+                            <Label
+                                Content="氣缸動作"
+                                DockPanel.Dock="Top"
+                                Style="{StaticResource FuncLabelStyle}" />
+                            <Button Command="{Binding ClampUpCommand}" Content="上" />
+                            <Button Command="{Binding ClampDownCommand}" Content="下" />
+                        </StackPanel>
+                        <!--  氣缸動作 END  -->
+
+                        <!--  Z軸動作 START  -->
+                        <StackPanel Style="{StaticResource ButtonGroupStyle}">
+                            <Label
+                                Content="Z軸動作"
+                                DockPanel.Dock="Top"
+                                Style="{StaticResource FuncLabelStyle}" />
+                            <Button Command="{Binding ClampCylinderUpCommand}" Content="上" />
+                            <Button Command="{Binding ClampCylinderDownCommand}" Content="下" />
+                        </StackPanel>
+                        <!--  Z軸動作 END  -->
+
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <!--  夾爪 END  -->
+
+        </StackPanel>
+    </StackPanel>
+
+</UserControl>

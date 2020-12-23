@@ -1,0 +1,754 @@
+﻿<Window
+    x:Class="OEP520G.Manual.Views.TeachingBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:OEP520G="clr-namespace:OEP520G"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:OEP520G.Manual.Views"
+    xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="Teaching Box"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="WhiteSmoke"
+    Closing="Window_Closing"
+    FontFamily="Tahoma"
+    FontSize="14"
+    Loaded="Window_Loaded"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    SizeToContent="WidthAndHeight"
+    Topmost="True"
+    WindowStyle="ThreeDBorderWindow"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <!--  解析度按鍵  -->
+            <Style
+                x:Key="ResoultStyle"
+                BasedOn="{StaticResource MaterialDesignTabRadioButton}"
+                TargetType="{x:Type RadioButton}">
+                <Setter Property="Width" Value="32" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Margin" Value="1,0,1,4" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+
+            <!--  動作鍵  -->
+            <Style
+                x:Key="ArrowKeyStyle"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="45" />
+                <Setter Property="Height" Value="45" />
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+            <Style
+                x:Key="ArrowKeyStyle_Assembly"
+                BasedOn="{StaticResource ArrowKeyStyle}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#A63124" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+            <Style
+                x:Key="ArrowKeyStyle_Tray"
+                BasedOn="{StaticResource ArrowKeyStyle}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#138770" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+
+            <Style
+                x:Key="TargetSelectorStyle"
+                BasedOn="{StaticResource MaterialDesignTabRadioButton}"
+                TargetType="{x:Type RadioButton}">
+                <Setter Property="Width" Value="45" />
+                <Setter Property="Height" Value="45" />
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+
+            <Style
+                x:Key="SpeedSelectStyle"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="45" />
+                <Setter Property="Height" Value="45" />
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+
+            <Style
+                x:Key="CoorToggleButtonStyle"
+                BasedOn="{StaticResource MaterialDesignActionToggleButton}"
+                TargetType="{x:Type ToggleButton}">
+                <Setter Property="Width" Value="45" />
+                <Setter Property="Height" Value="45" />
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+            <Style x:Key="ArrowKeyStyle_Label" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="45" />
+                <Setter Property="Height" Value="45" />
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+
+
+            <!--  座標區  -->
+            <Style
+                x:Key="CoorListStyle"
+                BasedOn="{StaticResource {x:Type TextBox}}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="Width" Value="85" />
+                <Setter Property="Margin" Value="5,1,5,1" />
+                <Setter Property="Padding" Value="0,0,8,0" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="CoorLabelStyle" TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0,0,2,0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
+            <Style
+                x:Key="CoorButtonStyle"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="40" />
+                <Setter Property="Margin" Value="2,0,2,0" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <StackPanel Margin="7,3,7,9">
+        <!--  解析度 Start  -->
+        <StackPanel
+            Margin="0"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <RadioButton
+                Content="{Binding ResoultContent0}"
+                GroupName="ResoultSelector"
+                IsChecked="{Binding ResoultOption, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=0}"
+                Style="{StaticResource ResoultStyle}">
+                <RadioButton.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left">
+                                上：直線移動距離(mm)
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left">
+                                下：旋轉軸旋轉角度(°)
+                            </TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+            <RadioButton
+                Content="{Binding ResoultContent1}"
+                GroupName="ResoultSelector"
+                IsChecked="{Binding ResoultOption, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=1}"
+                Style="{StaticResource ResoultStyle}">
+                <RadioButton.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left">
+                                上：直線移動距離(mm)
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left">
+                                下：R軸旋轉角度(°)
+                            </TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+            <RadioButton
+                Content="{Binding ResoultContent2}"
+                GroupName="ResoultSelector"
+                IsChecked="{Binding ResoultOption, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=2}"
+                Style="{StaticResource ResoultStyle}">
+                <RadioButton.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left">
+                                上：直線移動距離(mm)
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left">
+                                下：R軸旋轉角度(°)
+                            </TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+            <RadioButton
+                Content="{Binding ResoultContent3}"
+                GroupName="ResoultSelector"
+                IsChecked="{Binding ResoultOption, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=3}"
+                Style="{StaticResource ResoultStyle}">
+                <RadioButton.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left">
+                                上：直線移動距離(mm)
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left">
+                                下：R軸旋轉角度(°)
+                            </TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+            <RadioButton
+                Content="{Binding ResoultContent4}"
+                GroupName="ResoultSelector"
+                IsChecked="{Binding ResoultOption, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=4}"
+                Style="{StaticResource ResoultStyle}">
+                <RadioButton.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left">
+                                上：直線移動距離(mm)
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left">
+                                下：R軸旋轉角度(°)
+                            </TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+            <RadioButton
+                Content="{Binding ResoultContent5}"
+                GroupName="ResoultSelector"
+                IsChecked="{Binding ResoultOption, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=5}"
+                Style="{StaticResource ResoultStyle}">
+                <RadioButton.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left">
+                                上：直線移動距離(mm)
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left">
+                                下：R軸旋轉角度(°)
+                            </TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+            <RadioButton
+                Content="{Binding ResoultContent6}"
+                GroupName="ResoultSelector"
+                IsChecked="{Binding ResoultOption, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=6}"
+                Style="{StaticResource ResoultStyle}">
+                <RadioButton.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left">
+                                上：直線移動距離(mm)
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left">
+                                下：R軸旋轉角度(°)
+                            </TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+        </StackPanel>
+        <!--  解析度 End  -->
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--  組裝軸方向鍵 START  -->
+            <Button
+                Grid.Row="0"
+                Grid.Column="1"
+                Command="{Binding JogCommand}"
+                CommandParameter="ASSEMBLY,UP"
+                Style="{StaticResource ArrowKeyStyle_Assembly}">
+                <materialDesign1:PackIcon Kind="ArrowTopThick" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign1:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="3" ScaleY="3" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </materialDesign1:PackIcon.RenderTransform>
+                </materialDesign1:PackIcon>
+            </Button>
+            <Button
+                Grid.Row="1"
+                Grid.Column="0"
+                Command="{Binding JogCommand}"
+                CommandParameter="ASSEMBLY,LEFT"
+                Style="{StaticResource ArrowKeyStyle_Assembly}">
+                <materialDesign1:PackIcon Kind="ArrowLeftThick" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign1:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="3" ScaleY="3" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </materialDesign1:PackIcon.RenderTransform>
+                </materialDesign1:PackIcon>
+            </Button>
+            <Button
+                Grid.Row="1"
+                Grid.Column="2"
+                Command="{Binding JogCommand}"
+                CommandParameter="ASSEMBLY,RIGHT"
+                Style="{StaticResource ArrowKeyStyle_Assembly}">
+                <materialDesign1:PackIcon Kind="ArrowRightThick" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign1:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="3" ScaleY="3" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </materialDesign1:PackIcon.RenderTransform>
+                </materialDesign1:PackIcon>
+            </Button>
+            <Button
+                Grid.Row="2"
+                Grid.Column="1"
+                Command="{Binding JogCommand}"
+                CommandParameter="ASSEMBLY,DOWN"
+                Style="{StaticResource ArrowKeyStyle_Assembly}">
+                <materialDesign1:PackIcon Kind="ArrowDownThick" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign1:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="3" ScaleY="3" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </materialDesign1:PackIcon.RenderTransform>
+                </materialDesign1:PackIcon>
+            </Button>
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                Background="MistyRose"
+                Content="組裝X&#x0a;組裝Y"
+                Style="{StaticResource ArrowKeyStyle_Label}" />
+            <!--  組裝軸方向鍵 END  -->
+
+            <!--  取放料軸方向鍵 START  -->
+            <Button
+                Grid.Row="1"
+                Grid.Column="3"
+                Command="{Binding JogCommand}"
+                CommandParameter="TRAY_CLAMP,UP"
+                Style="{StaticResource ArrowKeyStyle_Tray}">
+                <materialDesign1:PackIcon Kind="ArrowTopThick" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign1:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="3" ScaleY="3" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </materialDesign1:PackIcon.RenderTransform>
+                </materialDesign1:PackIcon>
+            </Button>
+            <Button
+                Grid.Row="2"
+                Grid.Column="2"
+                Command="{Binding JogCommand}"
+                CommandParameter="TRAY_CLAMP,LEFT"
+                Style="{StaticResource ArrowKeyStyle_Tray}">
+                <materialDesign1:PackIcon Kind="ArrowLeftThick" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign1:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="3" ScaleY="3" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </materialDesign1:PackIcon.RenderTransform>
+                </materialDesign1:PackIcon>
+            </Button>
+            <Button
+                Grid.Row="2"
+                Grid.Column="4"
+                Command="{Binding JogCommand}"
+                CommandParameter="TRAY_CLAMP,RIGHT"
+                Style="{StaticResource ArrowKeyStyle_Tray}">
+                <materialDesign1:PackIcon Kind="ArrowRightThick" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign1:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="3" ScaleY="3" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </materialDesign1:PackIcon.RenderTransform>
+                </materialDesign1:PackIcon>
+            </Button>
+            <Button
+                Grid.Row="3"
+                Grid.Column="3"
+                Command="{Binding JogCommand}"
+                CommandParameter="TRAY_CLAMP,DOWN"
+                Style="{StaticResource ArrowKeyStyle_Tray}">
+                <materialDesign1:PackIcon Kind="ArrowDownThick" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign1:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="3" ScaleY="3" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </materialDesign1:PackIcon.RenderTransform>
+                </materialDesign1:PackIcon>
+            </Button>
+            <Label
+                Grid.Row="2"
+                Grid.Column="3"
+                Background="#FFD1FAD1"
+                Content="供料盤&#x0a;夾　具"
+                Style="{StaticResource ArrowKeyStyle_Label}" />
+            <!--  取放料軸方向鍵 END  -->
+
+            <!--  R軸方向鍵 START  -->
+            <Button
+                Grid.Row="3"
+                Grid.Column="2"
+                Command="{Binding JogCommand}"
+                CommandParameter="R,CCW"
+                Style="{StaticResource ArrowKeyStyle}">
+                <materialDesign1:PackIcon Kind="ArrowRotateLeft" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign1:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="2.7" ScaleY="2.7" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </materialDesign1:PackIcon.RenderTransform>
+                </materialDesign1:PackIcon>
+                <Button.ToolTip>
+                    旋轉軸：正角度旋轉
+                </Button.ToolTip>
+            </Button>
+            <Button
+                Grid.Row="3"
+                Grid.Column="1"
+                Command="{Binding JogCommand}"
+                CommandParameter="R,CW"
+                Style="{StaticResource ArrowKeyStyle}">
+                <materialDesign1:PackIcon Kind="ArrowRotateRight" RenderTransformOrigin="0.5,0.5">
+                    <materialDesign1:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="2.7" ScaleY="2.7" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </materialDesign1:PackIcon.RenderTransform>
+                </materialDesign1:PackIcon>
+                <Button.ToolTip>
+                    旋轉軸：負角度旋轉
+                </Button.ToolTip>
+            </Button>
+            <!--  R軸方向鍵 END  -->
+
+            <Button
+                Grid.Row="2"
+                Grid.Column="0"
+                Command="{Binding JogCommand}"
+                CommandParameter="Z,UP"
+                Content="Z軸&#xA;上升"
+                Style="{StaticResource ArrowKeyStyle}" />
+            <Button
+                Grid.Row="3"
+                Grid.Column="0"
+                Command="{Binding JogCommand}"
+                CommandParameter="Z,DOWN"
+                Content="Z軸&#xA;下降"
+                Style="{StaticResource ArrowKeyStyle}" />
+            <!--  動作鍵 End  -->
+
+            <!--  功能按鍵 Start  -->
+            <Button
+                Grid.Row="0"
+                Grid.Column="4"
+                Background="{Binding SpeedColor}"
+                Command="{Binding SpeedCycleCommand}"
+                CommandParameter="+"
+                Content="{Binding SpeedContent}"
+                Style="{StaticResource SpeedSelectStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseRightButtonDown">
+                        <i:InvokeCommandAction Command="{Binding SpeedCycleCommand}" CommandParameter="-" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left">
+                                滑鼠左鍵：加速
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Left">
+                                滑鼠右鍵：減速
+                            </TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <!--<ToggleButton
+                Grid.Row="2"
+                Grid.Column="4"
+                Content="相機"
+                Style="{StaticResource CoorToggleButtonStyle}" />-->
+            <ToggleButton
+                x:Name="ShowCoorPanel"
+                Grid.Row="3"
+                Grid.Column="4"
+                Content="進階"
+                IsChecked="False"
+                Style="{StaticResource CoorToggleButtonStyle}">
+                <ToggleButton.ToolTip>
+                    開啟座標移動功能
+                </ToggleButton.ToolTip>
+            </ToggleButton>
+            <!--<Button
+                Grid.Row="0"
+                Grid.Column="0"
+                Click="ShowObjectPanel"
+                Content="物件"
+                Style="{StaticResource ArrowKeyStyle}" >
+                <Button.ToolTip>
+                    開啟物件移動視窗
+                </Button.ToolTip>
+            </Button>-->
+            <Button
+                Grid.Row="0"
+                Grid.Column="3"
+                Command="{Binding StandbyPositionCommand}"
+                Content="待機"
+                Style="{StaticResource ArrowKeyStyle}">
+                <Button.ToolTip>
+                    定位至取放料位置
+                </Button.ToolTip>
+            </Button>
+            <!--  功能按鍵 End  -->
+
+        </Grid>
+
+        <!--  座標動作 Start  -->
+        <Grid Margin="0,4,0,0" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibleCollapsedConverter}, ElementName=ShowCoorPanel}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Label
+                Grid.Column="1"
+                Margin="0"
+                Padding="0"
+                HorizontalAlignment="Center"
+                Content="移動至" />
+            <Label
+                Grid.Column="2"
+                Margin="0"
+                Padding="0"
+                HorizontalAlignment="Center"
+                Content="位移量" />
+
+            <Label
+                Grid.Row="1"
+                Content="組裝X"
+                Style="{StaticResource CoorLabelStyle}" />
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="1"
+                Text="{Binding MoveToX, StringFormat=\{0:F3\}}" />
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="2"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="11"
+                Text="{Binding ShiftToX, StringFormat=\{0:F3\}}" />
+
+            <Label
+                Grid.Row="2"
+                Content="組裝Y"
+                Style="{StaticResource CoorLabelStyle}" />
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="1"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="2"
+                Text="{Binding MoveToY, StringFormat=\{0:F3\}}" />
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="2"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="12"
+                Text="{Binding ShiftToY, StringFormat=\{0:F3\}}" />
+
+            <Label
+                Grid.Row="3"
+                Content="組裝Z"
+                Style="{StaticResource CoorLabelStyle}" />
+            <TextBox
+                Grid.Row="3"
+                Grid.Column="1"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="3"
+                Text="{Binding MoveToZ, StringFormat=\{0:F3\}}" />
+            <TextBox
+                Grid.Row="3"
+                Grid.Column="2"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="13"
+                Text="{Binding ShiftToZ, StringFormat=\{0:F3\}}" />
+
+            <Label
+                Grid.Row="4"
+                Content="台車R"
+                Style="{StaticResource CoorLabelStyle}" />
+            <TextBox
+                Grid.Row="4"
+                Grid.Column="1"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="4"
+                Text="{Binding MoveToR, StringFormat=\{0:F3\}}" />
+            <TextBox
+                Grid.Row="4"
+                Grid.Column="2"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="14"
+                Text="{Binding ShiftToR, StringFormat=\{0:F3\}}" />
+
+            <Label
+                Grid.Row="5"
+                Content="夾具X"
+                Style="{StaticResource CoorLabelStyle}" />
+            <TextBox
+                Grid.Row="5"
+                Grid.Column="1"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="5"
+                Text="{Binding MoveToClamp, StringFormat=\{0:F3\}}" />
+            <TextBox
+                Grid.Row="5"
+                Grid.Column="2"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="15"
+                Text="{Binding ShiftToClamp, StringFormat=\{0:F3\}}" />
+
+            <Label
+                Grid.Row="6"
+                Content="供料盤Y"
+                Style="{StaticResource CoorLabelStyle}" />
+            <TextBox
+                Grid.Row="6"
+                Grid.Column="1"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="6"
+                Text="{Binding MoveToTray, StringFormat=\{0:F3\}}" />
+            <TextBox
+                Grid.Row="6"
+                Grid.Column="2"
+                Style="{StaticResource CoorListStyle}"
+                TabIndex="16"
+                Text="{Binding ShiftToTray, StringFormat=\{0:F3\}}" />
+
+            <!--<StackPanel
+                Grid.Row="7"
+                Margin="0,7,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Click="ShowObjectPanel"
+                    Content="物件"
+                    Style="{StaticResource CoorButtonStyle}">
+                    <Button.ToolTip>
+                        開啟物件移動視窗
+                    </Button.ToolTip>
+                </Button>
+            </StackPanel>-->
+
+            <StackPanel
+                Grid.Row="7"
+                Grid.Column="1"
+                Margin="0,7,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Command="{Binding MoveToCommand}"
+                    Content="移動"
+                    Style="{StaticResource CoorButtonStyle}" />
+                <Button
+                    Command="{Binding GetCoorFromCommand}"
+                    Content="取得"
+                    Style="{StaticResource CoorButtonStyle}" />
+            </StackPanel>
+
+            <StackPanel
+                Grid.Row="7"
+                Grid.Column="2"
+                Margin="0,7,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Command="{Binding ShiftToCommand}"
+                    Content="位移"
+                    Style="{StaticResource CoorButtonStyle}" />
+                <Button
+                    Command="{Binding ClearShiftCommand}"
+                    Content="清除"
+                    Style="{StaticResource CoorButtonStyle}" />
+            </StackPanel>
+        </Grid>
+        <!--  座標動作 End  -->
+    </StackPanel>
+</Window>

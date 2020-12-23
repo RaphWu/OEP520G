@@ -1,0 +1,413 @@
+﻿<Fluent:RibbonWindow
+    x:Class="OEP520G.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="urn:fluent-ribbon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:OEP520G.Core"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:system="clr-namespace:System;assembly=System.RunTime"
+    x:Name="RootWindow"
+    Title="{Binding Title}"
+    Width="1280"
+    Height="1024"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="WhiteSmoke"
+    FontFamily="Tahoma"
+    FontSize="14"
+    ResizeMode="CanResizeWithGrip"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TitleForeground="White"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding HandleLoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding HandleClosingCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Fluent:RibbonWindow.Resources>
+        <Style BasedOn="{StaticResource {x:Type Fluent:Button}}" TargetType="{x:Type Fluent:Button}">
+            <Setter Property="Width" Value="72" />
+            <Setter Property="MinHeight" Value="70" />
+            <Setter Property="Margin" Value="2,0,2,0" />
+            <Setter Property="Padding" Value="2,0,2,0" />
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type Fluent:StatusBar}}" TargetType="{x:Type Fluent:StatusBar}">
+            <Setter Property="MinHeight" Value="20" />
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type Fluent:StatusBarItem}}" TargetType="{x:Type Fluent:StatusBarItem}">
+            <Setter Property="Margin" Value="5,0,5,0" />
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="MidnightBlue" />
+        </Style>
+    </Fluent:RibbonWindow.Resources>
+
+    <DockPanel>
+        <Fluent:Ribbon x:Name="ribbon" DockPanel.Dock="Top">
+            <Fluent:Ribbon.Effect>
+                <DropShadowEffect
+                    BlurRadius="15"
+                    Direction="-90"
+                    Opacity="0.7"
+                    RenderingBias="Performance"
+                    ShadowDepth="2" />
+            </Fluent:Ribbon.Effect>
+
+            <!--  Backstage  -->
+            <Fluent:Ribbon.Menu>
+                <Fluent:Backstage>
+                    <Fluent:BackstageTabControl>
+                        <Fluent:BackstageTabItem Header="權限管理">
+                            <StackPanel Margin="9" HorizontalAlignment="Left">
+                                <Fluent:Button
+                                    Margin="2"
+                                    Background="LightSeaGreen"
+                                    Header="作業員"
+                                    LargeIcon="Images/manufacturing_32dp.png" />
+                                <Fluent:Button
+                                    Margin="2"
+                                    Background="LightSeaGreen"
+                                    Header="產線主管"
+                                    Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
+                                    IsDefinitive="False"
+                                    LargeIcon="Images/TeamLeader_32dp.png" />
+                                <Fluent:Button
+                                    Margin="2"
+                                    Background="LightSeaGreen"
+                                    Header="管理者"
+                                    Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
+                                    LargeIcon="Images/manager_32dp.png" />
+                                <Fluent:Button
+                                    Margin="2"
+                                    Background="LightSeaGreen"
+                                    Header="系統&#x0a;管理員"
+                                    Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
+                                    LargeIcon="Images/consult_32dp.png" />
+                            </StackPanel>
+                        </Fluent:BackstageTabItem>
+
+                        <Fluent:BackstageTabItem Header="介面語&#x0a;言切換" Icon="Images/settings.png">
+                            <StackPanel Margin="9" HorizontalAlignment="Left">
+                                <Fluent:Button
+                                    Margin="2"
+                                    Background="LightSeaGreen"
+                                    Header="繁體中文" />
+                                <Fluent:Button
+                                    Margin="2"
+                                    Background="LightSeaGreen"
+                                    Header="简体中文"
+                                    Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
+                                    IsDefinitive="False"
+                                    LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}" />
+                                <Fluent:Button
+                                    Margin="2"
+                                    Background="LightSeaGreen"
+                                    Header="English"
+                                    Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
+                                    LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}" />
+                            </StackPanel>
+                        </Fluent:BackstageTabItem>
+
+                        <Fluent:SeparatorTabItem />
+
+                        <Fluent:Button Header="機台解鎖" Visibility="Visible" />
+                        <Fluent:Button Header="結束程式" Icon="Images/remove.png" />
+
+                    </Fluent:BackstageTabControl>
+                </Fluent:Backstage>
+            </Fluent:Ribbon.Menu>
+
+            <!--  Tabs  -->
+            <Fluent:RibbonTabItem Header="自動運轉" KeyTip="1">
+                <Fluent:RibbonGroupBox Header="">
+                    <Fluent:Button
+                        Click="ShowZero"
+                        Header="原點復歸"
+                        KeyTip="1"
+                        LargeIcon="Images/cartesian.png"
+                        ToolTip="機台復歸作業" />
+                    <Fluent:Button
+                        Click="ShowAutoOperation"
+                        Header="生產畫面"
+                        KeyTip="2"
+                        ToolTip="自動運轉訊息" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="資料編輯">
+                    <Fluent:Button
+                        Click="ShowAutoProductData"
+                        Header="生產資料"
+                        KeyTip="3" />
+                    <Fluent:Button
+                        Click="ShowTrayFeeder"
+                        Header="托盤&#x0a;進供料器"
+                        KeyTip="4" />
+                    <Fluent:Button Click="ShowTrayFeederDescription" Header="托盤進供&#x0a;料器描述" />
+                    <Fluent:Button
+                        Click="ShowGlueParameters"
+                        Header="點膠&#x0a;參數資料"
+                        KeyTip="5" />
+                    <Fluent:Button Click="ShowGlueCleanSetting" Header="清膠&#x0a;參數設定" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="產品品種">
+                    <Fluent:Button
+                        Click="ShowProductionSelect"
+                        Header="產品選擇"
+                        KeyTip="7" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="統計資料">
+                    <Fluent:Button
+                        Click="ShowProductionStatistics"
+                        Header="生產統計"
+                        KeyTip="8" />
+                    <Fluent:Button
+                        Click="ShowAbnormalStatistics"
+                        Header="異常紀錄"
+                        KeyTip="9" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="工具">
+                    <Fluent:Button Click="ShowImageDemo" Header="相機" />
+                    <Fluent:Button
+                        Click="ShowTeachingBox"
+                        Header="Teaching&#x0a;Box"
+                        LargeIcon="Images/ArrowKeyPad.png" />
+                    <Fluent:Button Click="ShowObjectPanel" Header="物件&#x0a;移動" />
+                    <Fluent:Button
+                        Command="{x:Static local:ApplicationCommands.WriteCommand}"
+                        Header="儲存"
+                        LargeIcon="Images/save_3_32dp.png" />
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem Header="手動操作" KeyTip="2">
+                <Fluent:RibbonGroupBox Header="手動作業">
+                    <Fluent:Button
+                        Click="ShowCylinderAction"
+                        Header="氣壓缸&#x0a;動作"
+                        KeyTip="1" />
+                    <Fluent:Button
+                        Click="ShowIoAction"
+                        Header="I/O動作"
+                        KeyTip="2" />
+                    <Fluent:Button
+                        Click="ShowServoTester"
+                        Header="伺服軸&#x0a;運動測試"
+                        LargeIcon="Images/electric-motor_32dp.png" />
+                    <Fluent:Button
+                        Click="ShowIoList"
+                        Header="I/O點位&#x0a;列表"
+                        KeyTip="3"
+                        LargeIcon="Images/list_32dp.png" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="工具">
+                    <Fluent:Button Click="ShowImageDemo" Header="相機" />
+                    <Fluent:Button
+                        Click="ShowTeachingBox"
+                        Header="Teaching&#x0a;Box"
+                        LargeIcon="Images/ArrowKeyPad.png" />
+                    <Fluent:Button Click="ShowObjectPanel" Header="物件&#x0a;移動" />
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem Header="教導" KeyTip="3">
+                <Fluent:RibbonGroupBox Header="相機">
+                    <Fluent:Button
+                        Click="ShowCameraCorrect"
+                        Header="光源/相機&#x0a;校正"
+                        KeyTip="1" />
+                    <!--<Fluent:Button Click="ShowTeachSystem" Header="系統教導" />-->
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="台車旋轉校正">
+                    <Fluent:Button
+                        Click="ShowRotationCenter"
+                        Header="旋轉中心&#x0a;校正"
+                        KeyTip="2" />
+                    <Fluent:Button
+                        Click="ShowEccentricCorrect"
+                        Header="旋轉位移&#x0a;校正"
+                        KeyTip="3" />
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="位置校正">
+                    <Fluent:Button
+                        Click="ShowNozzleCorrect"
+                        Header="吸嘴/針頭&#x0a;校正"
+                        KeyTip="4" />
+                    <Fluent:Button
+                        Click="ShowCameraFlyingCorrect"
+                        Header="飛行取像&#x0a;校正"
+                        KeyTip="5" />
+                    <Fluent:Button
+                        Click="ShowClampCorrect"
+                        Header="夾爪位移&#x0a;校正"
+                        KeyTip="6" />
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="測高">
+                    <Fluent:Button
+                        Click="ShowMeasuringHeight"
+                        Header="吸嘴測高"
+                        KeyTip="7" />
+                    <Fluent:Button
+                        Click="ShowMeasuringStageHeight"
+                        Header="小車測高"
+                        KeyTip="8" />
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="托盤">
+                    <Fluent:Button
+                        Click="ShowTrayArrangement"
+                        Header="托盤設定"
+                        KeyTip="9" />
+                    <!--<Fluent:Button Header="光源校正" />-->
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="工具">
+                    <Fluent:Button Header="相機" />
+                    <Fluent:Button
+                        Click="ShowTeachingBox"
+                        Header="Teaching&#x0a;Box"
+                        LargeIcon="Images/ArrowKeyPad.png" />
+                    <Fluent:Button Click="ShowObjectPanel" Header="物件&#x0a;移動" />
+                    <Fluent:Button
+                        Command="{x:Static local:ApplicationCommands.WriteCommand}"
+                        Header="儲存"
+                        KeyTip="S"
+                        LargeIcon="Images/save_3_32dp.png" />
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem Header="畫像" KeyTip="4">
+                <Fluent:RibbonGroupBox Header="畫像參數" />
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem Header="系統設定" KeyTip="5">
+                <Fluent:RibbonGroupBox Header="系統">
+                    <Fluent:Button Click="ShowSystemComp" Header="機台資訊" />
+                    <Fluent:Button
+                        Click="ShowSystemReferPoint"
+                        Header="系統參考&#x0a;座標點"
+                        LargeIcon="Images/cartesian.png" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="吸嘴/夾爪">
+                    <Fluent:Button Click="ShowNozzle" Header="組裝側&#x0a;吸嘴" />
+                    <!--<Fluent:Button Click="ShowClamp" Header="夾具" />-->
+                    <Fluent:Button Click="ShowStage" Header="小車座標" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="其他">
+                    <Fluent:Button Click="ShowAirPressureSetting" Header="系統氣壓&#x0a;壓力設定" />
+                    <Fluent:Button Click="ShowDiscardBox" Header="抛料作業&#x0a;參數設定" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="工具">
+                    <Fluent:Button Header="相機" />
+                    <Fluent:Button
+                        Click="ShowTeachingBox"
+                        Header="Teaching&#x0a;Box"
+                        LargeIcon="Images/ArrowKeyPad.png" />
+                    <Fluent:Button Click="ShowObjectPanel" Header="物件&#x0a;移動" />
+                    <Fluent:Button
+                        Command="{x:Static local:ApplicationCommands.WriteCommand}"
+                        Header="儲存"
+                        LargeIcon="Images/save_3_32dp.png" />
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem Header="進階設定" KeyTip="6">
+                <Fluent:RibbonGroupBox Header="伺服設定">
+                    <Fluent:Button
+                        Click="ShowMotionParameter"
+                        Header="運動控制&#x0a;參數設定"
+                        LargeIcon="Images/network-interface-card_32dp.png" />
+                    <Fluent:Button
+                        Click="ShowServoParameter"
+                        Header="伺服馬達&#x0a;參數設定"
+                        LargeIcon="Images/electric-motor_32dp.png" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="固定相機">
+                    <Fluent:Button Command="{Binding FixCameraDeviceSetting}" Header="相機設定" />
+                    <Fluent:Button Command="{Binding FixCameraPropertSetting}" Header="參數設定" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="移動相機">
+                    <Fluent:Button Command="{Binding MoveCameraDeviceSetting}" Header="相機設定" />
+                    <Fluent:Button Command="{Binding MoveCameraPropertSetting}" Header="參數設定" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="工具">
+                    <Fluent:Button
+                        Click="ShowTeachingBox"
+                        Header="Teaching&#x0a;Box"
+                        LargeIcon="Images/ArrowKeyPad.png" />
+                    <Fluent:Button Click="ShowObjectPanel" Header="物件&#x0a;移動" />
+                    <Fluent:Button
+                        Command="{x:Static local:ApplicationCommands.WriteCommand}"
+                        Header="儲存"
+                        LargeIcon="Images/save_3_32dp.png" />
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+        </Fluent:Ribbon>
+
+        <Fluent:StatusBar DockPanel.Dock="Bottom">
+            <Fluent:StatusBarItem
+                Title="機台訊息"
+                HorizontalAlignment="Left"
+                Content="{Binding StatusBar_Message}" />
+
+            <Separator HorizontalAlignment="Right" />
+
+            <Fluent:StatusBarItem
+                Title="目前作業品種"
+                HorizontalAlignment="Right"
+                Content="{Binding StatusBar_Product}" />
+
+            <Separator HorizontalAlignment="Right" />
+
+            <Fluent:StatusBarItem
+                Title="Debug Message"
+                HorizontalAlignment="Right"
+                Content="{Binding StatusBar_DebugMessage}" />
+
+            <Separator HorizontalAlignment="Right" />
+
+            <Fluent:StatusBarItem
+                Title="各軸座標"
+                HorizontalAlignment="Right"
+                Content="{Binding StatusBar_AxisCoordination}" />
+
+            <Fluent:StatusBarItem
+                Title="目前時間"
+                HorizontalAlignment="Right"
+                Content="{Binding StatusBar_Time}" />
+
+            <Fluent:StatusBarItem
+                Title="作業權限"
+                HorizontalAlignment="Right"
+                Content="系統管理員"
+                Value="Value shown in ContextMenu" />
+
+        </Fluent:StatusBar>
+
+        <!--  Prism Region  -->
+        <ContentControl
+            x:Name="MainRegion"
+            Margin="9"
+            prism:RegionManager.RegionName="MainRegion" />
+
+    </DockPanel>
+</Fluent:RibbonWindow>

@@ -1,0 +1,150 @@
+﻿<UserControl
+    x:Class="OEP520G.Teaching.Views.RotationCenter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:OEP520G.Teaching.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Block" TargetType="{x:Type StackPanel}">
+                <Setter Property="Margin" Value="0,2,0,0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0,5,4,2" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Height" Value="45" />
+                <Setter Property="Margin" Value="0,5,0,9" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
+                <Setter Property="MinWidth" Value="85" />
+                <Setter Property="Margin" Value="5,0,5,9" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="160" />
+                <Setter Property="Margin" Value="2,0,2,9" />
+                <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+                <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+            </Style>
+
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="2,5,2,0" />
+                <Setter Property="Padding" Value="2,3,2,3" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+
+            <Style x:Key="DataGridBorder" TargetType="{x:Type Border}">
+                <Setter Property="Width" Value="700" />
+                <Setter Property="Margin" Value="10,5,5,0" />
+                <Setter Property="Padding" Value="1.5" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <Label
+            HorizontalAlignment="Left"
+            Content="旋轉中心校正"
+            DockPanel.Dock="Top"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Brown" />
+
+        <!--  左版面 Start  -->
+        <StackPanel DockPanel.Dock="Left">
+            <Border>
+                <StackPanel Style="{StaticResource Block}">
+                    <Label Content="畫像ID" />
+                    <ComboBox>
+                        <ComboBoxItem Content="DIS" />
+                    </ComboBox>
+                    <Button Content="視覺參數" />
+                </StackPanel>
+            </Border>
+
+            <Border>
+                <StackPanel Style="{StaticResource Block}">
+                    <Label Content="旋轉中心座標" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding RotateCenterCoorX, StringFormat=\{0:F3\}}" />
+                        <TextBox Text="{Binding RotateCenterCoorY, StringFormat=\{0:F3\}}" />
+                    </StackPanel>
+                    <Button Command="{Binding MoveHereCommand}" Content="移到旋轉中心" />
+                </StackPanel>
+            </Border>
+
+            <Border>
+                <StackPanel Style="{StaticResource Block}">
+                    <Label Content="畫像處理座標" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding VisionCoorX, StringFormat=\{0:F3\}}" />
+                        <TextBox Text="{Binding VisionCoorY, StringFormat=\{0:F3\}}" />
+                    </StackPanel>
+                    <Button Command="{Binding GetCoorCommand}" Content="取得座標" />
+                </StackPanel>
+            </Border>
+
+            <Button
+                Margin="0,15,0,10"
+                Command="{Binding StartCorrectCommand}"
+                Content="開始校正" />
+
+            <!--<Border>
+                <StackPanel Style="{StaticResource Block}">
+                    <Label Content="計算結果中心座標" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding VisionCoorX, StringFormat=\{0:F3\}}" />
+                        <TextBox Text="{Binding VisionCoorY, StringFormat=\{0:F3\}}" />
+                    </StackPanel>
+                    <Button
+                        Width="140"
+                        Command="{Binding UpdateCoorCommand}"
+                        Content="套用至旋轉中心" />
+                </StackPanel>
+            </Border>-->
+
+        </StackPanel>
+        <!--  左版面 End  -->
+
+        <!--  右版面 Start  -->
+        <Border Grid.Row="1" Style="{StaticResource DataGridBorder}">
+            <TextBox
+                HorizontalContentAlignment="Left"
+                BorderThickness="0"
+                HorizontalScrollBarVisibility="Disabled"
+                Text="{Binding DocumentDisplay}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+        </Border>
+        <!--  右版面 End  -->
+    </DockPanel>
+
+</UserControl>

@@ -1,0 +1,569 @@
+﻿<UserControl
+    x:Class="OEP520G.Teaching.Views.NozzleCorrect"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:OEP520G="clr-namespace:OEP520G"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OEP520G.Teaching.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Block" TargetType="{x:Type StackPanel}">
+                <Setter Property="Margin" Value="12,6,12,6" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="FuncGroup" TargetType="{x:Type DockPanel}">
+                <Setter Property="Margin" Value="5,9,5,9" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignTabRadioButton}" TargetType="{x:Type RadioButton}">
+                <Setter Property="Width" Value="60" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="Margin" Value="0,1,5,1" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+
+            <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
+                <Setter Property="Width" Value="75" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Margin" Value="4,2,4,2" />
+                <Setter Property="Padding" Value="0,0,5,0" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="VerticalContentAlignment" Value="Bottom" />
+            </Style>
+
+            <Style
+                x:Key="FuncButton1"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Height" Value="42" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="5,9,5,0" />
+            </Style>
+
+            <Style
+                x:Key="FuncButton2"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Height" Value="80" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0,12,0,0" />
+            </Style>
+
+            <Style
+                x:Key="MoveButton"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Margin" Value="9,5,9,5" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style x:Key="Title" TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style
+                x:Key="NozzleImageStyle"
+                BasedOn="{StaticResource MaterialDesignComboBox}"
+                TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Margin" Value="0,0,0,2" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Bottom" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+                <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+                <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+            </Style>
+
+            <Style
+                x:Key="CorrectToolStyle"
+                BasedOn="{StaticResource MaterialDesignComboBox}"
+                TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="140" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+                <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <DockPanel LastChildFill="False">
+        <Label
+            Content="吸嘴/針頭校正"
+            DockPanel.Dock="Top"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Brown" />
+        <StackPanel>
+            <Grid Margin="5,0,0,15" DockPanel.Dock="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Grid.Column="1"
+                    Content="X"
+                    Style="{StaticResource Title}" />
+                <Label
+                    Grid.Column="2"
+                    Content="Y"
+                    Style="{StaticResource Title}" />
+                <Label
+                    Grid.Column="3"
+                    Content="Z"
+                    Style="{StaticResource Title}" />
+                <Label
+                    Grid.Column="4"
+                    Content="畫像"
+                    Style="{StaticResource Title}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <RadioButton
+                    Grid.Row="1"
+                    Content="針頭"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=NEEDLE}" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{Binding DispenserNeedleX, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Text="{Binding DispenserNeedleY, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Text="{Binding DispenserNeedleZ, StringFormat=\{0:F3\}}" />
+
+                <RadioButton
+                    Grid.Row="2"
+                    Content="吸嘴1"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N1}" />
+                <TextBox
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle1X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle1Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle1Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem1}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <RadioButton
+                    Grid.Row="3"
+                    Content="吸嘴2"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N2}" />
+                <TextBox
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle2X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle2Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle2Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="3"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem2}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+
+                <RadioButton
+                    Grid.Row="4"
+                    Content="吸嘴3"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N3}" />
+                <TextBox
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle3X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle3Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="4"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle3Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="4"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem3}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <RadioButton
+                    Grid.Row="5"
+                    Content="吸嘴4"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N4}" />
+                <TextBox
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle4X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle4Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="5"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle4Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="5"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem4}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <RadioButton
+                    Grid.Row="6"
+                    Content="吸嘴5"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N5}" />
+                <TextBox
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle5X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle5Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="6"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle5Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="6"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem5}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <RadioButton
+                    Grid.Row="7"
+                    Content="吸嘴6"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N6}" />
+                <TextBox
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle6X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="7"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle6Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="7"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle6Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="7"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem6}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <RadioButton
+                    Grid.Row="8"
+                    Content="吸嘴7"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N7}" />
+                <TextBox
+                    Grid.Row="8"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle7X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle7Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="8"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle7Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="8"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem7}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <RadioButton
+                    Grid.Row="9"
+                    Content="吸嘴8"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N8}" />
+                <TextBox
+                    Grid.Row="9"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle8X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="9"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle8Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="9"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle8Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="9"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem8}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <RadioButton
+                    Grid.Row="10"
+                    Content="吸嘴9"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N9}" />
+                <TextBox
+                    Grid.Row="10"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle9X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="10"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle9Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="10"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle9Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="10"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem9}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <RadioButton
+                    Grid.Row="11"
+                    Content="吸嘴10"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N10}" />
+                <TextBox
+                    Grid.Row="11"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle10X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="11"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle10Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="11"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle10Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="11"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem10}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <RadioButton
+                    Grid.Row="12"
+                    Content="吸嘴11"
+                    GroupName="TargetObjectGroup"
+                    IsChecked="{Binding TargetObjectSelect, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=N11}" />
+                <TextBox
+                    Grid.Row="12"
+                    Grid.Column="1"
+                    Text="{Binding Nozzle11X, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="12"
+                    Grid.Column="2"
+                    Text="{Binding Nozzle11Y, StringFormat=\{0:F3\}}" />
+                <TextBox
+                    Grid.Row="12"
+                    Grid.Column="3"
+                    Text="{Binding Nozzle11Z, StringFormat=\{0:F3\}}" />
+                <ComboBox
+                    Grid.Row="12"
+                    Grid.Column="4"
+                    ItemsSource="{Binding NozzleImageSource}"
+                    SelectedItem="{Binding NozzleImageItem11}"
+                    Style="{StaticResource NozzleImageStyle}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <StackPanel
+                    Grid.Row="13"
+                    Grid.ColumnSpan="4"
+                    Style="{StaticResource Block}">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button
+                            Command="{Binding NozzleToCcdCommand}"
+                            Content="Nozzle &gt;&gt; CCD"
+                            Style="{StaticResource MoveButton}" />
+                        <Button
+                            Command="{Binding CcdToNozzleCommand}"
+                            Content="CCD &gt;&gt; Nozzle"
+                            Style="{StaticResource MoveButton}" />
+                    </StackPanel>
+
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        IsEnabled="{Binding ToolEnabled, Converter={StaticResource BooleanToStringConverter}}"
+                        Orientation="Horizontal">
+                        <Label
+                            VerticalAlignment="Center"
+                            Content="校正工具"
+                            Foreground="Black" />
+                        <ComboBox
+                            ItemsSource="{Binding ToolSelectSource}"
+                            SelectedIndex="{Binding ToolSelectIndex}"
+                            SelectedItem="{Binding ToolSelectItem}"
+                            Style="{StaticResource CorrectToolStyle}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Button
+                    Grid.Row="13"
+                    Grid.Column="5"
+                    VerticalAlignment="Top"
+                    Command="{Binding HeightMeasureCommand}"
+                    Content="視覺參數"
+                    Style="{StaticResource FuncButton2}"
+                    Visibility="{Binding NozzleImageVisibility, Converter={StaticResource BooleanToVisibleHiddenConverter}}" />
+
+                <StackPanel
+                    Grid.Row="14"
+                    Grid.ColumnSpan="4"
+                    Margin="20,0,20,0"
+                    HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                            Grid.ColumnSpan="2"
+                            Command="{Binding StartCorrectCommand}"
+                            Content="開始校正"
+                            Style="{StaticResource FuncButton1}" />
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Command="{Binding UpdateDataCommand}"
+                            Content="更新座標"
+                            Style="{StaticResource FuncButton1}" />
+                        <Button
+                            Grid.Row="1"
+                            Command="{Binding NozzleUpCommand}"
+                            Content="全部吸嘴上升"
+                            DockPanel.Dock="Bottom"
+                            Style="{StaticResource FuncButton1}" />
+                    </Grid>
+                </StackPanel>
+
+                <DockPanel
+                    Grid.Row="14"
+                    Grid.Column="4"
+                    LastChildFill="False">
+                    <Button
+                        Command="{Binding HeightMeasureCommand}"
+                        Content="測高"
+                        DockPanel.Dock="Bottom"
+                        Style="{StaticResource FuncButton2}" />
+                </DockPanel>
+
+                <StackPanel
+                    Grid.Row="16"
+                    Grid.ColumnSpan="4"
+                    Margin="20,0,20,0"
+                    HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                            Command="{Binding ResetCoordinateCommand}"
+                            Content="全部座標歸零"
+                            Style="{StaticResource FuncButton1}" />
+                        <Button
+                            Grid.Column="1"
+                            Command="{Binding RestoreCoordinateCommand}"
+                            Content="重新讀取原座標&#x0a;(未存座標會丟失)"
+                            Style="{StaticResource FuncButton1}" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+
+</UserControl>

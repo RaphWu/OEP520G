@@ -1,0 +1,57 @@
+﻿/****************************
+ * 子視窗
+ * ChildWindow.xaml.cs
+ ***************************/
+
+using System;
+using System.ComponentModel;
+using System.Windows;
+
+namespace xxxxx.Views
+{
+    public partial class ChildWindow : Window
+    {
+        // Singleton單例模式
+        private static readonly Lazy<ChildWindow> lazy = new Lazy<ChildWindow>(() => new ChildWindow());
+        public static ChildWindow Instance => lazy.Value;
+
+        private ChildWindow()
+        {
+            InitializeComponent();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            this.Hide();
+            if (this.Owner.IsLoaded)
+            {
+                this.Owner.Activate();
+                e.Cancel = true;
+            }
+        }
+    }
+}
+
+
+
+/****************************
+ * 子視窗
+ * ChildWindow.xaml
+ ***************************/
+(Window主體視需要加入)
+
+ResizeMode="NoResize"
+Topmost="True"
+
+
+
+/****************************
+ * 母視窗
+ ***************************/
+(呼叫子視窗方式)
+
+using OEP520G.Views;
+
+ChildWindow childWin =  ChildWindow.Instance;
+childWin.Owner = this;
+childWin.Show();

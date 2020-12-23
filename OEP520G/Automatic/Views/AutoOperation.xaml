@@ -1,0 +1,474 @@
+﻿<UserControl
+    x:Class="OEP520G.Automatic.Views.AutoOperation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Prism="http://prismlibrary.com/"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OEP520G.Automatic.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Prism:ViewModelLocator.AutoWireViewModel="True"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="LeftTitle" TargetType="{x:Type Label}">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="Foreground" Value="Brown" />
+            </Style>
+            <Style x:Key="CenterTitle" TargetType="{x:Type Label}">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="Brown" />
+            </Style>
+
+            <Style x:Key="GridTitle" TargetType="{x:Type Label}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Margin" Value="5,0,5,0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+            </Style>
+
+            <Style
+                x:Key="NumericUpDownButton"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Margin" Value="0,1,0,1" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Width" Value="20" />
+                <Setter Property="Height" Value="18" />
+            </Style>
+
+            <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Margin" Value="9,1,9,1" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style
+                x:Key="GridText"
+                BasedOn="{StaticResource {x:Type TextBox}}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Margin" Value="5,1,5,1" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Margin" Value="9,1,0,1" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+                <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignSwitchToggleButton}" TargetType="{x:Type CheckBox}">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="materialDesign:CheckBoxAssist.CheckBoxSize" Value="20" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="{x:Type ToggleButton}">
+                <Setter Property="Width" Value="90" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Margin" Value="9,0,9,0" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignDataGrid}" TargetType="{x:Type DataGrid}">
+                <Setter Property="materialDesign:DataGridAssist.CellPadding" Value="6 2 6 2" />
+                <Setter Property="materialDesign:DataGridAssist.ColumnHeaderPadding" Value="6 2 6 2" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Background" Value="WhiteSmoke" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="AutoGenerateColumns" Value="False" />
+                <Setter Property="CanUserAddRows" Value="False" />
+                <Setter Property="CanUserDeleteRows" Value="False" />
+                <Setter Property="CanUserReorderColumns" Value="False" />
+                <Setter Property="CanUserResizeColumns" Value="False" />
+                <Setter Property="CanUserResizeRows" Value="False" />
+                <Setter Property="CanUserSortColumns" Value="True" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="GridLinesVisibility" Value="All" />
+                <Setter Property="HorizontalGridLinesBrush" Value="Gainsboro" />
+                <Setter Property="VerticalGridLinesBrush" Value="Gainsboro" />
+                <Setter Property="SelectionMode" Value="Single" />
+                <Setter Property="SelectionUnit" Value="FullRow" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Foreground" Value="Brown" />
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
+                <Setter Property="TextBlock.FontSize" Value="14" />
+                <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                <Setter Property="TextBlock.TextAlignment" Value="Left" />
+            </Style>
+
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="2,0,5,9" />
+                <Setter Property="Padding" Value="2,5,5,9" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+
+            <Style x:Key="DataGridBorder" TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="9" />
+                <Setter Property="Padding" Value="1.5" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <Label
+            Content="生產畫面"
+            DockPanel.Dock="Top"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Brown" />
+
+        <!--  左版面 START  -->
+        <StackPanel DockPanel.Dock="Left">
+            <!--  自動運轉模式 START  -->
+            <Border DockPanel.Dock="Top">
+                <DockPanel LastChildFill="False">
+                    <Button
+                        Command="{Binding AutomaticRuningCommand}"
+                        Content="{Binding OperationModeCaption}"
+                        DockPanel.Dock="Right" />
+                    <Label
+                        Content="自動運轉模式"
+                        DockPanel.Dock="Top"
+                        Style="{StaticResource LeftTitle}" />
+                    <ComboBox
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding AutoOperateModeSource}"
+                        SelectedIndex="{Binding AutoOperateModeIndex}"
+                        SelectedItem="{Binding AutoOperateModeItem}" />
+                </DockPanel>
+            </Border>
+            <!--  自動運轉模式 END  -->
+
+            <!--  生產數量設定 START  -->
+            <Border DockPanel.Dock="Top">
+                <DockPanel LastChildFill="False">
+                    <Button
+                        Command="{Binding QuantityChangeCommand}"
+                        Content="變更生產數量"
+                        DockPanel.Dock="Right" />
+                    <Label
+                        Content="生產數量設定"
+                        DockPanel.Dock="Top"
+                        Style="{StaticResource LeftTitle}" />
+                    <TextBox materialDesign:HintAssist.HelperText="設定0 = 不限數量" Text="{Binding ProductionQuantity}" />
+                    <StackPanel
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Left">
+                        <Button
+                            Command="{Binding IncreaseQuantityCommand}"
+                            Content="{materialDesign:PackIcon ArrowUpBold}"
+                            Style="{StaticResource NumericUpDownButton}" />
+                        <Button
+                            Command="{Binding DecreaseQuantityCommand}"
+                            Content="{materialDesign:PackIcon ArrowDownBold}"
+                            Style="{StaticResource NumericUpDownButton}" />
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+            <!--  生產數量設定 END  -->
+
+            <!--  生產計數 START  -->
+            <Border DockPanel.Dock="Top">
+                <StackPanel>
+                    <Label Content="生產計數" Style="{StaticResource LeftTitle}" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Content="本次生產計數"
+                            Style="{StaticResource GridTitle}" />
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Content="總計"
+                            Style="{StaticResource GridTitle}" />
+
+                        <Label
+                            Grid.Row="1"
+                            Content="成品"
+                            Style="{StaticResource GridTitle}" />
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding EndProductThisRun}" />
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding DiscardThisRun}" />
+
+                        <Label
+                            Grid.Row="2"
+                            Content="抛料數"
+                            Style="{StaticResource GridTitle}" />
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding PickUpMaterialThisRun}" />
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding EndProductTotal}" />
+
+                        <Label
+                            Grid.Row="3"
+                            Content="取料數"
+                            Style="{StaticResource GridTitle}" />
+                        <TextBox
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding DiscardTotal}" />
+                        <TextBox
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding PickUpMaterialTotal}" />
+                    </Grid>
+
+                    <DockPanel Margin="0,9,0,0">
+                        <Button
+                            Command="{Binding ResetCounterCommand}"
+                            Content="重置計數"
+                            DockPanel.Dock="Right" />
+                        <Label
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Content="{Binding RecountTime, StringFormat=\{0:yyyy/MM/dd HH:mm\}}"
+                            DockPanel.Dock="Left" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+            <!--  生產計數 END  -->
+
+            <!--  工作時間 START  -->
+            <Border DockPanel.Dock="Top">
+                <StackPanel>
+                    <Label Content="工作時間" Style="{StaticResource LeftTitle}" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Content="前次"
+                            Style="{StaticResource GridTitle}" />
+                        <TextBox
+                            x:Name="LastWorkTime"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding LastTimeCt}" />
+
+                        <Label
+                            Grid.Row="1"
+                            Content="平均"
+                            Style="{StaticResource GridTitle}" />
+                        <TextBox
+                            x:Name="AverageWorkTime"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding ThisTimeCt}" />
+
+                        <Label
+                            Grid.Row="2"
+                            Content="待機"
+                            Style="{StaticResource GridTitle}" />
+                        <TextBox
+                            x:Name="RunTimeThisRun"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding StandbyTime, StringFormat=\{0:HH:mm:ss\}}" />
+                        <TextBox
+                            x:Name="StandbyTimeTotal"
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding TotalStandbyTime, StringFormat=\{0:HH:mm:ss\}}" />
+
+                        <Label
+                            Grid.Row="3"
+                            Content="運轉"
+                            Style="{StaticResource GridTitle}" />
+                        <TextBox
+                            x:Name="StandbyTimeThisRun"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding RunningTime, StringFormat=\{0:HH:mm:ss\}}" />
+                        <TextBox
+                            x:Name="RunTimeTotal"
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Style="{StaticResource GridText}"
+                            Text="{Binding TotalRunningTime, StringFormat=\{0:HH:mm:ss\}}" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <!--  工作時間 END  -->
+
+            <!--  TEST  -->
+            <Button x:Name="Test1Button"
+                Margin="20,20,20,0"
+                Content="功能測試1"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                   />
+            <Button
+                Margin="20,20,20,0"
+                Command="{Binding Test2Command}"
+                Content="功能測試2"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+            <Button
+                Margin="20,20,20,0"
+                Command="{Binding Test3Command}"
+                Content="功能測試3"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+        </StackPanel>
+        <!--  左版面 END  -->
+
+        <!--  右版面 START  -->
+        <DockPanel Margin="9,0,0,0" DockPanel.Dock="Left">
+            <!--  上方列 START  -->
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <!--  第1行 START  -->
+                <StackPanel Margin="9">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding ResetWhenNoTray}" />
+                        <Label Content="托盤用盡時同時重置" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding MeasureHeightAfterAssembly}" />
+                        <Label Content="置件後測高" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding DiscardPartWhenPhotoFailed}" />
+                        <Label Content="畫像失敗全部抛料" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="noStopWhenPhotoFailed" IsChecked="{Binding NoStopWhenPhotoFailed}" />
+                        <Label Content="畫像失敗不停機" />
+                    </StackPanel>
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        IsEnabled="{Binding IsChecked, ElementName=noStopWhenPhotoFailed}"
+                        Orientation="Horizontal">
+                        <TextBox
+                            Width="60"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Text="{Binding TrayTimesWhenPhotoFailed}" />
+                        <Label Content="次" />
+                    </StackPanel>
+                </StackPanel>
+                <!--  第1行 END  -->
+
+                <!--  第2行 START  -->
+                <StackPanel Margin="9" DockPanel.Dock="Top" />
+                <!--  第2行 END  -->
+
+                <!--  取置件 START  -->
+                <Border DockPanel.Dock="Left">
+                    <StackPanel HorizontalAlignment="Left">
+                        <Label Content="單步動作確認" Style="{StaticResource CenterTitle}" />
+                        <ToggleButton Content="取置件" IsChecked="{Binding PickupAfterAssembly}" />
+                    </StackPanel>
+                </Border>
+                <!--  取置件 END  -->
+
+                <!--  顯示運轉資訊 START  -->
+                <Border DockPanel.Dock="Left">
+                    <StackPanel HorizontalAlignment="Left">
+                        <Label Content="資訊切換" Style="{StaticResource CenterTitle}" />
+                        <ToggleButton Content="{Binding InformationDisplay}" IsChecked="{Binding InformationToggle, Converter={StaticResource BooleanToStringConverter}}" />
+                    </StackPanel>
+                </Border>
+                <!--  顯示運轉資訊 END  -->
+
+            </StackPanel>
+            <!--  上方列 END  -->
+
+            <!--  自動作業資訊顯示框 START  -->
+            <Border
+                DockPanel.Dock="Top"
+                Style="{StaticResource DataGridBorder}"
+                Visibility="{Binding AutoInfoVisibility, Converter={StaticResource BooleanToVisibleCollapsedConverter}}">
+                <ItemsControl />
+            </Border>
+            <!--  自動作業資訊顯示框 END  -->
+
+            <!--  打樣測試設定框 START  -->
+            <Border
+                DockPanel.Dock="Top"
+                Style="{StaticResource DataGridBorder}"
+                Visibility="{Binding ProofVisibility, Converter={StaticResource BooleanToVisibleCollapsedConverter}}">
+                <DataGrid />
+            </Border>
+            <!--  打樣測試設定框 END  -->
+
+        </DockPanel>
+        <!--  右版面 END  -->
+    </DockPanel>
+
+</UserControl>

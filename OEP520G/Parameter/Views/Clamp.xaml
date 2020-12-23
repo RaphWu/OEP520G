@@ -1,0 +1,202 @@
+﻿<UserControl
+    x:Class="OEP520G.Parameter.Views.Clamp"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OEP520G.Parameter.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ItemUnit" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="50" />
+                <Setter Property="Margin" Value="2,1,0,1" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <Style
+                x:Key="ItemField"
+                BasedOn="{StaticResource {x:Type TextBox}}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Margin" Value="9,1,0,1" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <Style x:Key="ItemTitle" TargetType="{x:Type Label}">
+                <Setter Property="MinWidth" Value="80" />
+                <Setter Property="Margin" Value="10,1,0,1" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="DockPanel.Dock" Value="Left" />
+            </Style>
+
+            <Style x:Key="ButtonGroup" TargetType="{x:Type StackPanel}">
+                <Setter Property="Margin" Value="0,15,0,15" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Orientation" Value="Horizontal" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="80" />
+                <Setter Property="Height" Value="35" />
+                <Setter Property="Margin" Value="15,3,5,3" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="2,5,2,9" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <Label
+            Content="夾具"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Brown" />
+
+        <DockPanel LastChildFill="False">
+            <Border>
+                <StackPanel>
+                    <Label
+                        HorizontalAlignment="Left"
+                        Content="夾爪1: 台車的Barrel放置點"
+                        Foreground="Brown" />
+
+                    <DockPanel>
+                        <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1StageCoordinationX, StringFormat=\{0:F3\}}" />
+                        <Label Content="X" Style="{StaticResource ItemTitle}" />
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1StageCoordinationY, StringFormat=\{0:F3\}}" />
+                        <Label Content="Y" Style="{StaticResource ItemTitle}" />
+                    </DockPanel>
+                    <DockPanel IsEnabled="False">
+                        <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1StageCoordinationZ, StringFormat=\{0:F3\}}" />
+                        <Label Content="Z" Style="{StaticResource ItemTitle}" />
+                    </DockPanel>
+
+                    <StackPanel Style="{StaticResource ButtonGroup}">
+                        <StackPanel>
+                            <Button
+                                Command="{Binding MovtToClampCommand}"
+                                CommandParameter="1"
+                                Content="移到此處" />
+                            <Button
+                                Command="{Binding GetCoordinationCommand}"
+                                CommandParameter="1"
+                                Content="取得座標" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center">
+                            <Button
+                                Command="{Binding ClampUpCommand}"
+                                CommandParameter="1"
+                                Content="夾爪上升" />
+                            <Button
+                                Command="{Binding ClampDownCommand}"
+                                CommandParameter="1"
+                                Content="夾爪下降" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <DockPanel>
+                        <Label Content="ms" Style="{StaticResource ItemUnit}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1DelayTime1, StringFormat=\{0:D\}}" />
+                        <Label Content="定位後等待時間" Style="{StaticResource ItemTitle}" />
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Content="ms" Style="{StaticResource ItemUnit}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1DelayTime2, StringFormat=\{0:D\}}" />
+                        <Label Content="放置後等待時間" Style="{StaticResource ItemTitle}" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+        </DockPanel>
+
+        <DockPanel LastChildFill="False">
+            <Border>
+                <StackPanel>
+                    <Label
+                        HorizontalAlignment="Left"
+                        Content="夾爪2: 台車的成品/半成品夾取點"
+                        Foreground="Brown" />
+
+                    <DockPanel>
+                        <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2StageCoordinationX, StringFormat=\{0:F3\}}" />
+                        <Label Content="X" Style="{StaticResource ItemTitle}" />
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2StageCoordinationY, StringFormat=\{0:F3\}}" />
+                        <Label Content="Y" Style="{StaticResource ItemTitle}" />
+                    </DockPanel>
+                    <DockPanel IsEnabled="False">
+                        <Label Content="mm" Style="{StaticResource ItemUnit}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2StageCoordinationZ, StringFormat=\{0:F3\}}" />
+                        <Label Content="Z" Style="{StaticResource ItemTitle}" />
+                    </DockPanel>
+
+                    <StackPanel Style="{StaticResource ButtonGroup}">
+                        <StackPanel>
+                            <Button
+                                Command="{Binding MovtToClampCommand}"
+                                CommandParameter="2"
+                                Content="移到此處" />
+                            <Button
+                                Command="{Binding GetCoordinationCommand}"
+                                CommandParameter="2"
+                                Content="取得座標" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center">
+                            <Button
+                                Command="{Binding ClampUpCommand}"
+                                CommandParameter="2"
+                                Content="夾爪上升" />
+                            <Button
+                                Command="{Binding ClampDownCommand}"
+                                CommandParameter="2"
+                                Content="夾爪下降" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <DockPanel>
+                        <Label Content="ms" Style="{StaticResource ItemUnit}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2DelayTime1, StringFormat=\{0:D\}}" />
+                        <Label Content="夾取前等待時間" Style="{StaticResource ItemTitle}" />
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Content="ms" Style="{StaticResource ItemUnit}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2DelayTime2, StringFormat=\{0:D\}}" />
+                        <Label Content="夾取後等待時間" Style="{StaticResource ItemTitle}" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+        </DockPanel>
+
+    </StackPanel>
+</UserControl>

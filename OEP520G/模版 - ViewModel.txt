@@ -1,0 +1,58 @@
+﻿using OEP520G.Core;
+using Prism.Commands;
+using Prism.Mvvm;
+using System;
+using System.Collections.Generic;
+
+namespace OEP520G.ViewModels
+{
+    class xxxxxViewModel : BindableBase
+    {
+        private readonly xxxxxParameter _para = xxxxxParameter.Instance;
+        private readonly xxxxxModule _module = new xxxxxModule();
+        
+        public DelegateCommand WriteDataCommand { get; private set; }
+
+        /// <summary>
+        /// 建構函式
+        /// </summary>
+        public xxxxxViewModel(IApplicationCommands applicationCommands)
+        {
+            // 全域Save事件
+            // <see cref="https://prismlibrary.com/docs/composite-commands.html"/>
+            WriteDataCommand = new DelegateCommand(SaveData);
+            applicationCommands.WriteCommand.RegisterCommand(WriteDataCommand);
+
+            LoadDefault();
+        }
+        
+        /// <summary>
+        /// 載入起始值
+        /// </summary>
+        private void LoadDefault()
+        {
+            // TODO
+        }
+        
+        /// <summary>
+        /// 1.儲存至Module
+        /// 2.利用CompositeCommand執行Save按鈕
+        ///   <see cref="https://prismlibrary.com/docs/composite-commands.html"/>
+        /// </summary>
+        private void SaveData()
+        {
+            // TODO
+
+            // 自動運轉模式
+            _module.xxxxxModule = xxxxxModule;
+
+            _para.SaveParameter();
+        }
+
+        /********************
+         * 資料/方法繫結
+         *******************/
+         
+         // TODO
+    }
+}

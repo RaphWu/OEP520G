@@ -1,0 +1,568 @@
+﻿<UserControl
+    x:Class="OEP520G.Automatic.Views.GlueParameters"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OEP520G.Automatic.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!--  DataGrid  -->
+            <Style BasedOn="{StaticResource MaterialDesignDataGrid}" TargetType="{x:Type DataGrid}">
+                <Setter Property="materialDesign:DataGridAssist.CellPadding" Value="6 2 6 2" />
+                <Setter Property="materialDesign:DataGridAssist.ColumnHeaderPadding" Value="6 2 6 2" />
+                <Setter Property="AutoGenerateColumns" Value="False" />
+                <Setter Property="CanUserReorderColumns" Value="False" />
+                <Setter Property="CanUserResizeRows" Value="False" />
+                <Setter Property="CanUserSortColumns" Value="False" />
+                <Setter Property="ItemsSource" Value="{Binding}" />
+                <Setter Property="GridLinesVisibility" Value="All" />
+                <Setter Property="HorizontalGridLinesBrush" Value="Gainsboro" />
+                <Setter Property="VerticalGridLinesBrush" Value="Gainsboro" />
+                <Setter Property="SelectionMode" Value="Single" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Foreground" Value="Brown" />
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
+                <Setter Property="TextBlock.FontSize" Value="14" />
+                <Setter Property="TextBlock.HorizontalAlignment" Value="Right" />
+                <Setter Property="TextBlock.HorizontalAlignment" Value="Right" />
+            </Style>
+
+            <Style x:Key="Note" TargetType="{x:Type Label}">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  點膠動作順序資料 Start  -->
+        <Border
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="3,5,3,5"
+            Padding="9,3,9,3"
+            VerticalAlignment="Top"
+            BorderBrush="LightGray"
+            BorderThickness="2"
+            CornerRadius="5">
+            <StackPanel>
+                <Label
+                    VerticalAlignment="Top"
+                    Content="點膠動作順序資料"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="Brown" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--  品種 Start  -->
+                    <StackPanel>
+                        <ListBox>
+                            <ListBoxItem
+                                Width="100"
+                                Height="125"
+                                Margin="0,0,0,5"
+                                Padding="4,4,4,4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                VerticalContentAlignment="Top"
+                                BorderBrush="LightGray"
+                                BorderThickness="2"
+                                Content="DIS" />
+                        </ListBox>
+                        <Button
+                            Width="70"
+                            Margin="0,0,0,5"
+                            Content="新增" />
+                        <Button
+                            Width="70"
+                            Margin="0,0,0,5"
+                            Content="刪除" />
+                        <Button
+                            Width="70"
+                            Margin="0,0,0,5"
+                            Content="複製" />
+                    </StackPanel>
+                    <!--  品種  -->
+
+                    <!--  差值&設定  -->
+                    <StackPanel Grid.Column="1">
+                        <StackPanel
+                            VerticalAlignment="Top"
+                            FlowDirection="RightToLeft"
+                            Orientation="Horizontal">
+                            <Button Margin="20,0,9,0" Content="補差值" />
+                            <TextBox
+                                Width="Auto"
+                                MinWidth="50"
+                                Margin="5,0,5,0"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Text="0" />
+                            <TextBox
+                                MinWidth="50"
+                                Margin="5,0,5,0"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Text="0" />
+                            <TextBox
+                                MinWidth="50"
+                                Margin="5,0,5,0"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Text="0" />
+                            <TextBox
+                                MinWidth="50"
+                                Margin="5,0,5,0"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Text="0" />
+                        </StackPanel>
+                        <Border
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            MinWidth="500"
+                            MinHeight="200"
+                            Margin="9,5,9,0"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Gainsboro"
+                            BorderThickness="0,0,2,2">
+                            <Border BorderBrush="Gray" BorderThickness="2,2,0,0">
+                                <DataGrid Name="DispensingActionDataGrid" ScrollViewer.CanContentScroll="True">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                            Binding="{Binding No}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            Header="序號" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding Action}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            Header="點膠動作" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding ShiftX, StringFormat='0.000'}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            Header="Offset X" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding ShiftY, StringFormat='0.000'}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            Header="Offset Y" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding ShiftZ, StringFormat='0.000'}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            Header="Offset Z" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding ShiftX, StringFormat='0.000'}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            Header="Offset A" />
+                                        <DataGridTextColumn
+                                            Binding="{Binding GroupNo}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            Header="群組編號" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Border>
+                    </StackPanel>
+                    <!--  差值&設定  -->
+
+                    <!--  點膠動作  -->
+                    <StackPanel Grid.RowSpan="2" Grid.Column="2">
+                        <Button
+                            Width="130"
+                            Margin="0,0,0,9"
+                            Padding="0,4,0,4"
+                            Content="預吐膠設定及測試" />
+                        <Button
+                            Width="130"
+                            Margin="0,0,0,9"
+                            Content="點膠測試" />
+                        <StackPanel Margin="0,0,0,9" Orientation="Horizontal">
+                            <CheckBox IsChecked="True" />
+                            <Label Content="實際點膠" />
+                        </StackPanel>
+                        <Button
+                            Width="130"
+                            Margin="0,9,0,9"
+                            Padding="0,4,0,4"
+                            Content="回復原先資料" />
+                        <Button
+                            Width="130"
+                            Margin="0,0,0,9"
+                            Content="點膠資料產生" />
+                        <StackPanel Margin="0,0,0,9" Orientation="Horizontal">
+                            <CheckBox IsChecked="True" />
+                            <Label Content="畫像處理" />
+                        </StackPanel>
+                        <ComboBox
+                            Width="120"
+                            Margin="0,0,0,9"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            materialDesign:ComboBoxAssist.ClassicMode="True"
+                            materialDesign:ComboBoxAssist.ShowSelectedItem="True"
+                            Foreground="Black">
+                            <ComboBoxItem Content="DIS" />
+                        </ComboBox>
+                        <Button
+                            Width="130"
+                            Margin="0,0,0,9"
+                            Content="畫像參數" />
+                    </StackPanel>
+                    <!--  點膠動作  -->
+
+                    <!--  座標  -->
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Margin="0,9,0,5"
+                        VerticalAlignment="Stretch"
+                        Orientation="Horizontal">
+                        <Button Content="膠重測試" />
+                        <TextBox
+                            MinWidth="50"
+                            Margin="5,0,5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Text="0" />
+                        <Label
+                            Margin="0,0,9,0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center"
+                            Content="秒" />
+                        <StackPanel Margin="9,0,9,0" VerticalAlignment="Center">
+                            <RadioButton
+                                Content="以相機為參考"
+                                GroupName="Ref"
+                                IsChecked="True"
+                                Style="{StaticResource MaterialDesignRadioButton}" />
+                            <RadioButton
+                                Content="以針頭為參考"
+                                GroupName="Ref"
+                                Style="{StaticResource MaterialDesignRadioButton}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <Button
+                                Width="85"
+                                Height="30"
+                                Margin="5,0,5,3"
+                                Padding="4,4,4,4"
+                                Content="取得XY座標" />
+                            <Button
+                                Width="85"
+                                Height="30"
+                                Margin="5,3,5,0"
+                                Padding="4,4,4,4"
+                                Content="取得Z座標" />
+                        </StackPanel>
+                        <StackPanel>
+                            <Button
+                                Width="85"
+                                Height="30"
+                                Margin="5,0,5,3"
+                                Padding="4,4,4,4"
+                                Content="移動XY至" />
+                            <Button
+                                Width="85"
+                                Height="30"
+                                Margin="5,3,5,0"
+                                Padding="4,4,4,4"
+                                Content="移動Z至" />
+                        </StackPanel>
+                        <StackPanel>
+                            <Button
+                                Width="85"
+                                Height="30"
+                                Margin="5,0,5,3"
+                                Padding="4,4,4,4"
+                                Content="設定中心" />
+                            <StackPanel
+                                Margin="0,6,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <CheckBox IsChecked="True" />
+                                <Label Content="跟隨選擇" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <!--  座標  -->
+                </Grid>
+            </StackPanel>
+        </Border>
+        <!--  點膠動作順序資料 End  -->
+
+        <!--  點膠參數  -->
+        <Border
+            Grid.Row="1"
+            Margin="3,5,3,5"
+            Padding="9"
+            VerticalAlignment="Stretch"
+            BorderBrush="LightGray"
+            BorderThickness="2"
+            CornerRadius="5">
+            <StackPanel>
+                <DockPanel>
+                    <Label
+                        VerticalAlignment="Top"
+                        Content="點膠參數"
+                        DockPanel.Dock="Left"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="Brown" />
+                    <Button
+                        MaxWidth="120"
+                        Margin="0,0,20,0"
+                        HorizontalAlignment="Right"
+                        Content="回復原先資料"
+                        DockPanel.Dock="Right" />
+                </DockPanel>
+                <Border
+                    MaxWidth="760"
+                    Margin="0,9,0,0"
+                    BorderBrush="Gainsboro"
+                    BorderThickness="0,0,2,2">
+                    <Border BorderBrush="Gray" BorderThickness="2,2,0,0">
+                        <DataGrid Name="DispensingParameterDataGrid" ScrollViewer.CanContentScroll="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Binding="{Binding GroupNo}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="Group&#x0a;No" />
+                                <DataGridTextColumn
+                                    Binding="{Binding DspSpeed, StringFormat='0.000'}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="DspSpeed&#x0a;(mm/s)" />
+                                <DataGridTextColumn
+                                    Binding="{Binding SpeedA, StringFormat='0.000'}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="Speed A&#x0a;(Deg/s)" />
+                                <DataGridTextColumn
+                                    Binding="{Binding SWait}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="SWait&#x0a;(mSec)" />
+                                <DataGridTextColumn
+                                    Binding="{Binding EShot}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="EShot&#x0a;(mSec)" />
+                                <DataGridTextColumn
+                                    Binding="{Binding PreStop, StringFormat='0.000'}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="PreStop&#x0a;(mm)" />
+                                <DataGridTextColumn
+                                    Binding="{Binding EWait}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="EWait&#x0a;(ms)" />
+                                <DataGridTextColumn
+                                    Binding="{Binding UpXY, StringFormat='0.000'}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="UpXY&#x0a;(mm)" />
+                                <DataGridTextColumn
+                                    Binding="{Binding UpZ, StringFormat='0.000'}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="UpZ&#x0a;(mm)" />
+                                <DataGridTextColumn
+                                    Binding="{Binding UpSpeed, StringFormat='0.000'}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="UpSpeed&#x0a;(mm/s)" />
+                                <DataGridTextColumn
+                                    Binding="{Binding UpDelay, StringFormat='0.000'}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="UpDelay&#x0a;(mSec)" />
+                                <DataGridTextColumn
+                                    Binding="{Binding UpWay}"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                    Header="UpWay" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </Border>
+            </StackPanel>
+        </Border>
+        <!--  點膠參數  -->
+
+        <!--  UV  -->
+        <StackPanel
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Margin="5,0,0,0">
+            <Border
+                Margin="3,5,3,5"
+                Padding="9,3,9,3"
+                BorderBrush="LightGray"
+                BorderThickness="2"
+                CornerRadius="5">
+                <StackPanel>
+                    <Label
+                        Content="UV照射參數"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="Brown" />
+                    <StackPanel Margin="0,0,0,9">
+                        <Label
+                            Margin="25,5,0,0"
+                            HorizontalAlignment="Left"
+                            Content="UV照射位置"
+                            Foreground="Brown" />
+                        <ListBox
+                            Margin="0,3,0,0"
+                            HorizontalAlignment="Center"
+                            SelectedIndex="1"
+                            Style="{StaticResource MaterialDesignToolToggleListBox}">
+                            <ListBoxItem
+                                MinWidth="55"
+                                MinHeight="35"
+                                HorizontalContentAlignment="Center"
+                                Content="無" />
+                            <ListBoxItem
+                                MinWidth="55"
+                                MinHeight="35"
+                                HorizontalContentAlignment="Center"
+                                Content="台車" />
+                            <ListBoxItem
+                                MinWidth="55"
+                                MinHeight="35"
+                                HorizontalContentAlignment="Center"
+                                Content="料盤" />
+                        </ListBox>
+                        <DockPanel Margin="9,15,15,0">
+                            <Label Content="秒" DockPanel.Dock="Right" />
+                            <TextBox
+                                MinWidth="60"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                DockPanel.Dock="Right"
+                                Text="0" />
+                            <Label
+                                Margin="0,0,9,0"
+                                HorizontalContentAlignment="Right"
+                                VerticalContentAlignment="Center"
+                                Content="UV前等待時間"
+                                DockPanel.Dock="Left" />
+                        </DockPanel>
+                        <DockPanel Margin="9,5,15,0">
+                            <Label Content="秒" DockPanel.Dock="Right" />
+                            <TextBox
+                                MinWidth="60"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                DockPanel.Dock="Right"
+                                Text="0" />
+                            <Label
+                                Margin="0,0,9,0"
+                                HorizontalContentAlignment="Right"
+                                VerticalContentAlignment="Center"
+                                Content="UV時間"
+                                DockPanel.Dock="Left" />
+                        </DockPanel>
+                        <DockPanel Margin="9,5,15,0">
+                            <Label Content="秒" DockPanel.Dock="Right" />
+                            <TextBox
+                                MinWidth="60"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                DockPanel.Dock="Right"
+                                Text="0" />
+                            <Label
+                                Margin="0,0,9,0"
+                                HorizontalContentAlignment="Right"
+                                VerticalContentAlignment="Center"
+                                Content="UV後等待時間"
+                                DockPanel.Dock="Left" />
+                        </DockPanel>
+                        <Button
+                            MinWidth="100"
+                            MinHeight="40"
+                            Margin="0,9,0,0"
+                            HorizontalAlignment="Center"
+                            Content="UV測試" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!--  參數代號 Start  -->
+            <Border
+                Margin="0,5,0,0"
+                Padding="5,5,5,5"
+                Background="White"
+                BorderThickness="2,1,1,2"
+                CornerRadius="5"
+                Effect="{DynamicResource MaterialDesignShadowDepth1}">
+                <StackPanel Orientation="Horizontal">
+                    <!--  代號 Start  -->
+                    <StackPanel Margin="0,0,9,0">
+                        <Label Content="GroupNo" Style="{StaticResource Note}" />
+                        <Label Content="DspSpeed" Style="{StaticResource Note}" />
+                        <Label Content="Speed A" Style="{StaticResource Note}" />
+                        <Label Content="SWait&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;" Style="{StaticResource Note}" />
+                        <Label Content="EShot&#x0a;" Style="{StaticResource Note}" />
+                        <Label Content="PreStop" Style="{StaticResource Note}" />
+                        <Label Content="EWait" Style="{StaticResource Note}" />
+                        <Label Content="UpXY" Style="{StaticResource Note}" />
+                        <Label Content="UpZ" Style="{StaticResource Note}" />
+                        <Label Content="UpSpeed" Style="{StaticResource Note}" />
+                        <Label Content="UpDelay" Style="{StaticResource Note}" />
+                        <Label Content="UpWay" Style="{StaticResource Note}" />
+                    </StackPanel>
+                    <!--  代號 End  -->
+
+                    <!--  代號說明 Start  -->
+                    <StackPanel>
+                        <Label Content="群組編號" Style="{StaticResource Note}" />
+                        <Label Content="點膠XY軸移動速度(mm/秒)" Style="{StaticResource Note}" />
+                        <Label Content="A軸點膠旋轉速度(度/秒)" Style="{StaticResource Note}" />
+                        <Label Content="預點膠時間(毫秒)&#x0a;正值：到達點膠位置前&#x0a;　　　提早出膠的時間&#x0a;0：到達點膠位置後再出膠&#x0a;負值：到達點膠位置後&#x0a;　　　等待時間後再出膠" Style="{StaticResource Note}" />
+                        <Label Content="續吐膠時間(毫秒)；&#x0a;移動完等待時間後停膠" Style="{StaticResource Note}" />
+                        <Label Content="預停膠距離(毫秒)/角度" Style="{StaticResource Note}" />
+                        <Label Content="停膠後等待時間接(毫秒)後再斷膠" Style="{StaticResource Note}" />
+                        <Label Content="斷膠距離(mm)：第一次XY軸回移距離" Style="{StaticResource Note}" />
+                        <Label Content="斷膠高度(mm)：第一次Z軸上升高度" Style="{StaticResource Note}" />
+                        <Label Content="斷膠速度(mm/秒)" Style="{StaticResource Note}" />
+                        <Label Content="斷膠延遲時間(毫秒)" Style="{StaticResource Note}" />
+                        <Label Content="斷膠方式：　0：無&#x0a;　１：一般回移　２：方形回移" Style="{StaticResource Note}" />
+                    </StackPanel>
+                    <!--  代號說明 End  -->
+                </StackPanel>
+            </Border>
+            <!--  參數代號 End  -->
+        </StackPanel>
+        <!--  UV End  -->
+    </Grid>
+
+</UserControl>

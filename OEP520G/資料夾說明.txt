@@ -1,0 +1,13 @@
+﻿Views	   主程式Views
+ViewModels 主程式ViewModels
+
+Themes     WPF自訂外觀
+Core       C#核心共用函式、全域資料
+Parameter  作業參數
+Functions  單一獨立動作
+
+Manual     手動作業
+Product    產品管理
+Teaching   教導
+Automatic  自動作業
+

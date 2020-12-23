@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>OEP520G</AssemblyName>
+    <AssemblyVersion>0.1.7619.30241</AssemblyVersion>
+    <StartupObject>OEP520G.App</StartupObject>
+    <FileVersion>0.0.0.0</FileVersion>
+    <Platforms>AnyCPU;x64</Platforms>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="DeepCloner" Version="0.10.2" />
+    <PackageReference Include="Fluent.Ribbon" Version="8.0.2" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.2.0" />
+    <PackageReference Include="Prism.Unity" Version="8.0.0.1909" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.6" />
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
+    <PackageReference Include="Wpf.Controls.PanAndZoom" Version="2.3.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Imageproject\Imageproject.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CSharpCore">
+      <HintPath>..\..\CSharpCore\CSharpCore\bin\Release\netcoreapp3.1\CSharpCore.dll</HintPath>
+    </Reference>
+    <Reference Include="EPCIO">
+      <HintPath>..\..\EPCIO\bin\x64\Debug\netcoreapp3.1\EPCIO.dll</HintPath>
+    </Reference>
+    <Reference Include="TIS.Imaging.ICImagingControl35">
+      <HintPath>..\Imageproject\TIS.Imaging.ICImagingControl35.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Themes\Theme.Template.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

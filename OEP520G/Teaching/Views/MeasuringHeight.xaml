@@ -1,0 +1,712 @@
+﻿<UserControl
+    x:Class="OEP520G.Teaching.Views.MeasuringHeight"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OEP520G.Teaching.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Tahoma"
+    FontSize="14"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="{x:Type ToggleButton}">
+                <Setter Property="Width" Value="70" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="Margin" Value="0,1,5,1" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignCheckBox}" TargetType="{x:Type CheckBox}">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="materialDesign:CheckBoxAssist.CheckBoxSize" Value="20" />
+            </Style>
+
+            <Style
+                x:Key="Data"
+                BasedOn="{StaticResource MaterialDesignTextBox}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="Width" Value="85" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="Margin" Value="6,0,6,0" />
+                <Setter Property="Padding" Value="0,2,7,0" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="CoorBlock" TargetType="{x:Type StackPanel}">
+                <Setter Property="Margin" Value="0,5,0,5" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="Title" TargetType="{x:Type Label}">
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style
+                x:Key="Coor"
+                BasedOn="{StaticResource MaterialDesignTextBox}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="Width" Value="70" />
+                <Setter Property="Height" Value="35" />
+                <Setter Property="Margin" Value="5,0,5,0" />
+                <Setter Property="Padding" Value="0,2,0,0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style
+                x:Key="NozzleFuncButton"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="85" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Margin" Value="5,10,5,5" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style
+                x:Key="StageFuncButton"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="70" />
+                <Setter Property="Height" Value="50" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+                <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+            </Style>
+
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="0,5,5,0" />
+                <Setter Property="Padding" Value="2,5,2,5" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel HorizontalAlignment="Left">
+        <Label
+            Content="吸嘴測高"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Brown" />
+
+        <!--  吸嘴測高 START  -->
+        <Border>
+            <StackPanel HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    Content="吸嘴"
+                    Foreground="Brown" />
+
+                <StackPanel HorizontalAlignment="Center">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="1"
+                            Content="測高值"
+                            Style="{StaticResource Title}" />
+                        <Label
+                            Grid.Column="2"
+                            Content="更新"
+                            Style="{StaticResource Title}" />
+                        <Label
+                            Grid.Column="3"
+                            Content="新測高值"
+                            Style="{StaticResource Title}" />
+
+                        <ToggleButton
+                            Grid.Row="1"
+                            Content="吸嘴1"
+                            IsChecked="{Binding NozzleMeasure1, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight1, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate1, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH1, StringFormat=\{0:F3\}}" />
+
+                        <ToggleButton
+                            Grid.Row="2"
+                            Content="吸嘴2"
+                            IsChecked="{Binding NozzleMeasure2, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight2, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate2, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH2, StringFormat=\{0:F3\}}" />
+
+                        <ToggleButton
+                            Grid.Row="3"
+                            Content="吸嘴3"
+                            IsChecked="{Binding NozzleMeasure3, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight3, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate3, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="3"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH3, StringFormat=\{0:F3\}}" />
+
+                        <ToggleButton
+                            Grid.Row="4"
+                            Content="吸嘴4"
+                            IsChecked="{Binding NozzleMeasure4, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight4, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate4, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="4"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH4, StringFormat=\{0:F3\}}" />
+
+                        <ToggleButton
+                            Grid.Row="5"
+                            Content="吸嘴5"
+                            IsChecked="{Binding NozzleMeasure5, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight5, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="5"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate5, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="5"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH5, StringFormat=\{0:F3\}}" />
+
+                        <ToggleButton
+                            Grid.Row="6"
+                            Content="吸嘴6"
+                            IsChecked="{Binding NozzleMeasure6, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight6, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="6"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate6, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="6"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH6, StringFormat=\{0:F3\}}" />
+
+                        <ToggleButton
+                            Grid.Row="7"
+                            Content="吸嘴7"
+                            IsChecked="{Binding NozzleMeasure7, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="7"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight7, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="7"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate7, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="7"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH7, StringFormat=\{0:F3\}}" />
+
+                        <ToggleButton
+                            Grid.Row="8"
+                            Content="吸嘴8"
+                            IsChecked="{Binding NozzleMeasure8, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="8"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight8, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="8"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate8, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="8"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH8, StringFormat=\{0:F3\}}" />
+
+                        <ToggleButton
+                            Grid.Row="9"
+                            Content="吸嘴9"
+                            IsChecked="{Binding NozzleMeasure9, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="9"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight9, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="9"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate9, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="9"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH9, StringFormat=\{0:F3\}}" />
+
+                        <ToggleButton
+                            Grid.Row="10"
+                            Content="吸嘴10"
+                            IsChecked="{Binding NozzleMeasure10, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="10"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight10, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="10"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate10, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="10"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH10, StringFormat=\{0:F3\}}" />
+
+                        <ToggleButton
+                            Grid.Row="11"
+                            Content="吸嘴11"
+                            IsChecked="{Binding NozzleMeasure11, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllNozzleCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllNozzleCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </ToggleButton>
+                        <TextBox
+                            Grid.Row="11"
+                            Grid.Column="1"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleHeight11, StringFormat=\{0:F3\}}" />
+                        <CheckBox
+                            Grid.Row="11"
+                            Grid.Column="2"
+                            IsChecked="{Binding NozzleUpdate11, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllUpdateCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllUpdateCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <TextBox
+                            Grid.Row="11"
+                            Grid.Column="3"
+                            Style="{StaticResource Data}"
+                            Text="{Binding NozzleNewH11, StringFormat=\{0:F3\}}" />
+                    </Grid>
+
+                    <StackPanel
+                        Margin="0,4,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            Command="{Binding CancelMeasureNozzleCommand}"
+                            Content="停止測高"
+                            IsEnabled="{Binding InRunningEnable, Converter={StaticResource BooleanToStringConverter}}"
+                            Style="{StaticResource NozzleFuncButton}" />
+                        <Button
+                            Command="{Binding StartMeasureNozzleCommand}"
+                            Content="開始測高"
+                            IsEnabled="{Binding InStopEnable, Converter={StaticResource BooleanToStringConverter}}"
+                            Style="{StaticResource NozzleFuncButton}" />
+                        <Button
+                            Command="{Binding UpdateDataCommand}"
+                            Content="更新資料"
+                            IsEnabled="{Binding InStopEnable, Converter={StaticResource BooleanToStringConverter}}"
+                            Style="{StaticResource NozzleFuncButton}" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <!--  吸嘴測高 END  -->
+
+        <!--  下方版面 START  -->
+        <StackPanel Orientation="Horizontal">
+            <!--  測高平台 START  -->
+            <Border>
+                <StackPanel HorizontalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        Content="測高平台"
+                        Foreground="Brown" />
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Style="{StaticResource CoorBlock}">
+                            <Label Content="X" Style="{StaticResource Title}" />
+                            <TextBox Style="{StaticResource Coor}" Text="{Binding MeasuringPlatformX, StringFormat=\{0:F3\}}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Style="{StaticResource CoorBlock}">
+                            <Label Content="Y" Style="{StaticResource Title}" />
+                            <TextBox Style="{StaticResource Coor}" Text="{Binding MeasuringPlatformY, StringFormat=\{0:F3\}}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Style="{StaticResource CoorBlock}">
+                            <Label Content="Z" Style="{StaticResource Title}" />
+                            <TextBox Style="{StaticResource Coor}" Text="{Binding MeasuringPlatformZ, StringFormat=\{0:F3\}}" />
+                        </StackPanel>
+
+                        <Button
+                            Grid.Row="1"
+                            Command="{Binding MoveCameraToPlatformCommand}"
+                            Content="移動&#x0a;到此處"
+                            IsEnabled="{Binding InStopEnable, Converter={StaticResource BooleanToStringConverter}}"
+                            Style="{StaticResource StageFuncButton}" />
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Command="{Binding GetCoorCommand}"
+                            Content="取得&#x0a;目前座標"
+                            IsEnabled="{Binding InStopEnable, Converter={StaticResource BooleanToStringConverter}}"
+                            Style="{StaticResource StageFuncButton}" />
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Command="{Binding StartMeasurePlatformCommand}"
+                            Content="校正&#x0a;測高平台"
+                            IsEnabled="{Binding InStopEnable, Converter={StaticResource BooleanToStringConverter}}"
+                            Style="{StaticResource StageFuncButton}" />
+
+                    </Grid>
+                    <StackPanel
+                        Margin="0,15,0,9"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Label
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Content="基準吸嘴：" />
+                        <Label
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Left"
+                            Content="{Binding BaseNozzleName}" />
+                        <!--<ComboBox
+                            ItemsSource="{Binding NozzleOfPlatformList}"
+                            SelectedIndex="{Binding NozzleOfPlatformIndex}"
+                            SelectedItem="{Binding NozzleOfPlatformItem}" />-->
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <!--  測高平台 End  -->
+
+            <!--  解析度 START  -->
+            <Border>
+                <StackPanel Margin="9,0,9,0" HorizontalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        Content="解析度"
+                        Foreground="Brown" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Resolution0, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllResolutionCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllResolutionCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <Label Content="{Binding Resolution0Label}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Resolution1, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllResolutionCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllResolutionCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <Label Content="{Binding Resolution1Label}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Resolution2, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllResolutionCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllResolutionCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <Label Content="{Binding Resolution2Label}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Resolution3, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllResolutionCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllResolutionCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <Label Content="{Binding Resolution3Label}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Resolution4, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllResolutionCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllResolutionCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <Label Content="{Binding Resolution4Label}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Resolution5, Converter={StaticResource BooleanToStringConverter}}">
+                            <ToggleButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding SelectAllResolutionCommand}" Header="全部選擇" />
+                                    <MenuItem Command="{Binding UnselectAllResolutionCommand}" Header="全部取消" />
+                                </ContextMenu>
+                            </ToggleButton.ContextMenu>
+                        </CheckBox>
+                        <Label Content="{Binding Resolution5Label}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <!--  解析度 End  -->
+
+        </StackPanel>
+        <!--  下方版面 END  -->
+
+    </StackPanel>
+
+</UserControl>
