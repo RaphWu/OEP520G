@@ -27,6 +27,7 @@
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.6" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
     <PackageReference Include="Wpf.Controls.PanAndZoom" Version="2.3.3" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.8.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Imageproject\Imageproject.csproj" />

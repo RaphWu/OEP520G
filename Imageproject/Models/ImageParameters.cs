@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Imageproject.Constants;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TcpipServer.Models;
@@ -8,15 +9,19 @@ namespace Imageproject.Models
 {
     public class ImageParameters
     {
-        public static ICImagingControl FixCamera;
-        public static FrameSnapSink FixCameraSnapSink;
-        public static ICImagingControl MoveCamera;
-        public static FrameSnapSink MoveCameraSnapSink;
+        //public static CameraId ActiveCameraId;
+        //public static ICImagingControl ActiveCamera = null;
+        //public static SinkType ActiveSinkType;
+
+        public static ICImagingControl FixCamera = null;
+        public static FrameQueueSink FixCameraSink;
+
+        public static ICImagingControl MoveCamera = null;
+        public static FrameQueueSink MoveCameraSink;
 
         // 接收到的所有影像
-        internal static List<ObjectImage> ImageList = null;
-
-        // 拍照取得影像的Buff
-        internal static List<FrameBuff> ReceiveFrame = new List<FrameBuff>();
+        public const int MAX_IMAGE_COUNT = 11;
+        //public static List<IFrameQueueBuffer> ReceiveFrame = new List<IFrameQueueBuffer>();
+        //public static List<ObjectImage> ImageList = null;
     }
 }

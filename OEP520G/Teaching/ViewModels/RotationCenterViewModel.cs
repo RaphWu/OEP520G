@@ -1,4 +1,6 @@
 ﻿using EPCIO;
+using Imageproject.Constants;
+using Imageproject.Contracts;
 using OEP520G.Core;
 using OEP520G.Parameter;
 using Prism;
@@ -34,14 +36,18 @@ namespace OEP520G.Teaching.ViewModels
             set { _isActive = value; }
         }
 
+        private readonly IImage _image;
+
         // 全域Save事件
         public DelegateCommand WriteDataCommand { get; private set; }
 
         /// <summary>
         /// 建構函式
         /// </summary>
-        public RotationCenterViewModel()
+        public RotationCenterViewModel(IImage image)
         {
+            _image = image;
+
             MoveHereCommand = new DelegateCommand(MoveHere);
             GetCoorCommand = new DelegateCommand(GetCoor);
             StartCorrectCommand = new DelegateCommand(StartCorrect);
@@ -104,6 +110,10 @@ namespace OEP520G.Teaching.ViewModels
         /// </summary>
         private void StartCorrect()
         {
+            //_image.TakePictureStart();
+            //_image.TakePictures(EImageTargetId.Stage);
+            //_image.TakePictureFinish();
+
             //doc.AppendLine("asdfasdfascxzcvwed");
             //DocumentDisplay = doc.ToString();
         }

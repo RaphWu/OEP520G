@@ -180,7 +180,7 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="工具">
-                    <Fluent:Button Click="ShowImageDemo" Header="相機" />
+                    <Fluent:Button Header="相機" />
                     <Fluent:Button
                         Click="ShowTeachingBox"
                         Header="Teaching&#x0a;Box"
@@ -215,7 +215,7 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="工具">
-                    <Fluent:Button Click="ShowImageDemo" Header="相機" />
+                    <Fluent:Button Header="相機" />
                     <Fluent:Button
                         Click="ShowTeachingBox"
                         Header="Teaching&#x0a;Box"

@@ -13,7 +13,7 @@ namespace Imageproject
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<IImage, ImageClass>();
+            //containerRegistry.Register<IImage, ImageClass>();
             //containerRegistry.RegisterForNavigation<Imagedisplay, ImagedisplayViewModels>();
         }
     }

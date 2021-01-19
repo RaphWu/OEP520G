@@ -13,7 +13,7 @@ using TcpipServer.Models;
 
 namespace TcpipServer.Services
 {
-    public class TcpipServerClass : ITcpipServer
+    public class TcpipServerService : ITcpipServer
     {
         private int dataLen;
         private Socket masterSocket;
@@ -24,7 +24,7 @@ namespace TcpipServer.Services
 
         private IEventAggregator _ea;
 
-        public TcpipServerClass(IEventAggregator ea)
+        public TcpipServerService(IEventAggregator ea)
         {
             _ea = ea;
 

@@ -17,6 +17,8 @@ namespace OEP520G.Functions
 {
     public class FlyCorrect
     {
+        private const bool USE_DAC_TRIGGER = true;
+
         private readonly Logger log = Logger.Instance;
 
         private readonly Epcio epcio = Epcio.Instance;
@@ -121,7 +123,8 @@ namespace OEP520G.Functions
                                        string flyWaySelected,
                                        CancellationTokenSource cts)
         {
-            _flySpeed = flySpeed;
+            _flySpeed = EServoSpeed.Low;
+            //_flySpeed = flySpeed;
             _cts = cts;
 
             // 安全高度
@@ -197,7 +200,7 @@ namespace OEP520G.Functions
                 //await epcio.WaitingForMotionStop(waitingServoZ: true);
 
                 // 移動拍照
-                _image.TakePictureStart();
+                //_image.TakePictureStart();
 
                 for (int flyNozzleId = 0; flyNozzleId < 11; flyNozzleId++)
                 {
@@ -222,13 +225,13 @@ namespace OEP520G.Functions
 
                     //log.WriteLine($"FlyByPosition -> Call TakePicture: {flyNozzle}");
 
-                    _image.TakePicture(flyNozzle);
+                    //_image.TakePictures(flyNozzle);
 
                     //flyNozzle++;
                 }
 
                 // end
-                _image.TakePictureFinish();
+                //_image.TakePictureFinish();
 
                 // home
                 await epcio.MoveServoZToSafety();
@@ -260,6 +263,8 @@ namespace OEP520G.Functions
 
             Servo servoX = epcio.ServoX;
 
+            //_image.TakeQueuePictureStart(EImageTargetId.Nozzle01);
+
             try
             {
                 // 作業是否取消
@@ -290,18 +295,40 @@ namespace OEP520G.Functions
                 // 啟動中斷
                 MCCL.MCC_EnableENCCompTrigger(servoX.Channel, Epcio.CARD_INDEX);
 
+                // DAC觸發設定
+                // dwSource值參閱 MCCL.DAC_TRIG_ENC0~7
+                if (USE_DAC_TRIGGER)
+                {
+                    //MCCL.MCC_SetDACTriggerOutput(5.0F, servoX.Channel, Epcio.CARD_INDEX);
+                    //MCCL.MCC_SetDACTriggerSource((uint)(0x01 << servoX.Channel), servoX.Channel, Epcio.CARD_INDEX);
+                    //MCCL.MCC_EnableDACTriggerMode(servoX.Channel, Epcio.CARD_INDEX);
+                    //MCCL.MCC_StartDACConv(Epcio.CARD_INDEX);
+                    MCCL.MCC_SetDACTriggerOutput(5.0F, servoX.Channel, Epcio.CARD_INDEX);
+                    MCCL.MCC_SetDACTriggerSource((uint)MCCL.DAC_TRIG_ENC0, servoX.Channel, Epcio.CARD_INDEX);
+                    MCCL.MCC_EnableDACTriggerMode(servoX.Channel, Epcio.CARD_INDEX);
+                    MCCL.MCC_StartDACConv(Epcio.CARD_INDEX);
+                }
+
                 // 飛行至原點
                 epcio.SetSpeed(servoXSpeed: _flySpeed);
                 epcio.MoveTo(positionX: 0, checkSafetyZ: false);
-                await epcio.WaitingForMotionStop(waitingServoX: true);
+                //await epcio.WaitingForMotionStop(waitingServoX: true);
             }
             catch (Exception e)
             {
                 MessageBox.Show($"FlyByEncoder Error: {e.Message}");
             }
 
+            await epcio.WaitingForAllServoMotionStop();
+
             // 關閉ISR
             MCCL.MCC_DisableENCCompTrigger(servoX.Channel, Epcio.CARD_INDEX);
+            if (USE_DAC_TRIGGER)
+            {
+                MCCL.MCC_StopDACConv(Epcio.CARD_INDEX);
+            }
+
+            //_image.HwTriggerPictureFinish();
         }
 
         /// <summary>
@@ -309,33 +336,55 @@ namespace OEP520G.Functions
         /// </summary>
         private void EncIsrFunction(ref ENCINT_EX pstINTSource)
         {
-            // COMP0=Channel 0
-            if (pstINTSource.COMP0 == 1)
+            try
             {
-                flyNozzle++;
-
-                // 拍照請求
-                _ = Task.Run(async () =>
+                // COMP0=Channel 0
+                if (pstINTSource.COMP0 == 1)
                 {
-                    log.WriteLine($"FlyByEncoder -> Call TakePicture: {flyNozzle}");
-                    _image.TakePicture(flyNozzle);
-                });
+                    flyNozzle++;
 
-                // 讀取座標
-                long pulseX = 0, pulseY = 0, pulseZ = 0, pulseU = 0, pulseV = 0, pulseW = 0;
+                    //log.WriteLine($"\tFlyByEncoder -> Call TakePicture: {flyNozzle}");
 
-                MCCL.MCC_GetPulsePos(ref pulseX, ref pulseY, ref pulseZ, ref pulseU, ref pulseV, ref pulseW, epcio.ServoX.Group);
-                FlyDatas[flyDataBaseIndex + flyNozzleId].NewX
-                    = FlyDatas[flyDataBaseIndex + flyNozzleId].NozzleX - epcio.PulseToPosition(EServoId.X, pulseX);
+                    // 拍照請求
+                    if (!USE_DAC_TRIGGER)
+                    {
+                        //_ = Task.Run(async () =>
+                        //{
+                        //_image.TakePictures(flyNozzle);
+                        //});
+                    }
 
-                MCCL.MCC_GetPulsePos(ref pulseX, ref pulseY, ref pulseZ, ref pulseU, ref pulseV, ref pulseW, epcio.ServoY.Group);
-                FlyDatas[flyDataBaseIndex + flyNozzleId].NewY
-                    = FlyDatas[flyDataBaseIndex + flyNozzleId].NozzleY - epcio.PulseToPosition(EServoId.Y, pulseX);
+                    //// 讀取座標
+                    //long pulseX = 0, pulseY = 0, pulseZ = 0, pulseU = 0, pulseV = 0, pulseW = 0;
 
-                // 下一支吸嘴
-                if (++flyNozzleId < Nozzle.MAX_NOZZLE)
-                    MCCL.MCC_SetENCCompValue(nozzle.NozzleList[flyNozzleId].Encoder.X, epcio.ServoX.Channel, Epcio.CARD_INDEX);
-                flyNozzleId++;
+                    //MCCL.MCC_GetPulsePos(ref pulseX, ref pulseY, ref pulseZ, ref pulseU, ref pulseV, ref pulseW, epcio.ServoX.Group);
+                    //FlyDatas[flyDataBaseIndex + flyNozzleId].NewX
+                    //    = FlyDatas[flyDataBaseIndex + flyNozzleId].NozzleX - epcio.PulseToPosition(EServoId.X, pulseX);
+
+                    //MCCL.MCC_GetPulsePos(ref pulseX, ref pulseY, ref pulseZ, ref pulseU, ref pulseV, ref pulseW, epcio.ServoY.Group);
+                    //FlyDatas[flyDataBaseIndex + flyNozzleId].NewY
+                    //    = FlyDatas[flyDataBaseIndex + flyNozzleId].NozzleY - epcio.PulseToPosition(EServoId.Y, pulseX);
+
+                    //FlyDatas[flyDataBaseIndex + flyNozzleId].Update = true;
+
+                    // 下一支吸嘴
+                    if (++flyNozzleId < Nozzle.MAX_NOZZLE)
+                    {
+                        int nextTriggerValue = nozzle.NozzleList[flyNozzleId].Encoder.X;
+                        MCCL.MCC_SetENCCompValue(nextTriggerValue,
+                                                 epcio.ServoX.Channel,
+                                                 Epcio.CARD_INDEX);
+                        //log.WriteLine($"\tFlyByEncoder -> Call Next TakePicture: {flyNozzle}, {nextTriggerValue}");
+                    }
+                    //flyNozzleId++;
+
+                    Thread.Sleep(10);
+                    MCCL.MCC_SetDACOutput(0, epcio.ServoX.Channel, Epcio.CARD_INDEX);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"EncIsrFunction() Exception: {e.Message}");
             }
         }
 

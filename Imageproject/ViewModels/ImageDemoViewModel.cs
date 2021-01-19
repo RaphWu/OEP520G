@@ -42,20 +42,20 @@ namespace Imageproject.ViewModels
 
         private void UpdateListView(string msg)
         {
-            ImageSampleList = new ObservableCollection<ListViewData>();
-            foreach (var item in ImageParameters.ReceiveFrame)
-            {
-                var objectImage = ImageParameters.ImageList.Find(x => x.ObjectId == item.ObjectId);
-                ImageSampleList.Add(new ListViewData()
-                {
-                    ObjectId = (int)objectImage.ObjectId,
-                    Title = objectImage.Title,
-                    imgByte = null,
-                    X = objectImage.X,
-                    Y = objectImage.Y,
-                    A = objectImage.A
-                });
-            }
+            //ImageSampleList = new ObservableCollection<ListViewData>();
+            //foreach (var item in ImageParameters.ReceiveFrame)
+            //{
+            //    var objectImage = ImageParameters.ImageList.Find(x => x.ObjectId == item.ObjectId);
+            //    ImageSampleList.Add(new ListViewData()
+            //    {
+            //        ObjectId = (int)objectImage.ObjectId,
+            //        Title = objectImage.Title,
+            //        imgByte = null,
+            //        X = objectImage.X,
+            //        Y = objectImage.Y,
+            //        A = objectImage.A
+            //    });
+            //}
         }
 
         /********************

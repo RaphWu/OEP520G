@@ -10,28 +10,47 @@ namespace Imageproject.Contracts
 {
     public interface IImage
     {
-        /// <summary>
-        /// 相機初始化
-        /// </summary>
-        /// <param name="cameraId">要初始化那台相機</param>
-        void InitCamera(CameraId cameraId);
+        IFrameQueueBuffer FixCameraFrame { get; }
+        IFrameQueueBuffer MoveCameraFrame { get; }
 
         /// <summary>
-        /// 拍攝一張照片
+        /// 啟動固定相機
         /// </summary>
-        /// <param name="objectId">被拍照物件ID</param>
-        void TakePicture(EImageTargetId objectId);
+        void FixCameraOn();
 
         /// <summary>
-        /// 相機開始可拍照狀態
+        /// 關閉固定相機
         /// </summary>
-        void TakePictureStart();
+        void FixCameraOff();
 
         /// <summary>
-        /// 相機結束可拍照狀態，並開始數值演算
+        /// 啟動移動相機
         /// </summary>
-        void TakePictureFinish();
+        void MoveCameraOn();
 
+        /// <summary>
+        /// 關閉移動相機
+        /// </summary>
+        void MoveCameraOff();
+
+        /********************
+         * 單張拍照
+         ********************/
+        /// <summary>
+        /// 取得固定相機當前照片
+        /// </summary>
+        /// <returns>取得的照片。<br/>null: 相機無效或無照片。</returns>
+        IFrameQueueBuffer TakePictureFromFixCamera();
+
+        /// <summary>
+        /// 取得移動相機當前照片
+        /// </summary>
+        /// <returns>取得的照片。<br/>null: 相機無效或無照片。</returns>
+        IFrameQueueBuffer TakePictureFromMoveCamera();
+
+        /********************
+         * 相機內建設定程式
+         ********************/
         /// <summary>
         /// 呼叫相機驅動器設定程式
         /// </summary>

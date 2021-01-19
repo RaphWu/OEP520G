@@ -3,15 +3,20 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
     xmlns:local="clr-namespace:OEP520G.Parameter.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     d:DesignHeight="815"
     d:DesignWidth="1280"
+    lex:LocalizeDictionary.DesignCulture="zh-Hant"
+    lex:ResxLocalizationProvider.DefaultAssembly="OEP520G.Machine"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     prism:ViewModelLocator.AutoWireViewModel="True"
     FontFamily="Tahoma"
     FontSize="14"
+    Style="{StaticResource BaseUserControlStyle}"
     mc:Ignorable="d">
 
     <UserControl.Resources>

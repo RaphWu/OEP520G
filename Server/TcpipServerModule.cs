@@ -13,7 +13,7 @@ namespace TcpipServer
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<ITcpipServer, TcpipServerClass>();
+            containerRegistry.Register<ITcpipServer, TcpipServerService>();
         }
     }
 }

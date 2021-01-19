@@ -1,0 +1,933 @@
+﻿<mah:MetroWindow
+    x:Class="Image.Views.Imagedisplay"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="影像介面"
+    Width="738"
+    d:DesignHeight="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Tahoma"
+    FontSize="14"
+    ResizeMode="CanResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="ThreeDBorderWindow"
+    mc:Ignorable="d">
+
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary>
+            <Style BasedOn="{StaticResource MaterialDesignDataGrid}" TargetType="{x:Type DataGrid}">
+                <Setter Property="materialDesign:DataGridAssist.CellPadding" Value="6 2 6 2" />
+                <Setter Property="materialDesign:DataGridAssist.ColumnHeaderPadding" Value="6 2 6 2" />
+                <Setter Property="AutoGenerateColumns" Value="False" />
+                <Setter Property="CanUserAddRows" Value="False" />
+                <Setter Property="CanUserDeleteRows" Value="False" />
+                <Setter Property="CanUserReorderColumns" Value="False" />
+                <Setter Property="CanUserResizeColumns" Value="False" />
+                <Setter Property="CanUserResizeRows" Value="False" />
+                <Setter Property="CanUserSortColumns" Value="False" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="ItemsSource" Value="{Binding}" />
+                <Setter Property="GridLinesVisibility" Value="All" />
+                <Setter Property="HorizontalGridLinesBrush" Value="Gainsboro" />
+                <Setter Property="VerticalGridLinesBrush" Value="Gainsboro" />
+                <Setter Property="SelectionMode" Value="Single" />
+            </Style>
+            <Style x:Key="ItemUnit" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="70" />
+                <Setter Property="Margin" Value="2,1,0,1" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+            <Style x:Key="ItemLabel" TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0,1,0,1" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="DockPanel.Dock" Value="Left" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Foreground" Value="Brown" />
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
+                <Setter Property="TextBlock.FontSize" Value="14" />
+                <Setter Property="TextBlock.HorizontalAlignment" Value="Right" />
+                <Setter Property="TextBlock.HorizontalAlignment" Value="Right" />
+            </Style>
+            <!--  框  -->
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="2,5,2,9" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="DockPanel.Dock" Value="Top" />
+            </Style>
+
+            <Style x:Key="Gap" TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="8" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+            <Style
+                x:Key="ChannelSelectComboBox"
+                BasedOn="{StaticResource MaterialDesignComboBox}"
+                TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Margin" Value="9,0,30,0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True" />
+                <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <Style x:Key="ChannelSelectLabel" TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0,1,9,1" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+            <Style x:Key="ItemTitle" TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0,1,0,1" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="DockPanel.Dock" Value="Left" />
+            </Style>
+
+            <Style x:Key="ItemInfo" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="150" />
+                <Setter Property="Margin" Value="0,1,9,1" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+
+    <StackPanel Margin="9,9,0,-29">
+        <Grid Height="580">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+
+
+            <DockPanel
+                Height="490"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+
+                <Border
+                    Width="450  "
+                    Height="360"
+                    Margin="5,20,5,5"
+                    Padding="2,15,2,9"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+
+                    <Image
+                        x:Name="Image"
+                        Width="450"
+                        Height="360"
+                        Margin="0,-28,0,-21"
+                        RenderTransformOrigin="0.5,0.5"
+                        Source="{Binding VideoSource}" />
+
+
+
+                </Border>
+
+                <Grid />
+
+                <DockPanel Height="87" Margin="0,23,0,0">
+                    <Button
+                        Width="100"
+                        HorizontalAlignment="Left"
+                        Command="{Binding Originalsize}"
+                        Content="原始大小" />
+                    <Button
+                        Width="100"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Left"
+                        Command="{Binding Distancemeasurement}"
+                        Content="距離量測" />
+                    <Button
+                        Width="100"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Left"
+                        Command="{Binding Threepointdrawing}"
+                        Content="三點畫圖" />
+                    <DockPanel
+                        Height="30"
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Left"
+                        DockPanel.Dock="Top">
+                        <Label
+                            HorizontalAlignment="Left"
+                            Content="顯示二值化"
+                            DockPanel.Dock="Right"
+                            FontSize="12"
+                            Style="{StaticResource ItemLabel}" />
+                        <CheckBox DockPanel.Dock="Right" IsChecked="{Binding DiscardComponentWhenPhotoFailed}" />
+
+                    </DockPanel>
+                </DockPanel>
+
+            </DockPanel>
+
+            <!--<Grid>
+                <Image
+                    x:Name="cameraImage1"
+                    Margin="13,17,40,117"
+                    RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform />
+                            <SkewTransform />
+                            <RotateTransform Angle="0.026" />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Image.RenderTransform>
+
+                </Image>
+            </Grid>-->
+
+            <DockPanel
+                Grid.ColumnSpan="2"
+                Margin="464,0,-30,0"
+                LastChildFill="False">
+                <StackPanel Width="230" DockPanel.Dock="Left">
+                    <DockPanel>
+                        <Button
+                            Width="100"
+                            HorizontalAlignment="Left"
+                            Command="{Binding FixedCommand}"
+                            Content="固定相機"
+                            Cursor="Hand" />
+                        <Button
+                            Width="100"
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Left"
+                            Command="{Binding MobileCommand}"
+                            Content="移動相機" />
+
+                    </DockPanel>
+                    <DockPanel
+                        Margin="0,9,0,0"
+                        HorizontalAlignment="Right"
+                        LastChildFill="False">
+                        <Label
+                            Margin="9,1,9,1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Content="上光源"
+                            DockPanel.Dock="Left"
+                            FontSize="12"
+                            Style="{StaticResource ChannelSelectLabel}" />
+                        <TextBox
+                            MinWidth="80   "
+                            Margin="0,0,9,0"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Left"
+                            Text="{Binding Upperlightsource}" />
+                        <StackPanel
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Stretch"
+                            DockPanel.Dock="Left">
+                            <Button
+                                Width="20"
+                                Height="16"
+                                Margin="0,1,0,1"
+                                Padding="0"
+                                Command="{Binding IncreaseQuantityCommand}"
+                                Content="{materialDesign:PackIcon ArrowUpBold}" />
+                            <Button
+                                Width="20"
+                                Height="16"
+                                Margin="0,1,0,1"
+                                Padding="0"
+                                Command="{Binding DecreaseQuantityCommand}"
+                                Content="{materialDesign:PackIcon ArrowDownBold}" />
+                        </StackPanel>
+                    </DockPanel>
+                    <DockPanel
+                        Margin="0,9,0,0"
+                        HorizontalAlignment="Right"
+                        LastChildFill="False">
+                        <Label
+                            Margin="9,1,9,1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Content="低角度光源"
+                            DockPanel.Dock="Left"
+                            FontSize="12"
+                            Style="{StaticResource ChannelSelectLabel}" />
+                        <TextBox
+                            MinWidth="80   "
+                            Margin="0,0,9,0"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Left"
+                            Text="{Binding Lowanglelightsource}" />
+                        <StackPanel
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Stretch"
+                            DockPanel.Dock="Left">
+                            <Button
+                                Width="20"
+                                Height="16"
+                                Margin="0,1,0,1"
+                                Padding="0"
+                                Command="{Binding IncreaseQuantityCommand}"
+                                Content="{materialDesign:PackIcon ArrowUpBold}" />
+                            <Button
+                                Width="20"
+                                Height="16"
+                                Margin="0,1,0,1"
+                                Padding="0"
+                                Command="{Binding DecreaseQuantityCommand}"
+                                Content="{materialDesign:PackIcon ArrowDownBold}" />
+                        </StackPanel>
+                    </DockPanel>
+                    <DockPanel
+                        Margin="0,9,0,0"
+                        HorizontalAlignment="Right"
+                        LastChildFill="False">
+                        <Label
+                            Margin="9,1,9,1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Content="下光源"
+                            DockPanel.Dock="Left"
+                            FontSize="12"
+                            Style="{StaticResource ChannelSelectLabel}" />
+                        <TextBox
+                            MinWidth="80"
+                            Margin="0,0,9,0"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Left"
+                            Text="{Binding ProductionQuantity}" />
+                        <StackPanel
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Stretch"
+                            DockPanel.Dock="Left">
+                            <Button
+                                Width="20"
+                                Height="16"
+                                Margin="0,1,0,1"
+                                Padding="0"
+                                Command="{Binding IncreaseQuantityCommand}"
+                                Content="{materialDesign:PackIcon ArrowUpBold}" />
+                            <Button
+                                Width="20"
+                                Height="16"
+                                Margin="0,1,0,1"
+                                Padding="0"
+                                Command="{Binding DecreaseQuantityCommand}"
+                                Content="{materialDesign:PackIcon ArrowDownBold}" />
+                        </StackPanel>
+                    </DockPanel>
+                    <DockPanel
+                        Margin="0,9,0,0"
+                        HorizontalAlignment="Right"
+                        LastChildFill="False">
+                        <Label
+                            Margin="9,1,9,1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Content="同軸光源"
+                            DockPanel.Dock="Left"
+                            FontSize="12"
+                            Style="{StaticResource ChannelSelectLabel}" />
+                        <TextBox
+                            MinWidth="80"
+                            Margin="0,0,9,0"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Left"
+                            Text="{Binding ProductionQuantity}" />
+                        <StackPanel
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Stretch"
+                            DockPanel.Dock="Left">
+                            <Button
+                                Width="20"
+                                Height="16"
+                                Margin="0,1,0,1"
+                                Padding="0"
+                                Command="{Binding IncreaseQuantityCommand}"
+                                Content="{materialDesign:PackIcon ArrowUpBold}" />
+                            <Button
+                                Width="20"
+                                Height="16"
+                                Margin="0,1,0,1"
+                                Padding="0"
+                                Command="{Binding DecreaseQuantityCommand}"
+                                Content="{materialDesign:PackIcon ArrowDownBold}" />
+                        </StackPanel>
+                    </DockPanel>
+                    <DockPanel Margin="0,10,0,0" HorizontalAlignment="Left">
+                        <TextBox
+                            MinWidth="80"
+                            Margin="0,12,0,0"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Top"
+                            Text="{Binding ProductionQuantity}" />
+                        <Button
+                            Width="100"
+                            Margin="0,21,0,0"
+                            HorizontalAlignment="Left"
+                            Command="{Binding}"
+                            Content="儲存模型"
+                            Cursor="Hand" />
+                    </DockPanel>
+                    <DockPanel
+                        Width="127"
+                        Height="109"
+                        Margin="0,-89,5,0"
+                        HorizontalAlignment="Right">
+                        <Border>
+                            <DockPanel Height="87">
+                                <Label
+                                    HorizontalAlignment="Left"
+                                    Content="尺寸資料"
+                                    DockPanel.Dock="Top"
+                                    FontSize="12"
+                                    Foreground="Brown" />
+
+                                <DockPanel
+                                    Height="30"
+                                    HorizontalAlignment="Left"
+                                    DockPanel.Dock="Top">
+                                    <Label
+                                        Width="34"
+                                        Content="跟隨"
+                                        DockPanel.Dock="Right"
+                                        FontSize="12"
+                                        Style="{StaticResource ItemLabel}" />
+                                    <CheckBox DockPanel.Dock="Right" IsChecked="{Binding DiscardComponentWhenPhotoFailed}" />
+                                </DockPanel>
+                                <DockPanel
+                                    Height="30"
+                                    HorizontalAlignment="Left"
+                                    DockPanel.Dock="Left">
+                                    <Label
+                                        HorizontalAlignment="Right"
+                                        Content="不顯示"
+                                        DockPanel.Dock="Right"
+                                        FontSize="12"
+                                        Style="{StaticResource ItemLabel}" />
+                                    <CheckBox DockPanel.Dock="Right" IsChecked="{Binding DiscardComponentWhenPhotoFailed}" />
+                                </DockPanel>
+                            </DockPanel>
+
+                        </Border>
+                    </DockPanel>
+                    <StackPanel>
+                        <DockPanel>
+                            <DockPanel>
+                                <Label
+                                    HorizontalAlignment="Left"
+                                    Content="寬度"
+                                    DockPanel.Dock="Top"
+                                    FontSize="12    "
+                                    Foreground="Brown" />
+                                <DockPanel HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                                    <TextBox
+                                        x:Name="width"
+                                        MinWidth="50"
+                                        Margin="0,5,0,0"
+                                        HorizontalAlignment="Left"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top"
+                                        SelectionOpacity="1"
+                                        Text="{Binding width, StringFormat=\{0:F3\}}" />
+                                    <TextBox
+                                        MinWidth="50"
+                                        Margin="0,12,0,0"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top" />
+                                </DockPanel>
+                            </DockPanel>
+                            <DockPanel Margin="10,0,0,0">
+                                <Label
+                                    HorizontalAlignment="Left"
+                                    Content="高度"
+                                    DockPanel.Dock="Top"
+                                    FontSize="12"
+                                    Foreground="Brown" />
+                                <DockPanel HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                                    <TextBox
+                                        MinWidth="50"
+                                        Margin="0,5,0,0"
+                                        HorizontalAlignment="Left"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top"
+                                        Text="{Binding height, StringFormat=\{0:F3\}}" />
+                                    <Label
+                                        Width="32"
+                                        Height="25"
+                                        Margin="-12,-79,-33,1"
+                                        Content="像素"
+                                        DockPanel.Dock="Right"
+                                        FontSize="12"
+                                        Style="{StaticResource ItemLabel}" />
+                                    <TextBox
+                                        MinWidth="50"
+                                        Margin="0,18,0,0"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top" />
+                                    <Label
+                                        Width="32"
+                                        Height="26"
+                                        Margin="38,-38,-33,1"
+                                        Content="mm"
+                                        DockPanel.Dock="Right"
+                                        FontSize="12"
+                                        Style="{StaticResource ItemLabel}" />
+                                </DockPanel>
+                                <DockPanel Margin="0,-35,0,0" VerticalAlignment="Top">
+                                    <Label
+                                        HorizontalAlignment="Right"
+                                        Content="鎖定"
+                                        DockPanel.Dock="Right"
+                                        FontSize="12"
+                                        Style="{StaticResource ItemLabel}" />
+                                    <CheckBox
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding lockingCommand}"
+                                        DockPanel.Dock="Right" />
+                                </DockPanel>
+
+                                <StackPanel
+                                    Margin="0,0,32,0"
+                                    VerticalAlignment="Stretch"
+                                    DockPanel.Dock="Left">
+                                    <Button
+                                        Width="20"
+                                        Height="16"
+                                        Margin="-53,1,0,1"
+                                        Padding="0"
+                                        Command="{Binding widthlessCommand}"
+                                        Content="{materialDesign:PackIcon ArrowUpBold}"
+                                        RenderTransformOrigin="0.5,0.5">
+                                        <Button.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform />
+                                                <SkewTransform />
+                                                <RotateTransform Angle="-90" />
+                                                <TranslateTransform />
+                                            </TransformGroup>
+                                        </Button.RenderTransform>
+                                    </Button>
+
+                                    <Button
+                                        Width="20"
+                                        Height="16"
+                                        Margin="13,-18,0,1"
+                                        Padding="0"
+                                        Command="{Binding DecreaseQuantityCommand}"
+                                        Content="{materialDesign:PackIcon ArrowDownBold}"
+                                        RenderTransformOrigin="0.5,0.5">
+                                        <Button.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform />
+                                                <SkewTransform />
+                                                <RotateTransform Angle="-90" />
+                                                <TranslateTransform />
+                                            </TransformGroup>
+                                        </Button.RenderTransform>
+                                    </Button>
+                                </StackPanel>
+
+                                <StackPanel
+                                    Margin="10,27,5,0"
+                                    VerticalAlignment="Stretch"
+                                    DockPanel.Dock="Left">
+                                    <Button
+                                        Width="20"
+                                        Height="16"
+                                        Margin="-53,1,0,1"
+                                        Padding="0"
+                                        Command="{Binding IncreaseQuantityCommand}"
+                                        Content="{materialDesign:PackIcon ArrowUpBold}" />
+                                    <Button
+                                        Width="20"
+                                        Height="16"
+                                        Margin="-51,11,0,1"
+                                        Padding="0"
+                                        Command="{Binding DecreaseQuantityCommand}"
+                                        Content="{materialDesign:PackIcon ArrowDownBold}" />
+                                </StackPanel>
+
+                            </DockPanel>
+                            <StackPanel
+                                Width="100"
+                                Height="100"
+                                Margin="-110,0,0,0"
+                                HorizontalAlignment="Stretch"
+                                Orientation="Horizontal">
+                                <Button
+                                    Width="52"
+                                    Height="40"
+                                    Margin="20,55,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    Command="{Binding Pictureframe}"
+                                    Content="畫框"
+                                    FontSize="10" />
+                            </StackPanel>
+
+                        </DockPanel>
+                    </StackPanel>
+                    <StackPanel Margin="0,26,0,0">
+                        <DockPanel Margin="0,-12,0,0">
+                            <DockPanel>
+                                <Label
+                                    HorizontalAlignment="Left"
+                                    Content="OffsetX"
+                                    DockPanel.Dock="Top"
+                                    FontSize="12"
+                                    Foreground="Brown" />
+                                <DockPanel HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                                    <TextBox
+                                        MinWidth="50"
+                                        Margin="0,5,0,0"
+                                        HorizontalAlignment="Left"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top"
+                                        Text="{Binding left, StringFormat=\{0:F3\}}" />
+                                    <TextBox
+                                        MinWidth="50"
+                                        Margin="0,12,0,0"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top"
+                                        Text="{Binding ProductionQuantity}" />
+                                </DockPanel>
+                            </DockPanel>
+                            <DockPanel Margin="10,0,0,0">
+                                <Label
+                                    HorizontalAlignment="Left"
+                                    Content="OffsetY"
+                                    DockPanel.Dock="Top"
+                                    FontSize="12"
+                                    Foreground="Brown" />
+                                <DockPanel HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                                    <TextBox
+                                        MinWidth="50"
+                                        Margin="0,5,0,0"
+                                        HorizontalAlignment="Left"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top"
+                                        Text="{Binding top, StringFormat=\{0:F3\}}" />
+                                    <Label
+                                        Width="32"
+                                        Height="25"
+                                        Margin="-12,-79,-33,1"
+                                        Content="像素"
+                                        DockPanel.Dock="Right"
+                                        FontSize="12"
+                                        Style="{StaticResource ItemLabel}" />
+                                    <TextBox
+                                        MinWidth="50"
+                                        Margin="0,19,0,0"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top"
+                                        Text="{Binding ProductionQuantity}" />
+                                    <Label
+                                        Width="32"
+                                        Height="25"
+                                        Margin="40,-38,-33,1"
+                                        Content="mm"
+                                        DockPanel.Dock="Right"
+                                        FontSize="12"
+                                        Style="{StaticResource ItemLabel}" />
+                                </DockPanel>
+                                <DockPanel Margin="76,-35,0,0" VerticalAlignment="Top" />
+                                <StackPanel
+                                    Margin="0,0,4,0"
+                                    VerticalAlignment="Stretch"
+                                    DockPanel.Dock="Left">
+                                    <Button
+                                        Width="20"
+                                        Height="16"
+                                        Margin="-80,1,0,1"
+                                        Padding="0"
+                                        Command="{Binding IncreaseQuantityCommand}"
+                                        Content="{materialDesign:PackIcon ArrowUpBold}"
+                                        RenderTransformOrigin="0.5,0.5">
+                                        <Button.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform />
+                                                <SkewTransform />
+                                                <RotateTransform Angle="-90" />
+                                                <TranslateTransform />
+                                            </TransformGroup>
+                                        </Button.RenderTransform>
+                                    </Button>
+
+                                    <Button
+                                        Width="20"
+                                        Height="16"
+                                        Margin="-9,-18,0,1"
+                                        Padding="0"
+                                        Command="{Binding DecreaseQuantityCommand}"
+                                        Content="{materialDesign:PackIcon ArrowDownBold}"
+                                        RenderTransformOrigin="0.5,0.5">
+                                        <Button.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform />
+                                                <SkewTransform />
+                                                <RotateTransform Angle="-90" />
+                                                <TranslateTransform />
+                                            </TransformGroup>
+                                        </Button.RenderTransform>
+                                    </Button>
+                                </StackPanel>
+
+                                <StackPanel
+                                    Margin="10,27,5,0"
+                                    VerticalAlignment="Stretch"
+                                    DockPanel.Dock="Left">
+                                    <Button
+                                        Width="20"
+                                        Height="16"
+                                        Margin="-12,1,0,1"
+                                        Padding="0"
+                                        Command="{Binding IncreaseQuantityCommand}"
+                                        Content="{materialDesign:PackIcon ArrowUpBold}" />
+                                    <Button
+                                        Width="20"
+                                        Height="16"
+                                        Margin="-11,11,0,1"
+                                        Padding="0"
+                                        Command="{Binding DecreaseQuantityCommand}"
+                                        Content="{materialDesign:PackIcon ArrowDownBold}" />
+                                </StackPanel>
+
+                            </DockPanel>
+                            <StackPanel
+                                Width="100"
+                                Height="100"
+                                Margin="-84,0,0,0"
+                                HorizontalAlignment="Stretch"
+                                Orientation="Horizontal">
+                                <Button
+                                    Width="52"
+                                    Height="40"
+                                    Margin="1,59,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    Command="{Binding ResetCommand}"
+                                    Content="重置"
+                                    FontSize="10" />
+                            </StackPanel>
+
+                        </DockPanel>
+                    </StackPanel>
+
+                </StackPanel>
+
+            </DockPanel>
+
+
+        </Grid>
+        <DockPanel Height="61" Margin="0,-16,0,0">
+            <DockPanel HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                <Label
+                    Margin="0,1,9,1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Content="黑準位"
+                    DockPanel.Dock="Left"
+                    FontSize="12"
+                    Style="{StaticResource ChannelSelectLabel}" />
+                <Slider
+                    Width="250"
+                    Height="53"
+                    DockPanel.Dock="Left"
+                    Maximum="250"
+                    Minimum="0"
+                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                    ToolTip="MaterialDesignDiscreteSlider"
+                    Value="50" />
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                <Label
+                    Width="46"
+                    Margin="0,1,9,1"
+                    Content="白準位"
+                    DockPanel.Dock="Left"
+                    FontSize="12"
+                    Style="{StaticResource ChannelSelectLabel}" />
+                <Slider
+                    Width="250"
+                    Height="53"
+                    DockPanel.Dock="Left"
+                    Maximum="250"
+                    Minimum="0"
+                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                    ToolTip="MaterialDesignDiscreteSlider"
+                    Value="50" />
+            </DockPanel>
+        </DockPanel>
+        <DockPanel
+            Width="704"
+            Height="61"
+            Margin="0,22,0,0"
+            HorizontalAlignment="Left">
+            <DockPanel HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                <Label
+                    Width="46"
+                    Margin="0,1,9,1"
+                    HorizontalAlignment="Left"
+                    Content="黑準位"
+                    DockPanel.Dock="Left"
+                    FontSize="12"
+                    Style="{StaticResource ChannelSelectLabel}" />
+                <Slider
+                    Width="600"
+                    Height="53"
+                    DockPanel.Dock="Left"
+                    Maximum="250"
+                    Minimum="0"
+                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                    ToolTip="MaterialDesignDiscreteSlider"
+                    Value="50" />
+            </DockPanel>
+        </DockPanel>
+        <Button
+            Width="100"
+            Margin="0,20,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Command="{Binding Originalsize}"
+            Content="儲存圖片"
+            Cursor="Hand" />
+        <Button
+            Width="100"
+            Margin="107,-33,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Command="{Binding Originalsize}"
+            Content="關閉相機" />
+        <Button
+            Width="100"
+            Margin="210,-33,0,0"
+            HorizontalAlignment="Left"
+            Command="{Binding Originalsize}"
+            Content="save" />
+        <Button
+            Width="100"
+            Margin="320,-33,0,0"
+            HorizontalAlignment="Left"
+            Command="{Binding Originalsize}"
+            Content="test" />
+
+        <Grid>
+            <Canvas
+                Width="{Binding ActualWidth, ElementName=Image, Mode=OneWay}"
+                Height="360"
+                Margin="14,-729,253,372"
+                RenderTransformOrigin="0.5,0.5">
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+                <Grid
+                    Canvas.Top="0"
+                    Width="450"
+                    Height="360">
+                    <Line
+                        Grid.ColumnSpan="1"
+                        Width="450"
+                        Height="30"
+                        Margin="-13,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        RenderTransformOrigin="0.5,0.5"
+                        Stroke="Red"
+                        StrokeThickness="1"
+                        X1="450"
+                        X2="0"
+                        Y1="0"
+                        Y2="0">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1" />
+                                <SkewTransform />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                </Grid>
+                <Grid Width="450" Height="450">
+                    <Line
+                        Grid.RowSpan="1"
+                        Width="15"
+                        Height="360"
+                        Margin="217.5,0,0,69"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Stroke="Red"
+                        StrokeThickness="2"
+                        X1="0"
+                        X2="0"
+                        Y1="0"
+                        Y2="450" />
+                </Grid>
+
+                <Canvas
+                    x:Name="coordinate"
+                    Canvas.Left="217.5"
+                    Canvas.Top="194"
+                    Width="226"
+                    Height="166">
+                    <Rectangle
+                        x:Name="Correctionframe"
+                        Canvas.Left="{Binding left1}"
+                        Canvas.Top="{Binding top1}"
+                        Width="{Binding width}"
+                        Height="{Binding height}"
+                        Stroke="Green"
+                        StrokeThickness="1.5"
+                        Visibility="Visible" />
+
+
+                </Canvas>
+
+
+
+
+            </Canvas>
+
+        </Grid>
+    </StackPanel>
+
+</mah:MetroWindow>

@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 
 namespace Imageproject.Models
 {
-    internal class ObjectImage
+    public class ObjectImage
     {
         internal EImageTargetId ObjectId { get; set; }
         internal string Title { get; set; }

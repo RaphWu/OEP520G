@@ -36,6 +36,8 @@ namespace OEP520G.ViewModels
         private readonly StatusBar statusBar = StatusBar.Instance;
         private readonly ProductManager pm = new ProductManager();
         private readonly SQLiteService sqlite = new SQLiteService();
+        private readonly TcpipServerService _tcpipServer;
+        private readonly ImageService _camera;
 
         // StatusBar更新Timer
         private readonly Timer StatusBarUpdateTimer = new Timer { Interval = 500 };
@@ -75,8 +77,8 @@ namespace OEP520G.ViewModels
             _ds = ds;
             Common.DS = ds;
 
-            //_tcpipServer = new TcpipServerClass(_ea);
-            //_image = new ImageClass(_ea, _tcpipServer);
+            _tcpipServer = new TcpipServerService(_ea);
+            _camera = new ImageService(_ea, _tcpipServer);
 
             statusBar.ShowStatusBarMessage("系統初始化中...");
 
@@ -295,25 +297,45 @@ namespace OEP520G.ViewModels
          * 繫結
          *******************/
 
-        //private DelegateCommand _FixCameraDeviceSetting;
-        //public DelegateCommand FixCameraDeviceSetting
-        //    => _FixCameraDeviceSetting ??= new DelegateCommand(ExecuteFixCameraDeviceSetting);
-        //void ExecuteFixCameraDeviceSetting() => _image.DeviceSetting(CameraId.FixCamera);
+        private DelegateCommand _FixCameraDeviceSetting;
+        public DelegateCommand FixCameraDeviceSetting
+            => _FixCameraDeviceSetting ??= new DelegateCommand(ExecuteFixCameraDeviceSetting);
+        void ExecuteFixCameraDeviceSetting()
+        {
+            TcpipServerService tcpip = new TcpipServerService(_ea);
+            ImageService image = new ImageService(_ea, tcpip);
+            image.DeviceSetting(CameraId.FixCamera);
+        }
 
-        //private DelegateCommand _MoveCameraDeviceSetting;
-        //public DelegateCommand MoveCameraDeviceSetting
-        //    => _MoveCameraDeviceSetting ??= new DelegateCommand(ExecuteMoveCameraDeviceSetting);
-        //void ExecuteMoveCameraDeviceSetting() => _image.DeviceSetting(CameraId.MoveCamera);
+        private DelegateCommand _MoveCameraDeviceSetting;
+        public DelegateCommand MoveCameraDeviceSetting
+            => _MoveCameraDeviceSetting ??= new DelegateCommand(ExecuteMoveCameraDeviceSetting);
+        void ExecuteMoveCameraDeviceSetting()
+        {
+            TcpipServerService tcpip = new TcpipServerService(_ea);
+            ImageService image = new ImageService(_ea, tcpip);
+            image.DeviceSetting(CameraId.MoveCamera);
+        }
 
-        //private DelegateCommand _FixCameraPropertSetting;
-        //public DelegateCommand FixCameraPropertSetting
-        //    => _FixCameraPropertSetting ??= new DelegateCommand(ExecuteFixCameraPropertSetting);
-        //void ExecuteFixCameraPropertSetting() => _image.PropertSetting(CameraId.FixCamera);
+        private DelegateCommand _FixCameraPropertSetting;
+        public DelegateCommand FixCameraPropertSetting
+            => _FixCameraPropertSetting ??= new DelegateCommand(ExecuteFixCameraPropertSetting);
+        void ExecuteFixCameraPropertSetting()
+        {
+            TcpipServerService tcpip = new TcpipServerService(_ea);
+            ImageService image = new ImageService(_ea, tcpip);
+            image.PropertSetting(CameraId.FixCamera);
+        }
 
-        //private DelegateCommand _MoveCameraPropertSetting;
-        //public DelegateCommand MoveCameraPropertSetting
-        //    => _MoveCameraPropertSetting ??= new DelegateCommand(ExecuteMoveCameraPropertSetting);
-        //void ExecuteMoveCameraPropertSetting() => _image.PropertSetting(CameraId.MoveCamera);
+        private DelegateCommand _MoveCameraPropertSetting;
+        public DelegateCommand MoveCameraPropertSetting
+            => _MoveCameraPropertSetting ??= new DelegateCommand(ExecuteMoveCameraPropertSetting);
+        void ExecuteMoveCameraPropertSetting()
+        {
+            TcpipServerService tcpip = new TcpipServerService(_ea);
+            ImageService image = new ImageService(_ea, tcpip);
+            image.PropertSetting(CameraId.MoveCamera);
+        }
 
         // Title
         private string _title = "";

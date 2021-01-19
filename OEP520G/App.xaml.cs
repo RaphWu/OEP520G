@@ -1,4 +1,6 @@
 ﻿using Imageproject;
+using Imageproject.Contracts;
+using Imageproject.Services;
 using OEP520G.Core.ViewModels;
 using OEP520G.Core.Views;
 using OEP520G.Parameter;
@@ -30,6 +32,7 @@ namespace OEP520G
             // Dialog，品種增修刪使用
             containerRegistry.RegisterDialog<CrudDialog, CrudDialogViewModel>();
             containerRegistry.RegisterDialog<MessageDialog, MessageDialogViewModel>();
+            containerRegistry.Register<IImage, ImageService>();
         }
 
         //protected override void ConfigureViewModelLocator()

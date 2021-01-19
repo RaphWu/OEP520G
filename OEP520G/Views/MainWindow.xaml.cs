@@ -68,15 +68,12 @@ namespace OEP520G.Views
         private ServoTester viewServoTester;
         private ProductView viewProductionSelect;
 
-        private IDialogService _ds;
-
         /// <summary>
         /// Shell
         /// </summary>
-        public MainWindow(IContainerExtension ce, IRegionManager rm, IDialogService ds)
+        public MainWindow(IContainerExtension ce, IRegionManager rm)
         {
             InitializeComponent();
-            _ds = ds;
 
             // MaterialDesignInXAML Advanced Theming
             //Color primaryColor = Colors.Teal;
@@ -320,25 +317,25 @@ namespace OEP520G.Views
             region.Activate(viewServoParameter);
         }
 
-        //private void MoveCameraDeviceSetting(object sender, RoutedEventArgs e)
-        //{
-        //    //_image.DeviceSetting(CameraId.MoveCamera);
-        //}
-
         //private void FixCameraDeviceSetting(object sender, RoutedEventArgs e)
         //{
         //    ImageClass _image = new ImageClass();
         //    _image.DeviceSetting(CameraId.FixCamera);
         //}
 
-        //private void MoveCameraPropertSetting(object sender, RoutedEventArgs e)
-        //{
-        //    //_image.PropertSetting(CameraId.MoveCamera);
-        //}
-
         //private void FixCameraPropertSetting(object sender, RoutedEventArgs e)
         //{
         //    _image.PropertSetting(CameraId.FixCamera);
+        //}
+
+        //private void MoveCameraDeviceSetting(object sender, RoutedEventArgs e)
+        //{
+        //    //_image.DeviceSetting(CameraId.MoveCamera);
+        //}
+
+        //private void MoveCameraPropertSetting(object sender, RoutedEventArgs e)
+        //{
+        //    //_image.PropertSetting(CameraId.MoveCamera);
         //}
 
         private void ShowDiscardBox(object sender, RoutedEventArgs e)
@@ -381,13 +378,6 @@ namespace OEP520G.Views
         private void ShowAbnormalStatistics(object sender, RoutedEventArgs e)
         {
             AbnormalStatistics v = AbnormalStatistics.Instance;
-            v.Owner = this;
-            v.Show();
-        }
-
-        private void ShowImageDemo(object sender, RoutedEventArgs e)
-        {
-            ImageDemo v = ImageDemo.Instance;
             v.Owner = this;
             v.Show();
         }
