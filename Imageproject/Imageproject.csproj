@@ -13,9 +13,6 @@
     <PackageReference Include="WPFLocalizeExtension" Version="3.8.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Contracts\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Server\TcpipServer.csproj" />
   </ItemGroup>
   <ItemGroup>

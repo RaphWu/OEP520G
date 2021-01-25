@@ -13,7 +13,7 @@ using TcpipServer.Services;
 
 namespace Imageproject.ViewModels
 {
-    public class ImagedisplayViewModels : BindableBase, IActiveAware
+    public class ImagedisplayViewModel : BindableBase, IActiveAware
     {
 
 
@@ -37,8 +37,8 @@ namespace Imageproject.ViewModels
 
                 if (!value)
                 {
-                    _ea.GetEvent<FixCameraQueued>().Unsubscribe(RefreshVideo);
-                    _ea.GetEvent<MoveCameraQueued>().Unsubscribe(RefreshVideo);
+                    _image.FixCameraOff();
+                    _image.MoveCameraOff();
                 }
             }
         }
@@ -47,8 +47,8 @@ namespace Imageproject.ViewModels
         private readonly IEventAggregator _ea;
         private readonly IImage _image;
 
-        // ctor
-        public ImagedisplayViewModels(IEventAggregator ea, IImage image)
+        // ctor5
+        public ImagedisplayViewModel(IEventAggregator ea, IImage image)
         {
             _ea = ea;
             _image = image;
@@ -60,7 +60,7 @@ namespace Imageproject.ViewModels
             ResetCommand = new DelegateCommand(Reset);
         }
 
-        public void Fixed()
+        private void Fixed()
         {
 
             //ImageParameters.FixCamera = new ICImagingControl();
@@ -74,12 +74,11 @@ namespace Imageproject.ViewModels
             //ImageParameters.FixCamera.LiveDisplay = true;
             //ImageParameters.FixCamera.LiveStart();
 
-            _image.FixCameraOn();
-            _ea.GetEvent<MoveCameraQueued>().Unsubscribe(RefreshVideo);
-            _ea.GetEvent<FixCameraQueued>().Subscribe(RefreshVideo);
+            _image.MoveCameraOff();
+            _image.FixCameraOn(VideoDemoFunc);
         }
 
-        public void Mobile()
+        private void Mobile()
         {
             //ImageParameters.MoveCamera = new ICImagingControl();
             //ImageParameters.MoveCamera.LoadDeviceStateFromFile(CameraCfgFile.MoveCameraXmlFile, true);
@@ -92,9 +91,8 @@ namespace Imageproject.ViewModels
             //ImageParameters.MoveCamera.LiveDisplay = true;
             //ImageParameters.MoveCamera.LiveStart();
 
-            _image.MoveCameraOn();
-            _ea.GetEvent<FixCameraQueued>().Unsubscribe(RefreshVideo);
-            _ea.GetEvent<MoveCameraQueued>().Subscribe(RefreshVideo);
+            _image.FixCameraOff();
+            _image.MoveCameraOn(VideoDemoFunc);
         }
 
         public void locking()
@@ -166,21 +164,10 @@ namespace Imageproject.ViewModels
 
         //}
 
-        //private FrameQueuedResult VideoDemoFunc(IFrameQueueBuffer img)
-        //{
-        //    VideoSource = ImageFormatter.BitmapToBitmapImage(img.CreateBitmapWrap());
-
-        //    return FrameQueuedResult.ReQueue;
-        //}
-
-        private void RefreshVideo(CameraId cameraId)
+        private FrameQueuedResult VideoDemoFunc(IFrameQueueBuffer img)
         {
-            var bi = cameraId == CameraId.FixCamera
-                ? _image.FixCameraFrame
-                : _image.MoveCameraFrame;
-
-            if (bi != null)
-                VideoSource = ImageFormatter.BitmapToBitmapImage(bi.CreateBitmapWrap());
+            VideoSource = ImageFormatter.BitmapToBitmapImage(img.CreateBitmapWrap());
+            return FrameQueuedResult.ReQueue;
         }
 
         private DelegateCommand _Unloaded;

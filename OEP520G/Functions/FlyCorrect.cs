@@ -3,6 +3,7 @@ using EPCIO;
 using EpcioSeries;
 using Imageproject.Constants;
 using Imageproject.Contracts;
+using Imageproject.Models;
 using OEP520G.Core;
 using OEP520G.Parameter;
 using System;
@@ -11,6 +12,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using TIS.Imaging;
 using Unity;
 
 namespace OEP520G.Functions
@@ -168,6 +170,13 @@ namespace OEP520G.Functions
 
             // 回復Polling
             epcio.StartPolling();
+
+            // 圖片存檔
+            IFrameQueueBuffer[] frame = ImageParameters.FrameList;
+            for (int cnt = 0; cnt < ImageParameters.MAX_IMAGE_COUNT; cnt++)
+            {
+                _image.SaveImageToFile($"Nozzle{cnt}", frame[cnt]);
+            }
         }
 
         /********************
@@ -199,8 +208,8 @@ namespace OEP520G.Functions
                 //epcio.MoveTo(positionZ: nozzle.NozzleList[0].Position.Z);
                 //await epcio.WaitingForMotionStop(waitingServoZ: true);
 
-                // 移動拍照
-                //_image.TakePictureStart();
+                // 確定相機開啟
+                _image.FixCameraOn();
 
                 for (int flyNozzleId = 0; flyNozzleId < 11; flyNozzleId++)
                 {
@@ -225,13 +234,10 @@ namespace OEP520G.Functions
 
                     //log.WriteLine($"FlyByPosition -> Call TakePicture: {flyNozzle}");
 
-                    //_image.TakePictures(flyNozzle);
+                    _image.FrameList[flyNozzleId + 1] = _image.TakePictureWithFixCamera();
 
                     //flyNozzle++;
                 }
-
-                // end
-                //_image.TakePictureFinish();
 
                 // home
                 await epcio.MoveServoZToSafety();
@@ -263,8 +269,6 @@ namespace OEP520G.Functions
 
             Servo servoX = epcio.ServoX;
 
-            //_image.TakeQueuePictureStart(EImageTargetId.Nozzle01);
-
             try
             {
                 // 作業是否取消
@@ -276,7 +280,7 @@ namespace OEP520G.Functions
                 //epcio.SetSpeed(EServoSpeed.UltraHigh);
                 epcio.SetSpeed(EServoSpeed.Low);
 
-                // 飛行前Z軸定位    
+                // 飛行前Z軸定位
                 await epcio.MoveServoZToSafety();
 
                 // X軸就定位
@@ -309,10 +313,13 @@ namespace OEP520G.Functions
                     MCCL.MCC_StartDACConv(Epcio.CARD_INDEX);
                 }
 
+                // 相機設定
+                _image.FixCameraOff();
+                _image.FixCameraHwTriggerOn();
+
                 // 飛行至原點
                 epcio.SetSpeed(servoXSpeed: _flySpeed);
                 epcio.MoveTo(positionX: 0, checkSafetyZ: false);
-                //await epcio.WaitingForMotionStop(waitingServoX: true);
             }
             catch (Exception e)
             {
@@ -320,6 +327,7 @@ namespace OEP520G.Functions
             }
 
             await epcio.WaitingForAllServoMotionStop();
+            _image.FixCameraHwTriggerOff();
 
             // 關閉ISR
             MCCL.MCC_DisableENCCompTrigger(servoX.Channel, Epcio.CARD_INDEX);
@@ -327,8 +335,6 @@ namespace OEP520G.Functions
             {
                 MCCL.MCC_StopDACConv(Epcio.CARD_INDEX);
             }
-
-            //_image.HwTriggerPictureFinish();
         }
 
         /// <summary>
@@ -341,18 +347,18 @@ namespace OEP520G.Functions
                 // COMP0=Channel 0
                 if (pstINTSource.COMP0 == 1)
                 {
-                    flyNozzle++;
+                    //flyNozzle++;
 
                     //log.WriteLine($"\tFlyByEncoder -> Call TakePicture: {flyNozzle}");
 
-                    // 拍照請求
-                    if (!USE_DAC_TRIGGER)
-                    {
-                        //_ = Task.Run(async () =>
-                        //{
-                        //_image.TakePictures(flyNozzle);
-                        //});
-                    }
+                    //// 拍照請求
+                    //if (!USE_DAC_TRIGGER)
+                    //{
+                    //    //_ = Task.Run(async () =>
+                    //    //{
+                    //    //_image.TakePictures(flyNozzle);
+                    //    //});
+                    //}
 
                     //// 讀取座標
                     //long pulseX = 0, pulseY = 0, pulseZ = 0, pulseU = 0, pulseV = 0, pulseW = 0;
@@ -386,6 +392,12 @@ namespace OEP520G.Functions
             {
                 MessageBox.Show($"EncIsrFunction() Exception: {e.Message}");
             }
+        }
+
+        private FrameQueuedResult HwTriggerPicture(IFrameQueueBuffer frame)
+        {
+
+            return FrameQueuedResult.ReQueue;
         }
 
         /********************

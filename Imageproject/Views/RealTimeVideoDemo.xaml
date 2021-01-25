@@ -1,0 +1,69 @@
+﻿<Window
+    x:Class="Imageproject.Views.RealTimeVideoDemo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="RealTimeVideoDemo"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    SizeToContent="WidthAndHeight">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding UnloadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Msg" TargetType="StackPanel">
+                <Setter Property="Margin" Value="9,0,9,0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Orientation" Value="Horizontal" />
+            </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Image
+                Width="600"
+                Height="400"
+                Margin="5,0,5,0"
+                Source="{Binding VideoSource}" />
+            <Image
+                Width="600"
+                Height="400"
+                Margin="5,0,5,0"
+                Source="{Binding VideoSnap}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Style="{StaticResource Msg}">
+                <Label Content="Copied:" />
+                <TextBlock Text="{Binding Copied}" />
+            </StackPanel>
+            <StackPanel Style="{StaticResource Msg}">
+                <Label Content="Dropped:" />
+                <TextBlock Text="{Binding Dropped}" />
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource Msg}">
+                <Button
+                    Margin="5,2,5,2"
+                    Padding="9,2,9,0"
+                    Command="{Binding SnapCommand}"
+                    Content="SNAP" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

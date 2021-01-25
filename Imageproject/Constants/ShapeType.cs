@@ -35,7 +35,7 @@ namespace Imageproject.Constants
         FID,
 
         /// <summary>
-        /// 特徵/外觀/方向
+        /// 特徵(外觀/方向)
         /// </summary>
         Aspect,
 

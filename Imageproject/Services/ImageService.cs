@@ -18,6 +18,7 @@ using Prism.Events;
 using TcpipServer.Services;
 using Newtonsoft.Json;
 using Imageproject.Converters;
+using System.Windows.Forms;
 
 namespace Imageproject.Services
 {
@@ -29,11 +30,10 @@ namespace Imageproject.Services
         //private bool _hwTriggerMode = false;    // 是否在硬體觸發狀態
         //private bool _liveMode = false;         // 是否在Live狀態
 
-        private IFrameQueueBuffer _fixCameraFrame;
-        private IFrameQueueBuffer _moveCameraFrame;
-
         //private FrameSnapSink _frameSnapSink = new FrameSnapSink(MediaSubtypes.Y800);
         //private FrameQueueSink _frameQueueSink;
+
+        private int _countFrameList;
 
         private TimeSpan _timeOut = TimeSpan.FromMilliseconds(500);
 
@@ -44,9 +44,7 @@ namespace Imageproject.Services
         private readonly IEventAggregator _ea;
         private readonly ITcpipServer _tcpipServer;
 
-        /// <summary>
-        /// 建構函式
-        /// </summary>
+        // ctor
         public ImageService(IEventAggregator ea, ITcpipServer tcpipServer)
         {
             _ea = ea;
@@ -58,6 +56,7 @@ namespace Imageproject.Services
                 {
                     Name = CameraId.FixCamera.ToString()
                 };
+                ImageParameters.FixSnapSink = new FrameSnapSink();
                 LoadFixCamera();
             }
 
@@ -67,6 +66,7 @@ namespace Imageproject.Services
                 {
                     Name = CameraId.MoveCamera.ToString()
                 };
+                ImageParameters.MoveSnapSink = new FrameSnapSink();
                 LoadMoveCamera();
             }
 
@@ -93,46 +93,15 @@ namespace Imageproject.Services
             //    LiveOff();
             //}
 
+            ImageParameters.FrameList = new IFrameQueueBuffer[ImageParameters.MAX_IMAGE_COUNT];
+
             if (!Directory.Exists(FileString.ImageDirectoty))
                 Directory.CreateDirectory(FileString.ImageDirectoty);
 
             _ea.GetEvent<PublishSolve>().Subscribe(ReceiveSolve);
         }
 
-        public IFrameQueueBuffer FixCameraFrame => _fixCameraFrame;
-        public IFrameQueueBuffer MoveCameraFrame => _moveCameraFrame;
-
-        /// <inheritdoc/>
-        public void FixCameraOn() => LoadFixCamera();
-
-        /// <inheritdoc/>
-        public void FixCameraOff()
-        {
-            ImageParameters.FixCamera = null;
-            _fixCameraFrame = null;
-        }
-
-        /// <inheritdoc/>
-        public void MoveCameraOn() => LoadMoveCamera();
-
-        /// <inheritdoc/>
-        public void MoveCameraOff()
-        {
-            ImageParameters.MoveCamera = null;
-            _moveCameraFrame = null;
-        }
-
-        /// <summary>
-        /// 依CameraId
-        /// </summary>
-        /// <param name="cameraId"></param>
-        private void LoadCamera(CameraId cameraId)
-        {
-            if (cameraId == CameraId.FixCamera)
-                LoadFixCamera();
-            else if (cameraId == CameraId.MoveCamera)
-                LoadMoveCamera();
-        }
+        public IFrameQueueBuffer[] FrameList => ImageParameters.FrameList;
 
         /// <summary>
         /// 載入固定相機參數
@@ -140,27 +109,14 @@ namespace Imageproject.Services
         /// </summary>
         private void LoadFixCamera()
         {
-            if (ImageParameters.FixCamera != null)
-                if (ImageParameters.FixCamera.LiveVideoRunning)
-                    ImageParameters.FixCamera.LiveStop();
-
+            FixCameraOff();
             try
             {
                 ImageParameters.FixCamera.LoadDeviceStateFromFile(CameraCfgFile.FixCameraXmlFile, true);
-
-                ImageParameters.FixCameraSink = new FrameQueueSink(frame =>
-                {
-                    _fixCameraFrame = frame;
-                    _ea.GetEvent<FixCameraQueued>().Publish(CameraId.FixCamera);
-                    return FrameQueuedResult.ReQueue;
-                }, MediaSubtypes.Y800, ImageParameters.MAX_IMAGE_COUNT);
-                ImageParameters.FixCamera.Sink = ImageParameters.FixCameraSink;
             }
             catch (Exception e)
             {
-                ImageParameters.FixCamera = null;
-                _fixCameraFrame = null;
-                MessageBox.Show($"Load device failed. with {e}");
+                Console.WriteLine($"Load device failed. with {e}");
             }
         }
 
@@ -170,27 +126,332 @@ namespace Imageproject.Services
         /// </summary>
         private void LoadMoveCamera()
         {
-            if (ImageParameters.MoveCamera != null)
-                if (ImageParameters.MoveCamera.LiveVideoRunning)
-                    ImageParameters.MoveCamera.LiveStop();
-
+            MoveCameraOff();
             try
             {
                 ImageParameters.MoveCamera.LoadDeviceStateFromFile(CameraCfgFile.MoveCameraXmlFile, true);
-
-                ImageParameters.MoveCameraSink = new FrameQueueSink(frame =>
-                {
-                    _moveCameraFrame = frame;
-                    _ea.GetEvent<MoveCameraQueued>().Publish(CameraId.MoveCamera);
-                    return FrameQueuedResult.ReQueue;
-                }, MediaSubtypes.Y800, ImageParameters.MAX_IMAGE_COUNT);
             }
             catch (Exception e)
             {
-                ImageParameters.MoveCamera = null;
-                _moveCameraFrame = null;
-                MessageBox.Show($"Load device failed. with {e}");
+                Console.WriteLine($"Load device failed. with {e}");
             }
+        }
+
+        /// <inheritdoc/>
+        public void FixCameraOn() => FixCameraOn(null);
+
+        /// <inheritdoc/>
+        public void FixCameraOn(Func<IFrameQueueBuffer, FrameQueuedResult> frameQueuedFunc)
+        {
+            var fc = ImageParameters.FixCamera;
+            var fcs = ImageParameters.FixCameraStatus;
+
+            if (fc.DeviceValid)
+            {
+                // 硬體觸發優先
+                if (fcs == CameraStatus.HardwareTrigger)
+                    return;
+
+                // 已經是SnapSink
+                if (fcs == CameraStatus.SnapSink && frameQueuedFunc == null)
+                    return;
+
+                // 已經是QueueSink
+                if (fcs == CameraStatus.QueueSink && frameQueuedFunc != null)
+                    return;
+
+                if (fc.LiveVideoRunning)
+                    fc.LiveStop();
+
+                if (frameQueuedFunc == null)
+                {
+                    // SnapSink
+                    fc.Sink = ImageParameters.FixSnapSink;
+                    fcs = CameraStatus.SnapSink;
+                }
+                else
+                {
+                    // QueueSink
+                    fc.Sink = new FrameQueueSink(frameQueuedFunc,
+                                                 MediaSubtypes.Y800,
+                                                 ImageParameters.MAX_IMAGE_COUNT);
+                    fcs = CameraStatus.QueueSink;
+                }
+
+                fc.LiveStart();
+            }
+            else
+            {
+                if (fcs != CameraStatus.Disable)
+                    fcs = CameraStatus.Disable;
+            }
+        }
+
+        /// <inheritdoc/>
+        public void FixCameraOff()
+        {
+            if (ImageParameters.FixCamera.DeviceValid)
+                if (ImageParameters.FixCamera.LiveVideoRunning)
+                    ImageParameters.FixCamera.LiveStop();
+
+            if (ImageParameters.FixCameraStatus != CameraStatus.Disable)
+                ImageParameters.FixCameraStatus = CameraStatus.Disable;
+        }
+
+        /// <inheritdoc/>
+        public void MoveCameraOn() => MoveCameraOn(null);
+
+        /// <inheritdoc/>
+        public void MoveCameraOn(Func<IFrameQueueBuffer, FrameQueuedResult> frameQueuedFunc)
+        {
+            var mc = ImageParameters.MoveCamera;
+            var mcs = ImageParameters.MoveCameraStatus;
+
+            if (mc.DeviceValid)
+            {
+                // 硬體觸發優先
+                if (mcs == CameraStatus.HardwareTrigger)
+                    return;
+
+                // 已經是SnapSink
+                if (mcs == CameraStatus.SnapSink && frameQueuedFunc == null)
+                    return;
+
+                // 已經是QueueSink
+                if (mcs == CameraStatus.QueueSink && frameQueuedFunc != null)
+                    return;
+
+                if (mc.LiveVideoRunning)
+                    mc.LiveStop();
+
+                if (frameQueuedFunc == null)
+                {
+                    // SnapSink
+                    mc.Sink = ImageParameters.MoveSnapSink;
+                    mcs = CameraStatus.SnapSink;
+                }
+                else
+                {
+                    // QueueSink
+                    mc.Sink = new FrameQueueSink(frameQueuedFunc,
+                                                  MediaSubtypes.Y800,
+                                                  ImageParameters.MAX_IMAGE_COUNT);
+                    mcs = CameraStatus.QueueSink;
+                }
+
+                mc.LiveStart();
+            }
+            else
+            {
+                if (mcs != CameraStatus.Disable)
+                    mcs = CameraStatus.Disable;
+            }
+        }
+
+        /// <inheritdoc/>
+        public void MoveCameraOff()
+        {
+            if (ImageParameters.MoveCamera.DeviceValid)
+                if (ImageParameters.MoveCamera.LiveVideoRunning)
+                    ImageParameters.MoveCamera.LiveStop();
+
+            if (ImageParameters.MoveCameraStatus != CameraStatus.Disable)
+                ImageParameters.MoveCameraStatus = CameraStatus.Disable;
+        }
+
+        ///// <summary>
+        ///// 依CameraId
+        ///// </summary>
+        ///// <param name="cameraId"></param>
+        //private void LoadCamera(CameraId cameraId)
+        //{
+        //    if (cameraId == CameraId.FixCamera)
+        //        LoadFixCamera();
+        //    else if (cameraId == CameraId.MoveCamera)
+        //        LoadMoveCamera();
+        //}
+
+        /********************
+         * 軟體指令拍照
+         ********************/
+        /// <inheritdoc/>
+        public IFrameQueueBuffer TakePictureWithFixCamera()
+        {
+            if (ImageParameters.FixCameraStatus == CameraStatus.SnapSink)
+                return ImageParameters.FixSnapSink.SnapSingle(_timeOut);
+            else
+                return null;
+        }
+
+        /// <inheritdoc/>
+        public IFrameQueueBuffer TakePictureWithMoveCamera()
+        {
+            if (ImageParameters.MoveCameraStatus == CameraStatus.SnapSink)
+                return ImageParameters.MoveSnapSink.SnapSingle(_timeOut);
+            else
+                return null;
+        }
+
+        /********************
+         * 硬體觸發 (目前只有固定相機)
+         ********************/
+        /// <inheritdoc/>
+        public void FixCameraHwTriggerOn()
+        {
+            var fc = ImageParameters.FixCamera;
+            var fcs = ImageParameters.FixCameraStatus;
+
+            if (!fc.DeviceValid)
+                return;
+
+            // 已啟動硬體觸發
+            if (fcs == CameraStatus.HardwareTrigger)
+                return;
+
+            // 使用Sink時不可啟動硬體觸發，須先將Camera OFF
+            if (fcs != CameraStatus.Disable)
+                return;
+
+            if (fc.LiveVideoRunning)
+                fc.LiveStop();
+
+            fc.Sink = new FrameQueueSink(FixCameraHwTriggerFunc,
+                                         MediaSubtypes.Y800,
+                                         ImageParameters.MAX_IMAGE_COUNT);
+            _countFrameList = 0;
+            fc.DeviceTrigger = true;
+            fc.LiveStart();
+            fcs = CameraStatus.HardwareTrigger;
+        }
+
+        /// <inheritdoc/>
+        public void FixCameraHwTriggerOff()
+        {
+            var fc = ImageParameters.FixCamera;
+            var fcs = ImageParameters.FixCameraStatus;
+
+            if (!fc.DeviceValid)
+                return;
+
+            if (fcs != CameraStatus.HardwareTrigger)
+                return;
+
+            if (fc.LiveVideoRunning)
+                fc.LiveStop();
+            fc.DeviceTrigger = false;
+            fcs = CameraStatus.Disable;
+
+            // Sink切換及LiveStart()交由FixCameraOn()處理
+            FixCameraOn();
+        }
+
+        /// <summary>
+        /// 固定相機硬體觸發連拍處理
+        /// </summary>
+        /// <see cref="https://www.theimagingsource.com/support/documentation/ic-imaging-control-net/meth_descFrameQueueSink_FrameQueueSink.htm"/>
+        private FrameQueuedResult FixCameraHwTriggerFunc(IFrameQueueBuffer frame)
+        {
+            if (_countFrameList >= ImageParameters.MAX_IMAGE_COUNT)
+                return FrameQueuedResult.SkipReQueue;
+
+            ImageParameters.FrameList[_countFrameList++] = frame;
+            return FrameQueuedResult.ReQueue;
+        }
+
+        /********************
+         * 相機內建設定程式
+         ********************/
+        /// <inheritdoc/>
+        public void FixCameraDeviceSetting()
+        {
+            if (ImageParameters.FixCamera.ShowDeviceSettingsDialog() == DialogResult.OK)
+                if (ImageParameters.FixCamera.DeviceValid)
+                    ImageParameters.FixCamera.SaveDeviceStateToFile(CameraCfgFile.FixCameraXmlFile);
+        }
+
+        /// <inheritdoc/>
+        public void FixCameraPropertSetting()
+        {
+            ImageParameters.FixCamera.ShowPropertyDialog();
+            if (ImageParameters.FixCamera.DeviceValid)
+                ImageParameters.FixCamera.SaveDeviceStateToFile(CameraCfgFile.FixCameraXmlFile);
+        }
+
+        /// <inheritdoc/>
+        public void MoveCameraDeviceSetting()
+        {
+            if (ImageParameters.MoveCamera.ShowDeviceSettingsDialog() == DialogResult.OK)
+                if (ImageParameters.MoveCamera.DeviceValid)
+                    ImageParameters.MoveCamera.SaveDeviceStateToFile(CameraCfgFile.MoveCameraXmlFile);
+        }
+
+        /// <inheritdoc/>
+        public void MoveCameraPropertSetting()
+        {
+            ImageParameters.MoveCamera.ShowPropertyDialog();
+            if (ImageParameters.MoveCamera.DeviceValid)
+                ImageParameters.MoveCamera.SaveDeviceStateToFile(CameraCfgFile.MoveCameraXmlFile);
+        }
+
+        /********************
+         * 影像儲存
+         ********************/
+        /// <inheritdoc/>
+        public void SaveImageToFile(string imgName, IFrameQueueBuffer frame)
+        {
+            string dir = $@"{FileString.ImageDirectoty}\{imgName}";
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
+            // TODO: 檔名要改成畫像ID
+            string saveTime = DateTime.Now.ToString("yyyMMdd hhmmss");
+            string fullFileName = $@"{dir}\{imgName} {saveTime}.bmp";
+            frame.SaveAsBitmap(fullFileName);
+        }
+
+        ///********************
+        // * 求解
+        // ********************/
+        ///// <summary>
+        ///// 將影像List傳給TCP/IP Server
+        ///// </summary>
+        ///// <returns>傳送是否成功</returns>
+        ///// <remarks>工研院UI專用</remarks>
+        //private bool SendImageToTcpipServer()
+        //{
+        //    List<ImageInfo> toSendImages = new List<ImageInfo>();
+
+        //    foreach (var item in ImageParameters.ReceiveFrame)
+        //    {
+        //        if (item.NeedSolve)
+        //            toSendImages.Add(new ImageInfo()
+        //            {
+        //                ObjectId = (int)item.ObjectId,
+        //                Title = item.ObjectId.ToString(),
+        //                imgByte = ImageFormatter.BitmapToByteArray(item.Frame.CreateBitmapWrap())
+        //            });
+        //    }
+
+        //    toSendImages.Sort((x, y) => { return x.ObjectId.CompareTo(y.ObjectId); });
+        //    return _tcpipServer.SendImage(toSendImages);
+        //}
+
+        /// <summary>
+        /// 接收工研院UI -> TCP/IP傳回的演算結果
+        /// </summary>
+        private void ReceiveSolve(string result)
+        {
+            var jsonstrResult = JsonConvert.DeserializeObject<List<ResultInfo>>(result);
+
+            //foreach (var item in jsonstrResult)
+            //{
+            //    var imageItem = ImageParameters.ImageList.Find(x => (int)x.ObjectId == item.Id);
+            //    imageItem.X = item.X;
+            //    imageItem.Y = item.Y;
+            //    imageItem.A = item.A;
+            //}
+
+            //_ea.GetEvent<RequestUpdateDemo>().Publish("");
         }
 
         ///********************
@@ -214,60 +475,6 @@ namespace Imageproject.Services
         //        ImageParameters.ActiveCamera = null;
         //        ImageParameters.ActiveCameraId = CameraId.None;
         //    }
-        //}
-
-        ///// <inheritdoc/>
-        //public void HwTriggerOn()
-        //{
-        //    if (ImageParameters.ActiveCamera == null)
-        //        return;
-
-        //    if (!ImageParameters.ActiveCamera.DeviceValid)
-        //        return;
-
-        //    if (_hwTriggerMode)
-        //        return;
-
-        //    // 暫不強制切換至移動相機，保留將來若移動相機也要硬體觸發功能
-        //    if (ImageParameters.ActiveCamera.Name != CameraId.FixCamera.ToString())
-        //        return;
-
-        //    _frameQueueSink = new FrameQueueSink(HwTriggerPicture,
-        //                                         MediaSubtypes.Y800,
-        //                                         ImageParameters.MAX_IMAGE_COUNT);
-        //    ImageParameters.ActiveCamera.Sink = _frameQueueSink;
-        //    ImageParameters.ActiveSinkType = SinkType.QueueSink;
-
-        //    if (ImageParameters.ActiveCamera.LiveVideoRunning)
-        //        ImageParameters.ActiveCamera.LiveStop();
-
-        //    ImageParameters.ActiveCamera.DeviceTrigger = true;
-        //    ImageParameters.ActiveCamera.LiveStart();
-        //    _hwTriggerMode = true;
-        //}
-
-        ///// <inheritdoc/>
-        //public void HwTriggerOff()
-        //{
-        //    if (ImageParameters.ActiveCamera == null)
-        //        return;
-
-        //    if (!ImageParameters.ActiveCamera.DeviceValid)
-        //        return;
-
-        //    if (!_hwTriggerMode)
-        //    {
-        //        LiveOff();
-        //        return;
-        //    }
-
-        //    // PS:Sink切換及LiveStart()交由LiveOff()處理
-        //    if (ImageParameters.ActiveCamera.LiveVideoRunning)
-        //        ImageParameters.ActiveCamera.LiveStop();
-        //    ImageParameters.ActiveCamera.DeviceTrigger = false;
-
-        //    _hwTriggerMode = false;
-        //    LiveOff();
         //}
 
         ///// <inheritdoc/>
@@ -326,12 +533,6 @@ namespace Imageproject.Services
         /********************
          * 軟體指令拍照
          ********************/
-        /// <inheritdoc/>
-        public IFrameQueueBuffer TakePictureFromFixCamera() => _fixCameraFrame;
-
-        /// <inheritdoc/>
-        public IFrameQueueBuffer TakePictureFromMoveCamera() => _moveCameraFrame;
-
         ///// <inheritdoc/>
         //public void TakePictureStart()
         //{
@@ -493,54 +694,9 @@ namespace Imageproject.Services
         //    return FrameQueuedResult.ReQueue;
         //}
 
-        ///********************
-        // * 求解
-        // ********************/
-        ///// <summary>
-        ///// 將影像List傳給TCP/IP Server
-        ///// </summary>
-        ///// <returns>傳送是否成功</returns>
-        ///// <remarks>工研院UI專用</remarks>
-        //private bool SendImageToTcpipServer()
-        //{
-        //    List<ImageInfo> toSendImages = new List<ImageInfo>();
-
-        //    foreach (var item in ImageParameters.ReceiveFrame)
-        //    {
-        //        if (item.NeedSolve)
-        //            toSendImages.Add(new ImageInfo()
-        //            {
-        //                ObjectId = (int)item.ObjectId,
-        //                Title = item.ObjectId.ToString(),
-        //                imgByte = ImageFormatter.BitmapToByteArray(item.Frame.CreateBitmapWrap())
-        //            });
-        //    }
-
-        //    toSendImages.Sort((x, y) => { return x.ObjectId.CompareTo(y.ObjectId); });
-        //    return _tcpipServer.SendImage(toSendImages);
-        //}
-
-        /// <summary>
-        /// 接收工研院UI -> TCP/IP傳回的演算結果
-        /// </summary>
-        private void ReceiveSolve(string result)
-        {
-            var jsonstrResult = JsonConvert.DeserializeObject<List<ResultInfo>>(result);
-
-            //foreach (var item in jsonstrResult)
-            //{
-            //    var imageItem = ImageParameters.ImageList.Find(x => (int)x.ObjectId == item.Id);
-            //    imageItem.X = item.X;
-            //    imageItem.Y = item.Y;
-            //    imageItem.A = item.A;
-            //}
-
-            //_ea.GetEvent<RequestUpdateDemo>().Publish("");
-        }
-
-        ///********************
-        // * 影像儲存
-        // ********************/
+        /********************
+         * 影像儲存
+         ********************/
         ///// <summary>
         ///// 將相機的Frame存至影像List
         ///// </summary>
@@ -562,78 +718,5 @@ namespace Imageproject.Services
         //    }
         //}
 
-        ///// <summary>
-        ///// 影像存檔
-        ///// </summary>
-        //private void SaveImageToFile()
-        //{
-        //    //log.WriteLine($"ImageSave: ");
-
-        //    string saveTime = DateTime.Now.ToString("yyyMMdd hhmmss");
-
-        //    foreach (var item in ImageParameters.ReceiveFrame)
-        //    {
-        //        string productName = item.ObjectId.ToString();
-        //        string dir = $@"{FileString.ImageDirectoty}\{productName}";
-        //        if (!Directory.Exists(dir))
-        //            Directory.CreateDirectory(dir);
-
-        //        if (item.NeedSolve)
-        //        {
-        //            // TODO: 檔名要改成畫像ID
-        //            string fullFileName = $@"{dir}\{productName} {saveTime}.bmp";
-        //            item.Frame.SaveAsBitmap(fullFileName);
-        //        }
-        //    }
-        //}
-
-        /********************
-         * 相機內建設定程式
-         ********************/
-        /// <inheritdoc/>
-        public void DeviceSetting(CameraId cameraId)
-        {
-            var camera = (cameraId == CameraId.FixCamera)
-                ? ImageParameters.FixCamera
-                : ImageParameters.MoveCamera;
-
-            string cameraXml = (cameraId == CameraId.FixCamera)
-                ? CameraCfgFile.FixCameraXmlFile
-                : CameraCfgFile.MoveCameraXmlFile;
-
-            if (camera.LiveVideoRunning)
-                camera.LiveStop();
-
-            camera.ShowDeviceSettingsDialog();
-
-            if (camera.DeviceValid)
-            {
-                camera.SaveDeviceStateToFile(cameraXml);
-                LoadCamera(cameraId);
-            }
-        }
-
-        /// <inheritdoc/>
-        public void PropertSetting(CameraId cameraId)
-        {
-            var camera = (cameraId == CameraId.FixCamera)
-                ? ImageParameters.FixCamera
-                : ImageParameters.MoveCamera;
-
-            string cameraXml = (cameraId == CameraId.FixCamera)
-                ? CameraCfgFile.FixCameraXmlFile
-                : CameraCfgFile.MoveCameraXmlFile;
-
-            if (camera.LiveVideoRunning)
-                camera.LiveStop();
-
-            camera.ShowPropertyDialog();
-
-            if (camera.DeviceValid)
-            {
-                camera.SaveDeviceStateToFile(cameraXml);
-                LoadCamera(cameraId);
-            }
-        }
     }
 }

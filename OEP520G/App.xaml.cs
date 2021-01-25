@@ -32,7 +32,6 @@ namespace OEP520G
             // Dialog，品種增修刪使用
             containerRegistry.RegisterDialog<CrudDialog, CrudDialogViewModel>();
             containerRegistry.RegisterDialog<MessageDialog, MessageDialogViewModel>();
-            containerRegistry.Register<IImage, ImageService>();
         }
 
         //protected override void ConfigureViewModelLocator()

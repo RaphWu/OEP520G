@@ -304,7 +304,7 @@ namespace OEP520G.ViewModels
         {
             TcpipServerService tcpip = new TcpipServerService(_ea);
             ImageService image = new ImageService(_ea, tcpip);
-            image.DeviceSetting(CameraId.FixCamera);
+            image.FixCameraDeviceSetting();
         }
 
         private DelegateCommand _MoveCameraDeviceSetting;
@@ -314,7 +314,7 @@ namespace OEP520G.ViewModels
         {
             TcpipServerService tcpip = new TcpipServerService(_ea);
             ImageService image = new ImageService(_ea, tcpip);
-            image.DeviceSetting(CameraId.MoveCamera);
+            image.MoveCameraDeviceSetting();
         }
 
         private DelegateCommand _FixCameraPropertSetting;
@@ -324,7 +324,7 @@ namespace OEP520G.ViewModels
         {
             TcpipServerService tcpip = new TcpipServerService(_ea);
             ImageService image = new ImageService(_ea, tcpip);
-            image.PropertSetting(CameraId.FixCamera);
+            image.FixCameraPropertSetting();
         }
 
         private DelegateCommand _MoveCameraPropertSetting;
@@ -334,7 +334,7 @@ namespace OEP520G.ViewModels
         {
             TcpipServerService tcpip = new TcpipServerService(_ea);
             ImageService image = new ImageService(_ea, tcpip);
-            image.PropertSetting(CameraId.MoveCamera);
+            image.MoveCameraPropertSetting();
         }
 
         // Title
