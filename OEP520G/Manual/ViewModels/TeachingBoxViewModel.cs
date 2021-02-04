@@ -323,7 +323,7 @@ namespace OEP520G.Manual.ViewModels
         /// </summary>
         private async void ShiftTo()
         {
-            epcio.SetSpeed(EServoSpeed.Middle);
+            //epcio.SetSpeed(EServoSpeed.Middle);
             finalZ = epcio.ServoZ.GetCurrentPosition() + ShiftToZ;
 
             await epcio.MoveServoZToSafety();

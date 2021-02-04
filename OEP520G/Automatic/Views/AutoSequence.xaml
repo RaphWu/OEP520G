@@ -6,9 +6,10 @@
     xmlns:OEP520G_Core="clr-namespace:OEP520G.Core"
     xmlns:Prism="http://prismlibrary.com/"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:OEP520G.Automatic.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Prism:ViewModelLocator.AutoWireViewModel="True"
     d:DesignHeight="815"
     d:DesignWidth="1280"
@@ -326,7 +327,7 @@
                     materialDesign:ShadowAssist.ShadowDepth="Depth2"
                     materialDesign:ShadowAssist.ShadowEdges="All"
                     Background="AliceBlue">
-                    <TextBlock Text="Extra:&#xA;1: 畫像處理&#xA;2: 推出小車&#xA;3: 略過搭載前對位處理&#xA;4: 置件時張開夾爪&#xA;5: 搭載完成後，將小車轉回0度&#xA;6: 置件時不檢查下壓到位&#xA;7: 於台車取置件時，不使用夾片&#xA;8: 組裝完成後測高&#xA;9: 絕對組裝前畫像對位處理" TextWrapping="Wrap" />
+                    <TextBlock Text="Extra:&#xA;1: 畫像處理&#xA;2: 推出小車&#xA;3: 略過搭載前對位處理&#xA;4: 置件時張開夾爪&#xA;5: 搭載完成後，將小車轉回0度&#xA;6: 置件時不檢查下壓到位&#xA;7: 於台車取置件時，不使用夾片&#xA;8: 小車絕對0度組裝&#xA;9: 絕對組裝前畫像對位處理" TextWrapping="Wrap" />
                 </materialDesign:Card>
             </StackPanel>
             <!--  編修開關及說明 End  -->
@@ -432,7 +433,7 @@
                         ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                         Header="7" />
                     <DataGridCheckBoxColumn
-                        Binding="{Binding Path=MeasureHighAfterAssembly}"
+                        Binding="{Binding Path=AbsoluteZeroDegreeAssembly}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
                         ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                         Header="8" />

@@ -180,7 +180,7 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="工具">
-                    <Fluent:Button Header="相機" />
+                    <Fluent:Button Click="ShowImagedisplay" Header="相機" />
                     <Fluent:Button
                         Click="ShowTeachingBox"
                         Header="Teaching&#x0a;Box"
@@ -215,7 +215,7 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="工具">
-                    <Fluent:Button Header="相機" />
+                    <Fluent:Button Click="ShowImagedisplay" Header="相機" />
                     <Fluent:Button
                         Click="ShowTeachingBox"
                         Header="Teaching&#x0a;Box"
@@ -275,7 +275,7 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="工具">
-                    <Fluent:Button Header="相機" />
+                    <Fluent:Button Click="ShowImagedisplay" Header="相機" />
                     <Fluent:Button
                         Click="ShowTeachingBox"
                         Header="Teaching&#x0a;Box"
@@ -309,12 +309,13 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="其他">
+                    <Fluent:Button Click="ShowEprTest" Header="比例閥&#x0a;測試" />
                     <Fluent:Button Click="ShowAirPressureSetting" Header="系統氣壓&#x0a;壓力設定" />
                     <Fluent:Button Click="ShowDiscardBox" Header="抛料作業&#x0a;參數設定" />
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="工具">
-                    <Fluent:Button Header="相機" />
+                    <Fluent:Button Click="ShowImagedisplay" Header="相機" />
                     <Fluent:Button
                         Click="ShowTeachingBox"
                         Header="Teaching&#x0a;Box"

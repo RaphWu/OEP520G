@@ -334,7 +334,7 @@ LEFT JOIN TrayPointMatrix ON Tray.TrayId = TrayPointMatrix.TrayId;";
 [StageReturn0AfterCarry] BOOLEAN NOT NULL DEFAULT 0,
 [SkipPositionCheckWhenAssembly] BOOLEAN NOT NULL DEFAULT 0,
 [OpenClampWhenSingleProcedure] BOOLEAN NOT NULL DEFAULT 0,
-[MeasureHighAfterAssembly] BOOLEAN NOT NULL DEFAULT 0,
+[AbsoluteZeroDegreeAssembly] BOOLEAN NOT NULL DEFAULT 0,
 [GetCenterAfterStageRotate] BOOLEAN NOT NULL DEFAULT 0) WITHOUT ROWID;";
 
         /********************

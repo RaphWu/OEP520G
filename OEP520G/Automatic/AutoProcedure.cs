@@ -27,6 +27,8 @@ namespace OEP520G.Automatic
         private readonly ProductManager pm = new ProductManager();
         private readonly Dump dump = new Dump();
         private readonly AutoSequence autoSequence = AutoSequence.Instance;
+        private readonly AutoOperation autoOperation = new AutoOperation();
+        private readonly MeasureHeight measureHeight = new MeasureHeight();
         private readonly PickUpPart pickUpPart = new PickUpPart();
         private readonly Assemble assemble = new Assemble();
         private readonly Tray tray = Tray.Instance;
@@ -82,6 +84,9 @@ namespace OEP520G.Automatic
                 || !epcio.IsAllServoMotionStop()
                 || targetQuantity <= 0)
                 return;
+
+            // 置件測高步進解析度
+            List<double> res = new List<double> { 1, 0.5, 0.1, 0.05, 0.01, 0.005 };
 
             var fly = new FlyCorrect(_image, false);
             Random rnd = new Random();
@@ -239,11 +244,17 @@ namespace OEP520G.Automatic
                                                 nozzle.NozzleOff(nozzleId);
                                                 await Task.Delay(300);
 
-                                                epcio.SetSpeed(servoZSpeed: EServoSpeed.Low);
+                                                //epcio.SetSpeed(servoZSpeed: EServoSpeed.Low);
                                                 epcio.MoveTo(positionZ: 25);
                                                 epcio.SetSpeed(servoZSpeed: EServoSpeed.High);
                                                 epcio.MoveTo(positionZ: epcio.SafetyZ);
                                                 await epcio.WaitingForMotionStop(waitingServoZ: true);
+
+                                                // 置件測高
+                                                if (autoOperation.MeasureHeightAfterAssembly)
+                                                {
+                                                    measureHeight.Start(res, epcio.MeasureHighPlatform, cts);
+                                                }
 
                                                 nozzle.NozzleUp(nozzleId);
 
@@ -260,10 +271,10 @@ namespace OEP520G.Automatic
 
                                             // 點膠
                                             else if ((actionFullName == EAction.Dispensing.ToString())
-                                                  || (actionFullName == EAction.GlueAmountCheck.ToString())
-                                                  || (actionFullName == EAction.PreDispensing.ToString())
-                                                  || (actionFullName == EAction.ClearGlue.ToString())
-                                                  )
+                                          || (actionFullName == EAction.GlueAmountCheck.ToString())
+                                          || (actionFullName == EAction.PreDispensing.ToString())
+                                          || (actionFullName == EAction.ClearGlue.ToString())
+                                          )
                                             {
                                             }
                                             else
@@ -307,8 +318,13 @@ namespace OEP520G.Automatic
                                             {
                                             }
 
-                                            // 8:組裝完成後測高
-                                            if (proc.MeasureHighAfterAssembly)
+                                            //// 8:組裝完成後測高
+                                            //if (proc.MeasureHighAfterAssembly)
+                                            //{
+                                            //}
+
+                                            // 8:小車絕對0度組裝
+                                            if (proc.AbsoluteZeroDegreeAssembly)
                                             {
                                             }
 
@@ -318,7 +334,7 @@ namespace OEP520G.Automatic
                                             }
                                         }
 
-                                    AssebmlyFinished:
+                                        AssebmlyFinished:
                                         /******************
                                          * 步驟結束
                                          *****************/

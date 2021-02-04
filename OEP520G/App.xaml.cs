@@ -49,6 +49,7 @@ namespace OEP520G
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<ImageprojectModule>();
+            moduleCatalog.AddModule<OEP520G.EPRegulator.EPRegulatorModule>();
             moduleCatalog.AddModule<TcpipServer.TcpipServerModule>();
         }
     }

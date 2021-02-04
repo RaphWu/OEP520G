@@ -6,6 +6,7 @@ using Imageproject.Models;
 using Imageproject.Services;
 using Imageproject.Views;
 using OEP520G.Automatic.Views;
+using OEP520G.EPRegulator.Views;
 using OEP520G.Manual.Views;
 using OEP520G.Parameter.Views;
 using OEP520G.Product.Views;
@@ -64,6 +65,7 @@ namespace OEP520G.Views
         private MoveCamera viewMoveCamera;
         private FixCamera viewFixCamera;
         private DiscardBox viewDiscardBox;
+        private EprCorrect viewShowEprTest;
         private AirPressureSetting viewAirPressureSetting;
         private ServoTester viewServoTester;
         private ProductView viewProductionSelect;
@@ -131,6 +133,7 @@ namespace OEP520G.Views
             viewMoveCamera = container.Resolve<MoveCamera>();
             viewFixCamera = container.Resolve<FixCamera>();
             viewDiscardBox = container.Resolve<DiscardBox>();
+            viewShowEprTest = container.Resolve<EprCorrect>();
             viewAirPressureSetting = container.Resolve<AirPressureSetting>();
             viewServoTester = container.Resolve<ServoTester>();
             viewProductionSelect = container.Resolve<ProductView>();
@@ -169,6 +172,7 @@ namespace OEP520G.Views
             region.Add(viewMoveCamera);
             region.Add(viewFixCamera);
             region.Add(viewDiscardBox);
+            region.Add(viewShowEprTest);
             region.Add(viewAirPressureSetting);
             region.Add(viewServoTester);
             region.Add(viewProductionSelect);
@@ -343,6 +347,11 @@ namespace OEP520G.Views
             region.Activate(viewDiscardBox);
         }
 
+        private void ShowEprTest(object sender, RoutedEventArgs e)
+        {
+            region.Activate(viewShowEprTest);
+        }
+
         private void ShowAirPressureSetting(object sender, RoutedEventArgs e)
         {
             region.Activate(viewAirPressureSetting);
@@ -365,21 +374,44 @@ namespace OEP520G.Views
         {
             TeachingBox v = TeachingBox.Instance;
             v.Owner = this;
-            v.Show();
+
+            if (v.IsVisible)
+                v.Hide();
+            else
+                v.Show();
         }
 
         private void ShowObjectPanel(object sender, RoutedEventArgs e)
         {
             ObjectMove v = ObjectMove.Instance;
             v.Owner = this;
-            v.Show();
+
+            if (v.IsVisible)
+                v.Hide();
+            else
+                v.Show();
         }
 
         private void ShowAbnormalStatistics(object sender, RoutedEventArgs e)
         {
             AbnormalStatistics v = AbnormalStatistics.Instance;
             v.Owner = this;
-            v.Show();
+
+            if (v.IsVisible)
+                v.Hide();
+            else
+                v.Show();
+        }
+
+        private void ShowImagedisplay(object sender, RoutedEventArgs e)
+        {
+            Imagedisplay v = Imagedisplay.Instance;
+            v.Owner = this;
+
+            if (v.IsVisible)
+                v.Hide();
+            else
+                v.Show();
         }
     }
 }

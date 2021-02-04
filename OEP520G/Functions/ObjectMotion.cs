@@ -1,9 +1,7 @@
-﻿using CSharpCore.Logger;
-using EPCIO;
+﻿using EPCIO;
 using OEP520G.Automatic;
 using OEP520G.Core;
 using OEP520G.Parameter;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,8 +33,6 @@ namespace OEP520G.Functions
     /// </summary>
     public class ObjectMotion
     {
-        private readonly Logger log = Logger.Instance;
-
         private readonly Epcio epcio = Epcio.Instance;
         private readonly Machine machine = Machine.Instance;
         private readonly Camera camera = Camera.Instance;
@@ -45,12 +41,6 @@ namespace OEP520G.Functions
         private readonly Clamp clamp = Clamp.Instance;
         private readonly Dispenser dispenser = Dispenser.Instance;
         private readonly Tray tray = Tray.Instance;
-
-        // 運動前，Z軸是否在安全位置
-        private bool _isAxisZNotSafety;
-
-        // 運動前記錄Z軸原高度
-        private double? _positionZBackup;
 
         //private readonly DatumPointInfo refPoint1 = new DatumPointInfo();
         private readonly List<NozzleObject> _nozItem;
@@ -88,11 +78,19 @@ namespace OEP520G.Functions
          * 運動前及運動後的判斷與處置
          *******************/
         /// <summary>
-        /// 運動前檢查
+        /// 運動前檢查<br/>運動結束後Z軸返回目前高度
         /// </summary>
-        /// <param name="standbyZ">運動結束後Z軸停止高度</param>
         /// <param name="moveingAtSafetyZ">是否要求在安全高度運動<br/>注意：小心撞機，謹慎使用！</param>
-        private async Task PreMotion(double? standbyZ, bool moveingAtSafetyZ)
+        private async Task<double> PreMotion(bool moveingAtSafetyZ)
+            => await PreMotion(-1, moveingAtSafetyZ);
+
+        /// <summary>
+        /// 運動前檢查<br/>運動結束後Z軸返回指定高度
+        /// </summary>
+        /// <param name="standbyZ">運動結束後Z軸停止高度(>=0.0)</param>
+        /// <param name="moveingAtSafetyZ">是否要求在安全高度運動<br/>注意：小心撞機，謹慎使用！</param>
+        /// <returns>運動結束後要返回的Z軸高度</returns>
+        private async Task<double> PreMotion(double standbyZ, bool moveingAtSafetyZ)
         {
             /****************
              * 1.有要求在安全高度運動：
@@ -103,36 +101,36 @@ namespace OEP520G.Functions
              * 2.無要求在安全高度運動 => 以目前高度運動。小心撞機，謹慎使用
              ***************/
 
-            // Z軸是否不在安全高度
-            _isAxisZNotSafety = !epcio.IsServoZSafety();
+            double moveToZAfterMotion;
 
-            // 有要求停止高度=>運動結束後停至指定高度
-            if (standbyZ != null)
-                _positionZBackup = standbyZ;
+            if (standbyZ >= 0.0)
+                // 有要求停止高度=>運動結束後停至指定高度
+                moveToZAfterMotion = standbyZ;
             else
-                _positionZBackup = null;
-
-            // 有要求檢查安全高度
-            if (moveingAtSafetyZ && _isAxisZNotSafety)
-            {
                 // 高度未指定=>運動結束要停至原高度
-                if (_positionZBackup == null)
-                    _positionZBackup = epcio.ServoZ.GetCurrentPosition();
+                moveToZAfterMotion = epcio.ServoZ.GetCurrentPosition();
 
+            // 有要求檢查安全高度 & Z軸不在安全位置
+            if (moveingAtSafetyZ && !epcio.IsServoZSafety())
+            {
+                // 移至安全高度
                 await epcio.MoveServoZToSafety();
                 await epcio.WaitingForMotionStop(waitingServoZ: true);
             }
+
+            return moveToZAfterMotion;
         }
 
         /// <summary>
         /// 運動結束後處理
         /// </summary>
-        private async Task MotionFinished()
+        /// <param name="moveToZAfterMotion">運動結束後要返回的Z軸高度</param>
+        private async Task MotionFinished(double moveToZAfterMotion)
         {
             // 有指定停止高度
-            if (_positionZBackup != null)
+            if (moveToZAfterMotion >= 0.0)
             {
-                epcio.MoveTo(positionZ: _positionZBackup);
+                epcio.MoveTo(positionZ: moveToZAfterMotion);
                 await epcio.WaitingForMotionStop(waitingServoZ: true);
             }
         }
@@ -149,22 +147,22 @@ namespace OEP520G.Functions
         /// <param name="waitingForMotionStop">是否等運動完成才返回</param>
         /// <returns></returns>
         public async Task MoveCameraToTray(string trayName,
-                                           double? standbyZ = null,
+                                           double standbyZ = -1,
                                            bool moveingAtSafetyZ = true,
                                            bool waitingForMotionStop = true)
         {
-            await PreMotion(standbyZ: standbyZ, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(standbyZ, moveingAtSafetyZ);
 
             (double trayToDpX, double trayToDpY) = tray.GetDistanceToDatumPoint(trayName);
 
             double posX = machine.DatumPoint1.Position.X + trayToDpX;
             double posY = machine.DatumPoint1.Position.Y + trayToDpY;
 
-            epcio.MoveTo(positionX: posX, positionTray: posY, checkSafetyZ: moveingAtSafetyZ);
+            epcio.MoveTo(positionX: posX, positionTray: posY);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true, waitingServoTray: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /// <summary>
@@ -178,11 +176,11 @@ namespace OEP520G.Functions
         /// <returns></returns>
         public async Task NozzleToTray(ENozzleId nozzleId,
                                        string trayName,
-                                       double? standbyZ = null,
+                                       double standbyZ = -1,
                                        bool moveingAtSafetyZ = true,
                                        bool waitingForMotionStop = true)
         {
-            await PreMotion(standbyZ: standbyZ, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(standbyZ, moveingAtSafetyZ);
 
             int nozzleNo = (int)nozzleId;
             var noz = nozzle.NozzleList[nozzleNo];
@@ -199,11 +197,11 @@ namespace OEP520G.Functions
                         + noz.DistanceToMoveCamera.Y;
             //+ image.Nozzles[nozzleNo].Y;
 
-            epcio.MoveTo(positionX: posX, positionTray: posY, checkSafetyZ: moveingAtSafetyZ);
+            epcio.MoveTo(positionX: posX, positionTray: posY);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true, waitingServoTray: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /// <summary>
@@ -211,18 +209,12 @@ namespace OEP520G.Functions
         /// </summary>
         /// <param name="clampId">夾爪ID</param>
         /// <param name="trayName">Tray Name</param>
-        /// <param name="standbyZ">運動結束後Z軸停止高度</param>
-        /// <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
         /// <param name="waitingForMotionStop">是否等運動完成才返回</param>
         /// <returns></returns>
         public async Task ClampToTray(EClampId clampId,
                                       string trayName,
-                                      double? standbyZ = null,
-                                      bool moveingAtSafetyZ = true,
                                       bool waitingForMotionStop = true)
         {
-            //await PreMotion(standbyZ: standbyZ, moveingAtSafetyZ);
-
             var clp = clamp.ClampList[(int)clampId];
 
             // DP到TRAY點位的相對位置
@@ -233,11 +225,9 @@ namespace OEP520G.Functions
 
             double posY = machine.DatumPoint1.Position.Y + trayToDpY + clp.ConvertToMoveCamera.Y;
 
-            epcio.MoveTo(positionClamp: posX, positionTray: posY, checkSafetyZ: moveingAtSafetyZ);
+            epcio.MoveTo(positionClamp: posX, positionTray: posY);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoClamp: true, waitingServoTray: true);
-
-            //await MotionFinished();
         }
 
         /********************
@@ -251,21 +241,20 @@ namespace OEP520G.Functions
         /// <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
         /// <param name="waitingForMotionStop">是否等運動完成才返回</param>
         public async Task MoveCameraToNozzle(ENozzleId nozzleId,
-                                             double? standbyZ = null,
+                                             double standbyZ = -1,
                                              bool moveingAtSafetyZ = true,
                                              bool waitingForMotionStop = true)
         {
             int _nozzleId = (int)nozzleId;
-            await PreMotion(standbyZ: standbyZ, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(standbyZ, moveingAtSafetyZ);
 
             PointXY dis = _nozItem[_nozzleId].DistanceToMoveCamera;
             epcio.MoveTo(positionX: epcio.ServoX.GetCurrentPosition() + dis.X,
-                         positionY: epcio.ServoY.GetCurrentPosition() + dis.Y,
-                         checkSafetyZ: moveingAtSafetyZ);
+                         positionY: epcio.ServoY.GetCurrentPosition() + dis.Y);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true, waitingServoY: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /********************
@@ -279,20 +268,20 @@ namespace OEP520G.Functions
         /// <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
         /// <param name="waitingForMotionStop">是否等運動完成才返回</param>
         public async Task NozzleToMoveCamera(ENozzleId nozzleId,
-                                             double? standbyZ = null,
+                                             double standbyZ = -1,
                                              bool moveingAtSafetyZ = true,
                                              bool waitingForMotionStop = true)
         {
             int _nozzleId = (int)nozzleId;
-            await PreMotion(standbyZ: standbyZ, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(standbyZ, moveingAtSafetyZ);
 
             PointXY dis = _nozItem[_nozzleId].DistanceToMoveCamera;
             epcio.MoveTo(positionX: epcio.ServoX.GetCurrentPosition() - dis.X,
-                         positionY: epcio.ServoY.GetCurrentPosition() - dis.Y, checkSafetyZ: moveingAtSafetyZ);
+                         positionY: epcio.ServoY.GetCurrentPosition() - dis.Y);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true, waitingServoY: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /// <summary>
@@ -314,28 +303,18 @@ namespace OEP520G.Functions
         /// <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
         /// <param name="waitingForMotionStop">是否等運動完成才返回</param>
         public async Task NozzleToFixCamera(ENozzleId nozzleId,
-                                            double? standbyZ = null,
+                                            double standbyZ = -1,
                                             bool moveingAtSafetyZ = true,
                                             bool waitingForMotionStop = true)
         {
-            // CameraTest
-            try
-            {
-                int _nozzleId = (int)nozzleId;
-                await PreMotion(standbyZ: standbyZ, moveingAtSafetyZ);
+            int _nozzleId = (int)nozzleId;
+            double moveToZAfterMotion = await PreMotion(standbyZ, moveingAtSafetyZ);
 
-                log.WriteLine($"\t\tCameraTest: NozzleToFixCamera() Nozzle=>{nozzleId} positionX: {_nozItem[_nozzleId].Position.X}");
+            epcio.MoveTo(positionX: _nozItem[_nozzleId].Position.X);
+            if (waitingForMotionStop)
+                await epcio.WaitingForMotionStop(waitingServoX: true);
 
-                epcio.MoveTo(positionX: _nozItem[_nozzleId].Position.X, checkSafetyZ: moveingAtSafetyZ);
-                if (waitingForMotionStop)
-                    await epcio.WaitingForMotionStop(waitingServoX: true);
-
-                await MotionFinished();
-            }
-            catch (Exception e)
-            {
-                log.PrintFullInfo($"CameraTest: IsMotionStop(), {e.Message}");
-            }
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /// <summary>
@@ -344,17 +323,17 @@ namespace OEP520G.Functions
         /// <param name="standbyZ">運動結束後Z軸停止高度</param>
         /// <param name="moveingAtSafetyZ">是否要求在安全高度運動</param>
         /// <param name="waitingForMotionStop">是否等運動完成才返回</param>
-        public async Task DispenserToFixCamera(double? standbyZ = null,
+        public async Task DispenserToFixCamera(double standbyZ = -1,
                                                bool moveingAtSafetyZ = true,
                                                bool waitingForMotionStop = true)
         {
-            await PreMotion(standbyZ: standbyZ, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(standbyZ, moveingAtSafetyZ);
 
-            epcio.MoveTo(positionX: dispenser.Position.X, checkSafetyZ: moveingAtSafetyZ);
+            epcio.MoveTo(positionX: dispenser.Position.X);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /********************
@@ -368,14 +347,14 @@ namespace OEP520G.Functions
         public async Task MoveCameraToStage(bool moveingAtSafetyZ = true,
                                             bool waitingForMotionStop = true)
         {
-            await PreMotion(standbyZ: null, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(moveingAtSafetyZ);
 
             epcio.MoveTo(positionX: stage.RotateCenter.X,
-                         positionY: stage.RotateCenter.Y, checkSafetyZ: moveingAtSafetyZ);
+                         positionY: stage.RotateCenter.Y);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true, waitingServoY: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /// <summary>
@@ -393,14 +372,14 @@ namespace OEP520G.Functions
                                         bool waitingForMotionStop = true)
         {
             PointXY dis = _nozItem[(int)nozzleId].DistanceToMoveCamera;
-            await PreMotion(standbyZ: null, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(moveingAtSafetyZ);
 
             epcio.MoveTo(positionX: stage.RotateCenter.X + dis.X + offsetX,
-                         positionY: stage.RotateCenter.Y + dis.Y + offsetY, checkSafetyZ: moveingAtSafetyZ);
+                         positionY: stage.RotateCenter.Y + dis.Y + offsetY);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true, waitingServoY: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /// <summary>
@@ -446,14 +425,14 @@ namespace OEP520G.Functions
         public async Task DispenserToStage(bool moveingAtSafetyZ = true,
                                            bool waitingForMotionStop = true)
         {
-            await PreMotion(standbyZ: null, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(moveingAtSafetyZ);
 
             epcio.MoveTo(positionX: stage.RotateCenter.X + dispenser.Distance.X,
-                         positionY: stage.RotateCenter.Y + dispenser.Distance.Y, checkSafetyZ: moveingAtSafetyZ);
+                         positionY: stage.RotateCenter.Y + dispenser.Distance.Y);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true, waitingServoY: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /********************
@@ -481,16 +460,16 @@ namespace OEP520G.Functions
                                                   bool waitingForMotionStop = true)
         {
             int _nozzleId = (int)nozzleId;
-            await PreMotion(standbyZ: null, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(moveingAtSafetyZ);
 
             PointXY dis = nozzle.NozzleList[_nozzleId].DistanceToMoveCamera;
 
             epcio.MoveTo(positionX: machine.AssembleMeasureHeightPlatform.X - dis.X,
-                         positionY: machine.AssembleMeasureHeightPlatform.Y - dis.Y, checkSafetyZ: moveingAtSafetyZ);
+                         positionY: machine.AssembleMeasureHeightPlatform.Y - dis.Y);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true, waitingServoY: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /// <summary>
@@ -501,14 +480,14 @@ namespace OEP520G.Functions
         public async Task MoveCameraToPlatform(bool moveingAtSafetyZ = true,
                                                bool waitingForMotionStop = true)
         {
-            await PreMotion(standbyZ: null, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(moveingAtSafetyZ);
 
             epcio.MoveTo(positionX: machine.AssembleMeasureHeightPlatform.X,
-                         positionY: machine.AssembleMeasureHeightPlatform.Y, checkSafetyZ: moveingAtSafetyZ);
+                         positionY: machine.AssembleMeasureHeightPlatform.Y);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true, waitingServoY: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /********************
@@ -522,13 +501,13 @@ namespace OEP520G.Functions
         public async Task NozzleToDiscardBox(bool moveingAtSafetyZ = true,
                                              bool waitingForMotionStop = true)
         {
-            await PreMotion(standbyZ: machine.AssembleDiscardBox.Z, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(machine.AssembleDiscardBox.Z, moveingAtSafetyZ);
 
-            epcio.MoveTo(positionX: machine.AssembleDiscardBox.X, checkSafetyZ: moveingAtSafetyZ);
+            epcio.MoveTo(positionX: machine.AssembleDiscardBox.X);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoX: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
 
         /// <summary>
@@ -539,15 +518,15 @@ namespace OEP520G.Functions
         public async Task ClampToDiscardBox(bool moveingAtSafetyZ = true,
                                             bool waitingForMotionStop = true)
         {
-            await PreMotion(standbyZ: null, moveingAtSafetyZ);
+            double moveToZAfterMotion = await PreMotion(moveingAtSafetyZ);
 
             epcio.MoveTo(
                 positionClamp: machine.SemiFinishedDiscardBox.X,
-                positionY: machine.SemiFinishedDiscardBox.Y, checkSafetyZ: moveingAtSafetyZ);
+                positionY: machine.SemiFinishedDiscardBox.Y);
             if (waitingForMotionStop)
                 await epcio.WaitingForMotionStop(waitingServoClamp: true, waitingServoY: true);
 
-            await MotionFinished();
+            await MotionFinished(moveToZAfterMotion);
         }
     }
 }

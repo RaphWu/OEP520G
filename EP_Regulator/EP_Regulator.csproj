@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>OEP520G.EPRegulator</AssemblyName>
+    <RootNamespace>OEP520G.EPRegulator</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Constants\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EPCIO">
+      <HintPath>..\..\EPCIO\bin\x64\Debug\netcoreapp3.1\EPCIO.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

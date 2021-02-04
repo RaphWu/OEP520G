@@ -16,7 +16,6 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     FontFamily="Tahoma"
     FontSize="14"
-    Style="{StaticResource BaseUserControlStyle}"
     mc:Ignorable="d">
 
     <UserControl.Resources>

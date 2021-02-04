@@ -53,7 +53,10 @@ namespace OEP520G.Functions
         /// <param name="resolution">下降步進解析度</param>
         /// <param name="sensor">用來檢知下降到位的Sensor</param>
         /// <param name="negative">Sensor觸發是否須反相<br/>false: Sensor觸發時為有效<br/>true: Sensor未觸發時為有效</param>
-        public void Start(List<double> resolution, RemoteIo sensor, CancellationTokenSource cts, bool negative = false)
+        public void Start(List<double> resolution,
+                          RemoteIo sensor,
+                          CancellationTokenSource cts,
+                          bool negative = false)
         {
             _resolution = resolution;
             _sensor = sensor;

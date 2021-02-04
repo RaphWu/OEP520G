@@ -403,7 +403,7 @@ namespace OEP520G.Teaching.ViewModels
                 }
             });
 
-            ToolEnabled = false;
+            ToolEnabled = true;
         }
 
         /********************

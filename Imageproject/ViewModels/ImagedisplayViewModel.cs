@@ -1,19 +1,17 @@
-﻿using Imageproject.Contracts;
-using Imageproject.Converters;
+﻿using Imageproject.Converters;
 using Imageproject.Models;
 using Prism.Commands;
 using Prism.Mvvm;
-using Prism.Events;
+using System.IO.Ports;
 using System;
 
 using System.Windows.Media.Imaging;
 using TIS.Imaging;
-using Prism;
-using TcpipServer.Services;
+using Imageproject.Contracts;
 
 namespace Imageproject.ViewModels
 {
-    public class ImagedisplayViewModel : BindableBase, IActiveAware
+    public class ImagedisplayViewModel : BindableBase
     {
 
 
@@ -23,46 +21,30 @@ namespace Imageproject.ViewModels
         public DelegateCommand lockingCommand { get; private set; }
         public DelegateCommand widthlessCommand { get; private set; }
         public DelegateCommand ResetCommand { get; private set; }
-        private double width1;
-        private double width2;
+        private double camera;
 
-        // View Active/Deactive & ApplicationCommands
-        private bool _IsActive = false;
-        public bool IsActive
-        {
-            get { return _IsActive; }
-            set
-            {
-                _IsActive = value;
-
-                if (!value)
-                {
-                    _image.FixCameraOff();
-                    _image.MoveCameraOff();
-                }
-            }
-        }
-        public event EventHandler IsActiveChanged;
-
-        private readonly IEventAggregator _ea;
         private readonly IImage _image;
 
-        // ctor5
-        public ImagedisplayViewModel(IEventAggregator ea, IImage image)
+        // ctor
+        public ImagedisplayViewModel(IImage image)
         {
-            _ea = ea;
-            _image = image;
-
             FixedCommand = new DelegateCommand(Fixed);
             MobileCommand = new DelegateCommand(Mobile);
             lockingCommand = new DelegateCommand(locking);
             widthlessCommand = new DelegateCommand(widthless);
             ResetCommand = new DelegateCommand(Reset);
+            camera = 0;
+
+            _image = image;
+
+
+
         }
 
-        private void Fixed()
-        {
 
+        public void Fixed()
+        {
+            camera = 1;
             //ImageParameters.FixCamera = new ICImagingControl();
             //ImageParameters.FixCamera.LoadDeviceStateFromFile(CameraCfgFile.FixCameraXmlFile, true);
             //ImageParameters.FixCamera.Name = "FixCamera";
@@ -78,8 +60,9 @@ namespace Imageproject.ViewModels
             _image.FixCameraOn(VideoDemoFunc);
         }
 
-        private void Mobile()
+        public void Mobile()
         {
+            camera = 2;
             //ImageParameters.MoveCamera = new ICImagingControl();
             //ImageParameters.MoveCamera.LoadDeviceStateFromFile(CameraCfgFile.MoveCameraXmlFile, true);
             //ImageParameters.MoveCamera.Name = "FixCamera";
@@ -97,6 +80,9 @@ namespace Imageproject.ViewModels
 
         public void locking()
         {
+
+
+
         }
 
         public void widthless()
@@ -115,58 +101,39 @@ namespace Imageproject.ViewModels
 
         public void coordinate()
         {
-            left1 = _left - (_width / 2);
-            top1 = _top - (_height / 2);
+            if (camera == 1)
+            {
+                width1 = _width / 3;
+                height1 = _height / 3;
+                left1 = _left - (_width1 / 2);
+                top1 = _top - (_height1 / 2);
+                widthmm = width1 / 1270 * 25.4;
+                heightmm = height1 / 1270 * 25.4;
+            }
+
+            if (camera == 2)
+            {
+                width1 = _width / 3 / 1.25;
+                height1 = _height / 3 / 1.25;
+                left1 = 225 - (_width1 / 2);
+                top1 = 225 - (_height1 / 2);
+                widthmm = width1 / 1270 * 25.4;
+                heightmm = height1 / 1270 * 25.4;
+
+                //width1 = _width / 3 / 1.25;
+                //height1 = _height / 3 / 1.25;
+                //left1 = _left - (_width1 / 2);
+                //top1 = _top - (_height1 / 2);
+                //widthmm = width1 / 1270 * 25.4;
+                //heightmm = height1 / 1270 * 25.4;
+            }
         }
 
-
-        //public void cameraopen()
-        //{   /*
-        //    ImageParameters.FixCamera.LoadDeviceStateFromFile(CameraCfgFile.FixCameraXmlFile, true);
-        //    //ic.LoadDeviceStateFromFile("device.xml", true);
-
-        //    ImageParameters.FixCamera = new ICImagingControl();
-        //    ImageParameters.FixCamera.Name = "FixCamera";
-        //    var VideoDemoSink = new FrameQueueSink(VideoDemoFunc, MediaSubtypes.Y800, 5);
-        //    ImageParameters.FixCamera.Sink = VideoDemoSink;
-        //    if (ImageParameters.FixCamera.LiveVideoRunning)
-        //        ImageParameters.FixCamera.LiveStop();
-        //    ImageParameters.FixCamera.DeviceTrigger = false;
-        //    ImageParameters.FixCamera.LiveDisplay = true;
-        //    ImageParameters.FixCamera.LiveStart();
-        //    */
-
-        //    try
-        //    {
-        //        ic.LoadDeviceStateFromFile("device.xml", true);
-        //    }
-        //    catch
-        //    {
-        //        ic.ShowDeviceSettingsDialog();
-        //        if (ic.DeviceValid)
-        //        {
-        //            // Save the currently used device into a file in order to be able to open it
-        //            // automatically at the next program start.
-        //            ic.SaveDeviceStateToFile("device.xml");
-        //        }
-
-        //    }
-
-        //    //ic = new ICImagingControl();
-        //    ic.Name = "FixCamera";
-        //    var VideoDemoSink = new FrameQueueSink(VideoDemoFunc, MediaSubtypes.Y800, 5);
-        //    ic.Sink = VideoDemoSink;
-        //    if (ic.LiveVideoRunning)
-        //        ic.LiveStop();
-        //    ic.DeviceTrigger = false;
-        //    ic.LiveDisplay = true;
-        //    ic.LiveStart();
-
-        //}
 
         private FrameQueuedResult VideoDemoFunc(IFrameQueueBuffer img)
         {
             VideoSource = ImageFormatter.BitmapToBitmapImage(img.CreateBitmapWrap());
+
             return FrameQueuedResult.ReQueue;
         }
 
@@ -185,6 +152,8 @@ namespace Imageproject.ViewModels
             get { return _VideoSource; }
             set { SetProperty(ref _VideoSource, value); }
         }
+
+
 
         /// <summary>
         /// 繫結
@@ -248,35 +217,51 @@ namespace Imageproject.ViewModels
         private double _left1;
         public double left1
         {
-            get
-            {
-                return _left1;
-            }
-            set
-            {
-                SetProperty(ref _left1, value);
-
-            }
+            get { return _left1; }
+            set { SetProperty(ref _left1, value); }
 
         }
         private double _top1;
         public double top1
         {
-            get
-            {
-                return _top1;
-            }
-            set
-            {
-                SetProperty(ref _top1, value);
-
-            }
+            get { return _top1; }
+            set { SetProperty(ref _top1, value); }
         }
+
+        public double pxdata { get; private set; }
+        private double _width1;
+        public double width1
+        {
+            get { return _width1; }
+            set { SetProperty(ref _width1, value); }
+        }
+        private double _height1;
+        public double height1
+        {
+            get { return _height1; }
+            set { SetProperty(ref _height1, value); }
+        }
+        private double _widthmm;
+        public double widthmm
+        {
+            get { return _widthmm; }
+            set { SetProperty(ref _widthmm, value); }
+        }
+        private double _heightmm;
+        public double heightmm
+        {
+            get { return _heightmm; }
+            set { SetProperty(ref _heightmm, value); }
+        }
+
+        private double _Upperlightsource;
+        public double Upperlightsource
+        {
+            get { return _Upperlightsource; }
+            set { SetProperty(ref _Upperlightsource, value); }
+        }
+
     }
-
-
-
-
 
 }
 

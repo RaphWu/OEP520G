@@ -35,7 +35,8 @@ namespace OEP520G.Automatic
         public bool StageReturn0AfterCarry { get; set; }        // 5:搭載完成後，將小車轉回0度
         public bool SkipPositionCheckWhenAssembly { get; set; } // 6:置件時不檢查下壓到位
         public bool OpenClampWhenSingleProcedure { get; set; }  // 7:於台車取置件時，不使用夾片
-        public bool MeasureHighAfterAssembly { get; set; }      // 8:組裝完成後測高
+        public bool AbsoluteZeroDegreeAssembly { get; set; }      // 8:小車絕對0度組裝
+        //public bool MeasureHighAfterAssembly { get; set; }      // 8:組裝完成後測高
         public bool GetCenterAfterStageRotate { get; set; }     // 9:絕對組裝前畫像對位處理
 
         ///// <summary>
@@ -59,7 +60,7 @@ namespace OEP520G.Automatic
         //        StageReturn0AfterCarry == data.StageReturn0AfterCarry &&
         //        SkipPositionCheckWhenAssembly == data.SkipPositionCheckWhenAssembly &&
         //        OpenClampWhenSingleProcedure == data.OpenClampWhenSingleProcedure &&
-        //        MeasureHighAfterAssembly == data.MeasureHighAfterAssembly &&
+        //        AbsoluteZeroDegreeAssembly == data.AbsoluteZeroDegreeAssembly &&
         //        GetCenterAfterStageRotate == data.GetCenterAfterStageRotate;
         //}
 
@@ -150,7 +151,7 @@ namespace OEP520G.Automatic
             //        StageReturn0AfterCarry = sd.StageReturn0AfterCarry,
             //        SkipPositionCheckWhenAssembly = sd.SkipPositionCheckWhenAssembly,
             //        OpenClampWhenSingleProcedure = sd.OpenClampWhenSingleProcedure,
-            //        MeasureHighAfterAssembly = sd.MeasureHighAfterAssembly,
+            //        AbsoluteZeroDegreeAssembly = sd.AbsoluteZeroDegreeAssembly,
             //        GetCenterAfterStageRotate = sd.GetCenterAfterStageRotate
             //    });
 
@@ -197,7 +198,7 @@ namespace OEP520G.Automatic
             //                       + $"{val.StageReturn0AfterCarry},"
             //                       + $"{val.SkipPositionCheckWhenAssembly},"
             //                       + $"{val.OpenClampWhenSingleProcedure},"
-            //                       + $"{val.MeasureHighAfterAssembly},"
+            //                       + $"{val.AbsoluteZeroDegreeAssembly},"
             //                       + $"{val.GetCenterAfterStageRotate}"
             //                       + ");";
 
@@ -247,7 +248,7 @@ namespace OEP520G.Automatic
             //    iniFile.WriteIniFile(_sectionName, "StageReturn0AfterCarry", sd.StageReturn0AfterCarry);
             //    iniFile.WriteIniFile(_sectionName, "SkipPositionCheckWhenAssembly", sd.SkipPositionCheckWhenAssembly);
             //    iniFile.WriteIniFile(_sectionName, "OpenClampWhenSingleProcedure", sd.OpenClampWhenSingleProcedure);
-            //    iniFile.WriteIniFile(_sectionName, "MeasureHighAfterAssembly", sd.MeasureHighAfterAssembly);
+            //    iniFile.WriteIniFile(_sectionName, "AbsoluteZeroDegreeAssembly", sd.AbsoluteZeroDegreeAssembly);
             //    iniFile.WriteIniFile(_sectionName, "GetCenterAfterStageRotate", sd.GetCenterAfterStageRotate);
             //}
         }
@@ -317,7 +318,7 @@ namespace OEP520G.Automatic
             //        StageReturn0AfterCarry = bool.Parse(iniFile.ReadIniFile(_sectionName, "StageReturn0AfterAssembly", "false")),
             //        SkipPositionCheckWhenAssembly = bool.Parse(iniFile.ReadIniFile(_sectionName, "SkipPositionCheckWhenAssembly", "false")),
             //        OpenClampWhenSingleProcedure = bool.Parse(iniFile.ReadIniFile(_sectionName, "OpenClampWhenSingleProcedure", "false")),
-            //        MeasureHighAfterAssembly = bool.Parse(iniFile.ReadIniFile(_sectionName, "MeasureHighAfterAssembly", "false")),
+            //        AbsoluteZeroDegreeAssembly = bool.Parse(iniFile.ReadIniFile(_sectionName, "AbsoluteZeroDegreeAssembly", "false")),
             //        GetCenterAfterStageRotate = bool.Parse(iniFile.ReadIniFile(_sectionName, "GetCenterAfterStageRotate", "false"))
             //    };
             //    SequenceDataList.Add(sd);

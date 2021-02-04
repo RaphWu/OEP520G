@@ -296,7 +296,7 @@ namespace OEP520G.Teaching.ViewModels
                     ioAction.NozzleDown(noz);
 
                     // 測高
-                    measureHeight.Start(resForMeasure, epcio.MeasureHighPlatform, cts);
+                     measureHeight.Start(resForMeasure, epcio.MeasureHighPlatform, cts);
 
                     // 吸嘴縮回
                     ioAction.NozzleUp(noz);
@@ -418,7 +418,7 @@ namespace OEP520G.Teaching.ViewModels
         private void GetCoor()
         {
             MeasuringPlatformX = epcio.ServoX.GetCurrentPosition();
-            MeasuringPlatformY = epcio.ServoX.GetCurrentPosition();
+            MeasuringPlatformY = epcio.ServoY.GetCurrentPosition();
         }
 
         /********************

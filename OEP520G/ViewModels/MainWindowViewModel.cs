@@ -254,12 +254,12 @@ namespace OEP520G.ViewModels
         {
             // 顯示軸座標            
             string msgCoor = "[座標]";
-            msgCoor += $"X:{epcio.ServoX.GetCurrentCommandPosition():F3},";
-            msgCoor += $"Y:{epcio.ServoY.GetCurrentCommandPosition():F3},";
-            msgCoor += $"Z:{epcio.ServoZ.GetCurrentCommandPosition():F3},";
-            msgCoor += $"R:{epcio.ServoR.GetCurrentCommandPosition():F1},";
-            msgCoor += $"CX:{epcio.ServoClamp.GetCurrentCommandPosition():F3},";
-            msgCoor += $"TY:{epcio.ServoTray.GetCurrentCommandPosition():F3}";
+            msgCoor += $"X:{epcio.ServoX.GetCurrentPosition():F3},";
+            msgCoor += $"Y:{epcio.ServoY.GetCurrentPosition():F3},";
+            msgCoor += $"Z:{epcio.ServoZ.GetCurrentPosition():F3},";
+            msgCoor += $"R:{epcio.ServoR.GetCurrentPosition():F1},";
+            msgCoor += $"CX:{epcio.ServoClamp.GetCurrentPosition():F3},";
+            msgCoor += $"TY:{epcio.ServoTray.GetCurrentPosition():F3}";
 
             _ea.GetEvent<StatusBarSetter>().Publish(new StatusBarData()
             {

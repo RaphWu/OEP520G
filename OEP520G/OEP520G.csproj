@@ -9,11 +9,15 @@
     <FileVersion>0.0.0.0</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release</Configurations>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <OutputPath></OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DocumentationFile></DocumentationFile>
-    <OutputPath></OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -30,6 +34,7 @@
     <PackageReference Include="WPFLocalizeExtension" Version="3.8.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EP_Regulator\EP_Regulator.csproj" />
     <ProjectReference Include="..\Imageproject\Imageproject.csproj" />
   </ItemGroup>
   <ItemGroup>

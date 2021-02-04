@@ -116,43 +116,62 @@
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
 
-    <StackPanel Margin="9,9,0,-29">
-        <Grid Height="580">
+    <StackPanel Margin="9">
+        <Grid Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*" />
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
 
-
-
-            <DockPanel
-                Height="490"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top">
-
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Border
-                    Width="450  "
-                    Height="360"
-                    Margin="5,20,5,5"
-                    Padding="2,15,2,9"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
+                    Width="450"
+                    Height="450"
+                    Margin="0"
+                    Padding="0">
 
-                    <Image
-                        x:Name="Image"
-                        Width="450"
-                        Height="360"
-                        Margin="0,-28,0,-21"
-                        RenderTransformOrigin="0.5,0.5"
-                        Source="{Binding VideoSource}" />
+                    <Grid>
+                        <Canvas Width="450" Height="450">
+                            <Image
+                                x:Name="Image"
+                                Width="450"
+                                Height="450"
+                                RenderTransformOrigin="0.5,0.5"
+                                Source="{Binding VideoSource}"
+                                Stretch="UniformToFill" />
 
+                            <Line
+                                HorizontalAlignment="Stretch"
+                                Stroke="Red"
+                                StrokeThickness="1"
+                                X1="450"
+                                X2="0"
+                                Y1="225"
+                                Y2="225" />
 
+                            <Line
+                                Stroke="Red"
+                                StrokeThickness="2"
+                                X1="225"
+                                X2="225"
+                                Y1="0"
+                                Y2="450" />
 
+                            <Rectangle
+                                x:Name="Correctionframe"
+                                Canvas.Left="{Binding left1}"
+                                Canvas.Top="{Binding top1}"
+                                Width="{Binding width1}"
+                                Height="{Binding height1}"
+                                Stroke="Green"
+                                StrokeThickness="1.5"
+                                Visibility="Visible" />
+
+                        </Canvas>
+                    </Grid>
                 </Border>
 
-                <Grid />
-
-                <DockPanel Height="87" Margin="0,23,0,0">
+                <DockPanel Margin="0,23,0,0" DockPanel.Dock="Bottom">
                     <Button
                         Width="100"
                         HorizontalAlignment="Left"
@@ -205,10 +224,7 @@
                 </Image>
             </Grid>-->
 
-            <DockPanel
-                Grid.ColumnSpan="2"
-                Margin="464,0,-30,0"
-                LastChildFill="False">
+            <DockPanel Grid.Column="1" LastChildFill="False">
                 <StackPanel Width="230" DockPanel.Dock="Left">
                     <DockPanel>
                         <Button
@@ -848,89 +864,6 @@
             Command="{Binding Originalsize}"
             Content="test" />
 
-        <Grid>
-            <Canvas
-                Width="450"
-                Height="360"
-                Margin="14,-729,253,372"
-                RenderTransformOrigin="0.5,0.5">
-                <Canvas.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleY="-1" />
-                        <SkewTransform />
-                        <RotateTransform />
-                        <TranslateTransform />
-                    </TransformGroup>
-                </Canvas.RenderTransform>
-                <Grid
-                    Canvas.Top="0"
-                    Width="450"
-                    Height="360">
-                    <Line
-                        Grid.ColumnSpan="1"
-                        Width="450"
-                        Height="30"
-                        Margin="-13,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        RenderTransformOrigin="0.5,0.5"
-                        Stroke="Red"
-                        StrokeThickness="1"
-                        X1="450"
-                        X2="0"
-                        Y1="0"
-                        Y2="0">
-                        <Line.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleY="-1" />
-                                <SkewTransform />
-                                <RotateTransform />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </Line.RenderTransform>
-                    </Line>
-                </Grid>
-                <Grid Width="450" Height="450">
-                    <Line
-                        Grid.RowSpan="1"
-                        Width="15"
-                        Height="360"
-                        Margin="217.5,0,0,69"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Stroke="Red"
-                        StrokeThickness="2"
-                        X1="0"
-                        X2="0"
-                        Y1="0"
-                        Y2="450" />
-                </Grid>
-
-                <Canvas
-                    x:Name="coordinate"
-                    Canvas.Left="217.5"
-                    Canvas.Top="194"
-                    Width="226"
-                    Height="166">
-                    <Rectangle
-                        x:Name="Correctionframe"
-                        Canvas.Left="{Binding left1}"
-                        Canvas.Top="{Binding top1}"
-                        Width="{Binding width1}"
-                        Height="{Binding height1}"
-                        Stroke="Green"
-                        StrokeThickness="1.5"
-                        Visibility="Visible" />
-
-
-                </Canvas>
-
-
-
-
-            </Canvas>
-
-        </Grid>
     </StackPanel>
 
 </mah:MetroWindow>

@@ -227,7 +227,7 @@ namespace OEP520G.Automatic.ViewModels
             // StageReturn0AfterCarry = sd.StageReturn0AfterCarry,
             // SkipPositionCheckWhenAssembly = sd.SkipPositionCheckWhenAssembly,
             // OpenClampWhenSingleProcedure = sd.OpenClampWhenSingleProcedure,
-            // MeasureHighAfterAssembly = sd.MeasureHighAfterAssembly,
+            // AbsoluteZeroDegreeAssembly = sd.AbsoluteZeroDegreeAssembly,
             // GetCenterAfterStageRotate = sd.GetCenterAfterStageRotate,
 
             // OriginSequence = sd.Sequence,
@@ -268,7 +268,7 @@ namespace OEP520G.Automatic.ViewModels
             // _infoDataGrid[index].StageReturn0AfterCarry = SequenceDataItem.StageReturn0AfterCarry;
             // _infoDataGrid[index].SkipPositionCheckWhenAssembly = SequenceDataItem.SkipPositionCheckWhenAssembly;
             // _infoDataGrid[index].OpenClampWhenSingleProcedure = SequenceDataItem.OpenClampWhenSingleProcedure;
-            // _infoDataGrid[index].MeasureHighAfterAssembly = SequenceDataItem.MeasureHighAfterAssembly;
+            // _infoDataGrid[index].AbsoluteZeroDegreeAssembly = SequenceDataItem.AbsoluteZeroDegreeAssembly;
             // _infoDataGrid[index].GetCenterAfterStageRotate = SequenceDataItem.GetCenterAfterStageRotate;
 
             // //_infoDataGrid[index].OriginSequence = SequenceDataItem.Sequence;

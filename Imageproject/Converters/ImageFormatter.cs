@@ -80,5 +80,18 @@ namespace Imageproject.Converters
 
             return image;
         }
+
+        /// <summary>
+        /// BitmapImage存檔
+        /// </summary>
+        /// <param name="filePath">檔案名稱</param>
+        public static void Save(BitmapImage image, string filePath)
+        {
+            BitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(image));
+
+            using var fileStream = new System.IO.FileStream(filePath, System.IO.FileMode.Create);
+            encoder.Save(fileStream);
+        }
     }
 }
