@@ -4,19 +4,64 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:OEP520G.EPRegulator.Views"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     d:DesignHeight="300"
     d:DesignWidth="300"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
-    <Grid>
-        <TextBox
-            Width="100"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            HorizontalContentAlignment="Center"
-            Background="White"
-            Text="{Binding EprPressure, StringFormat=F1}" />
-    </Grid>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="StackPanel">
+                <Setter Property="Margin" Value="0,3" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel Width="300" Height="300">
+        <StackPanel Orientation="Horizontal">
+            <Label Width="80" Content="kg: " />
+            <TextBox
+                Width="100"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Background="White"
+                Text="{Binding EprPressure, StringFormat=F3}" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Width="80" Content="Voltage: " />
+            <TextBox
+                Width="100"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Background="White"
+                Text="{Binding DacVoltage, StringFormat=F3}" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Width="80" Content="Ratio: " />
+            <TextBox
+                Width="100"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Background="White"
+                Text="{Binding Ratio, StringFormat=F3}" />
+        </StackPanel>
+
+        <StackPanel>
+            <Button
+                Width="120"
+                Height="35"
+                Command="{Binding SetPressureCommand}"
+                Content="Execute" />
+        </StackPanel>
+    </StackPanel>
 </UserControl>

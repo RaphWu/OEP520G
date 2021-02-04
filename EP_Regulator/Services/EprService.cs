@@ -1,6 +1,5 @@
 ﻿using EpcioSeries;
 using OEP520G.EPRegulator.Contracts;
-using OEP520G.EPRegulator.Models;
 using System;
 using EPCIO;
 using System.Collections.Generic;
@@ -19,5 +18,8 @@ namespace OEP520G.EPRegulator.Services
 
         public void SetEprPressure(double kg)
             => epcio.SetEprPressure(kg);
+
+        public void SetEprPressure(double kg, double ratio)
+            => epcio.SetEprPressure(kg, ratio);
     }
 }

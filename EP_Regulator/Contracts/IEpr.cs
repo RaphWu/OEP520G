@@ -7,5 +7,6 @@ namespace OEP520G.EPRegulator.Contracts
     public interface IEpr
     {
         void SetEprPressure(double kg);
+        void SetEprPressure(double kg, double ratio);
     }
 }
