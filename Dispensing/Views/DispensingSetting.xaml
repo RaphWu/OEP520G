@@ -1,0 +1,796 @@
+﻿<UserControl
+    x:Class="OEP520G.Dispensing.Views.DispensingSetting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:constants="clr-namespace:OEP520G.Dispensing.Constants"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:OEP520G.Dispensing.Models"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    d:DesignHeight="815"
+    d:DesignWidth="1280"
+    lex:LocalizeDictionary.DesignCulture="zh-Hant"
+    lex:ResxLocalizationProvider.DefaultAssembly="OEP520G.Dispensing"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Style="{StaticResource BaseUserControlStyle}"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ObjectDataProvider
+                x:Key="_actionType"
+                MethodName="GetValues"
+                ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type Type="constants:ActionType" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <Style
+                x:Key="FuncButton_Big"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Height" Value="47" />
+                <Setter Property="Margin" Value="4,3,4,3" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style
+                x:Key="FuncButton_Small"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="80" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Margin" Value="6,2,6,2" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style
+                x:Key="ItemField"
+                BasedOn="{StaticResource MahApps.Styles.TextBox}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="MinWidth" Value="50" />
+                <Setter Property="MinHeight" Value="20" />
+                <Setter Property="Height" Value="23" />
+                <Setter Property="Margin" Value="2,0,2,0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <Style x:Key="ItemTitle" TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0,1,0,1" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="DockPanel.Dock" Value="Left" />
+            </Style>
+
+            <Style x:Key="ItemUnit" TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="50" />
+                <Setter Property="Margin" Value="2,1,0,1" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="DockPanel.Dock" Value="Right" />
+            </Style>
+
+            <!--  點膠品種 START  -->
+            <Style BasedOn="{StaticResource MahApps.Styles.GroupBox}" TargetType="{x:Type GroupBox}">
+                <Setter Property="Margin" Value="0,9,9,0" />
+            </Style>
+
+            <Style
+                x:Key="DispenseShapeButton"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="70" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Margin" Value="0,2,0,2" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="DockPanel.Dock" Value="Bottom" />
+            </Style>
+
+            <Style x:Key="DispenseShapeListBox" TargetType="{x:Type ListBox}">
+                <Setter Property="Width" Value="90" />
+                <Setter Property="Height" Value="150" />
+                <Setter Property="Margin" Value="0,2,0,9" />
+                <Setter Property="DockPanel.Dock" Value="Top" />
+            </Style>
+            <!--  點膠品種 END  -->
+
+            <!--  點膠測試、畫像 START  -->
+            <Style x:Key="VisionArea" TargetType="{x:Type StackPanel}">
+                <Setter Property="Margin" Value="0,0,0,9" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignTabRadioButton}" TargetType="{x:Type RadioButton}">
+                <Setter Property="Margin" Value="9,4" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MahApps.Styles.ComboBox}" TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="110" />
+                <Setter Property="Height" Value="28" />
+                <Setter Property="Margin" Value="0,4" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+            <!--  點膠測試、畫像 END  -->
+
+            <!--  左下版面 點膠參數 START  -->
+            <Style BasedOn="{StaticResource MahApps.Styles.DataGrid.Azure}" TargetType="{x:Type DataGrid}">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+                <Setter Property="AutoGenerateColumns" Value="False" />
+                <Setter Property="CanUserAddRows" Value="True" />
+                <Setter Property="CanUserDeleteRows" Value="True" />
+                <Setter Property="CanUserSortColumns" Value="False" />
+                <Setter Property="IsReadOnly" Value="False" />
+                <Setter Property="SelectionMode" Value="Single" />
+                <Setter Property="SelectionUnit" Value="FullRow" />
+                <!--<Setter Property="BorderBrush" Value="{StaticResource PrimaryHueDarkBrush}" />-->
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="Padding" Value="8,0,0,0" />
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+                <Setter Property="Foreground" Value="Brown" />
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="mah:ControlsHelper.ContentCharacterCasing" Value="Normal" />
+                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            </Style>
+
+            <Style
+                x:Key="ArrangeCenter"
+                BasedOn="{StaticResource MahApps.Styles.DataGridCell}"
+                TargetType="{x:Type DataGridCell}">
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="0,9,0,0" />
+                <Setter Property="Padding" Value="5" />
+                <!--<Setter Property="BorderBrush" Value="{StaticResource PrimaryHueDarkBrush}" />-->
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="2" />
+            </Style>
+            <!--  左下版面 點膠參數 END  -->
+
+            <!--  UV  -->
+            <Style
+                x:Key="UvPositionSelectorStyle"
+                BasedOn="{StaticResource MaterialDesignTabRadioButton}"
+                TargetType="{x:Type RadioButton}">
+                <Setter Property="Width" Value="60" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Margin" Value="5,2" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <!--  Note  -->
+            <Style x:Key="Note" TargetType="{x:Type Label}">
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+                <Setter Property="Padding" Value="3,2" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Top" />
+            </Style>
+
+            <Style
+                x:Key="Note_Key"
+                BasedOn="{StaticResource Note}"
+                TargetType="{x:Type Label}">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="9,0,9,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  左上版面 START  -->
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <!--  頁標題  -->
+            <TextBlock
+                x:Name="PageTitle_DispensingSetting"
+                Margin="{StaticResource MediumLeftMargin}"
+                Style="{StaticResource PageTitleStyle}"
+                Text="{lex:Loc}" />
+
+            <!--  點膠動作設定 START  -->
+            <DockPanel Margin="0,5,0,0" LastChildFill="True">
+                <!--  點膠測試、畫像 START  -->
+                <StackPanel DockPanel.Dock="Right">
+                    <StackPanel Style="{StaticResource VisionArea}">
+                        <!--  預吐膠設定及測試  -->
+                        <Button
+                            x:Name="Button_PreDispensingSetting"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource FuncButton_Big}" />
+                        <!--  點膠測試  -->
+                        <Button
+                            x:Name="Button_DispenseTest"
+                            Command="{Binding DispensingTestCommand}"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource FuncButton_Big}" />
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <CheckBox IsChecked="True" />
+                            <Label x:Name="Label_Dispense" Content="{lex:Loc}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--  資料處理  -->
+                    <StackPanel Style="{StaticResource VisionArea}">
+                        <Button
+                            x:Name="Button_Restore"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource FuncButton_Big}" />
+                        <Button
+                            x:Name="Button_DispensingSet"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource FuncButton_Big}" />
+                    </StackPanel>
+
+                    <!--  畫像  -->
+                    <StackPanel HorizontalAlignment="Center" Style="{StaticResource VisionArea}">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <CheckBox IsChecked="True" />
+                            <Label x:Name="Label_VisionInspection" Content="{lex:Loc}" />
+                        </StackPanel>
+                        <ComboBox SelectedIndex="0" />
+                        <!--  畫像參數  -->
+                        <Button
+                            x:Name="Button_VisionData"
+                            Content="{lex:Loc}"
+                            DockPanel.Dock="Right"
+                            Style="{StaticResource FuncButton_Big}" />
+                    </StackPanel>
+                </StackPanel>
+                <!--  點膠測試、畫像 END  -->
+
+                <!--  底部參數區 START  -->
+                <DockPanel Margin="0,9,9,5" DockPanel.Dock="Bottom">
+                    <StackPanel DockPanel.Dock="Right">
+                        <!--  設定中心  -->
+                        <Button
+                            x:Name="Button_SetCenter"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource FuncButton_Small}" />
+                        <!--  跟隨選擇  -->
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <CheckBox IsChecked="True" />
+                            <Label x:Name="Label_Follow" Content="{lex:Loc}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--  移動  -->
+                    <StackPanel DockPanel.Dock="Right">
+                        <Button
+                            x:Name="Button_MovtXYTo"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource FuncButton_Small}" />
+                        <Button
+                            x:Name="Button_MoveZTo"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource FuncButton_Small}" />
+                    </StackPanel>
+
+                    <!--  取得  -->
+                    <StackPanel DockPanel.Dock="Right">
+                        <Button
+                            x:Name="Button_GetXYPos"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource FuncButton_Small}" />
+                        <Button
+                            x:Name="Button_GetXPos"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource FuncButton_Small}" />
+                    </StackPanel>
+
+                    <!--  參考  -->
+                    <StackPanel VerticalAlignment="Center" DockPanel.Dock="Right">
+                        <RadioButton
+                            x:Name="Radio_ByCamera"
+                            Content="{lex:Loc}"
+                            GroupName="Ref"
+                            IsChecked="True" />
+                        <RadioButton
+                            x:Name="Radio_ByNeedle"
+                            Content="{lex:Loc}"
+                            GroupName="Ref" />
+                    </StackPanel>
+
+                    <!--  膠重測試  -->
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                        <Button
+                            x:Name="Button_GlueTest"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource FuncButton_Small}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="0" />
+                        <Label Content="{lex:Loc OEP520G.Core:Resources:Unit_sec}" Style="{StaticResource ItemUnit}" />
+                    </StackPanel>
+                </DockPanel>
+                <!--  底部參數區 END  -->
+
+                <!--  品種編輯 START  -->
+                <GroupBox
+                    x:Name="Subtitle_DispensingShape"
+                    VerticalAlignment="Stretch"
+                    DockPanel.Dock="Left"
+                    Header="{lex:Loc}">
+                    <DockPanel LastChildFill="True">
+                        <Button
+                            x:Name="Button_DeleteShape"
+                            Command="{Binding DeleteDispenserCommand}"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource DispenseShapeButton}" />
+                        <Button
+                            x:Name="Button_CopyShape"
+                            Command="{Binding CopyDispenserCommand}"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource DispenseShapeButton}" />
+                        <Button
+                            x:Name="Button_NewShape"
+                            Command="{Binding NewDispenserCommand}"
+                            Content="{lex:Loc}"
+                            Style="{StaticResource DispenseShapeButton}" />
+                        <ListBox
+                            x:Name="_ShapeList"
+                            ItemsSource="{Binding DispensingShapeSource}"
+                            SelectedIndex="{Binding DispensingShape}"
+                            Style="{StaticResource DispenseShapeListBox}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Title}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ItemContainerStyle>
+                                <Style BasedOn="{StaticResource MahApps.Styles.ListBoxItem}" TargetType="{x:Type ListBoxItem}">
+                                    <Style.Triggers>
+                                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray10}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <prism:InvokeCommandAction Command="{Binding ShapeChangedCommand}" CommandParameter="{Binding Path=SelectedItem, ElementName=_ShapeList}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ListBox>
+                    </DockPanel>
+                </GroupBox>
+                <!--  品種編輯 END  -->
+
+                <!--  補差值 START  -->
+                <StackPanel
+                    Margin="0,0,20,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Orientation="Horizontal">
+                    <TextBox Style="{StaticResource ItemField}" Text="0" />
+                    <TextBox Style="{StaticResource ItemField}" Text="0" />
+                    <TextBox Style="{StaticResource ItemField}" Text="0" />
+                    <TextBox Style="{StaticResource ItemField}" Text="0" />
+                    <Button
+                        x:Name="Button_OffsetAdjustment"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource FuncButton_Small}" />
+                </StackPanel>
+                <!--  補差值 END  -->
+
+                <!--  動作設定 START  -->
+                <StackPanel
+                    x:Name="_DispenseActionStackPanel"
+                    Margin="4,4,4,0"
+                    DockPanel.Dock="Top">
+                    <DataGrid Height="{Binding ActualHeight, ElementName=_DispenseActionStackPanel, Mode=OneWay}" ItemsSource="{Binding DispensingActionSource}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Binding="{Binding SeqNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="{lex:Loc OEP520G.Dispensing:Resources:DispensingActionColumn_No}" />
+                            <DataGridTemplateColumn Header="{lex:Loc OEP520G.Dispensing:Resources:DispensingActionColumn_Type}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Type}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox
+                                            IsSynchronizedWithCurrentItem="False"
+                                            ItemsSource="{Binding Source={StaticResource _actionType}}"
+                                            SelectedItem="{Binding Type}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn
+                                Binding="{Binding ShiftX, StringFormat=F3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="Offset X" />
+                            <DataGridTextColumn
+                                Binding="{Binding ShiftY, StringFormat=F3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="Offset Y" />
+                            <DataGridTextColumn
+                                Binding="{Binding ShiftZ, StringFormat=F3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="Offset Z" />
+                            <DataGridTextColumn
+                                Binding="{Binding ShiftR, StringFormat=F1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="Offset R" />
+                            <DataGridTextColumn
+                                Binding="{Binding GroupNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="{lex:Loc OEP520G.Dispensing:Resources:DispensingActionColumn_Group}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+                <!--  動作設定 END  -->
+            </DockPanel>
+            <!--  點膠動作設定 END  -->
+        </StackPanel>
+        <!--  左上版面 End  -->
+
+        <!--  左下版面 點膠參數 START  -->
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Padding="0"
+            VerticalAlignment="Bottom"
+            BorderThickness="0">
+            <DockPanel LastChildFill="True">
+                <TextBlock
+                    x:Name="Subtitle_DispensingParameter"
+                    Margin="0"
+                    DockPanel.Dock="Top"
+                    Style="{StaticResource SubtitleTextSimilarGroupBoxStyle}"
+                    Text="{lex:Loc}" />
+                <StackPanel x:Name="DispenseParameterStackPanel">
+                    <DataGrid Height="130" BorderBrush="Teal">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Binding="{Binding GroupNo}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="{lex:Loc OEP520G.Dispensing:Resources:DispensingParameter_Group}" />
+                            <DataGridTextColumn
+                                Binding="{Binding DspSpeed, StringFormat=F3}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="DspSpeed&#x0a;(mm/sec)" />
+                            <DataGridTextColumn
+                                Binding="{Binding SpeedA, StringFormat=F3}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="Speed R&#x0a;(Deg/sec)" />
+                            <DataGridTextColumn
+                                Binding="{Binding SWait}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="SWait&#x0a;(ms)" />
+                            <DataGridTextColumn
+                                Binding="{Binding EShot}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="EShot&#x0a;(ms)" />
+                            <DataGridTextColumn
+                                Binding="{Binding PreStop, StringFormat=F3}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="PreStop&#x0a;(mm)" />
+                            <DataGridTextColumn
+                                Binding="{Binding EWait}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="EWait&#x0a;(ms)" />
+                            <DataGridTextColumn
+                                Binding="{Binding UpXY, StringFormat=F3}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="UpXY&#x0a;(mm)" />
+                            <DataGridTextColumn
+                                Binding="{Binding UpZ, StringFormat=F3}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="UpZ&#x0a;(mm)" />
+                            <DataGridTextColumn
+                                Binding="{Binding UpSpeed, StringFormat=F3}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="UpSpeed&#x0a;(mm/sec)" />
+                            <DataGridTextColumn
+                                Binding="{Binding UpDelay, StringFormat=F3}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="UpDelay&#x0a;(ms)" />
+                            <DataGridTextColumn
+                                Binding="{Binding UpWay}"
+                                EditingElementStyle="{DynamicResource MahApps.Styles.TextBox.DataGrid.Editing}"
+                                Header="UpWay" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+
+            </DockPanel>
+        </Border>
+        <!--  左下版面 點膠參數 END  -->
+
+        <!--  右版面 START  -->
+        <DockPanel
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Margin="9,0,0,0"
+            LastChildFill="False">
+
+            <!--  UV照射參數 START  -->
+            <GroupBox
+                x:Name="Subtitle_UvParameter"
+                Margin="0,9,0,0"
+                HorizontalAlignment="Left"
+                DockPanel.Dock="Top"
+                Header="{lex:Loc}">
+
+                <StackPanel HorizontalAlignment="Center">
+                    <!--  UV照射位置 START  -->
+                    <GroupBox
+                        x:Name="UvPosition_GroupBox"
+                        Margin="2"
+                        Header="{lex:Loc}">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <RadioButton
+                                x:Name="UvPositionNone"
+                                Content="{lex:Loc}"
+                                GroupName="UvPositionSelector"
+                                IsChecked="{Binding UvPositionSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=None}"
+                                Style="{StaticResource UvPositionSelectorStyle}" />
+                            <RadioButton
+                                x:Name="UvPositionStage"
+                                Content="{lex:Loc}"
+                                GroupName="UvPositionSelector"
+                                IsChecked="{Binding UvPositionSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=None}"
+                                Style="{StaticResource UvPositionSelectorStyle}" />
+                            <RadioButton
+                                x:Name="UvPositionTray"
+                                Content="{lex:Loc}"
+                                GroupName="UvPositionSelector"
+                                IsChecked="{Binding UvPositionSelected, Converter={StaticResource RadioButtonToStringConverter}, ConverterParameter=None}"
+                                Style="{StaticResource UvPositionSelectorStyle}" />
+                        </StackPanel>
+                    </GroupBox>
+                    <!--  UV照射位置 END  -->
+
+                    <StackPanel Margin="0,9">
+                        <!--  UV前等待時間"  -->
+                        <DockPanel Margin="0,2,15,2">
+                            <Label Content="{lex:Loc OEP520G.Core:Resources:Unit_sec}" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="0" />
+                            <Label
+                                x:Name="Label_UvPreWait"
+                                Content="{lex:Loc}"
+                                Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+
+                        <!--  UV照射時間  -->
+                        <DockPanel Margin="0,2,15,2">
+                            <Label Content="{lex:Loc OEP520G.Core:Resources:Unit_sec}" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="0" />
+                            <Label
+                                x:Name="Label_UvTime"
+                                Content="{lex:Loc}"
+                                Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+
+                        <!--  UV後等待時間  -->
+                        <DockPanel Margin="0,2,15,2">
+                            <Label Content="{lex:Loc OEP520G.Core:Resources:Unit_sec}" Style="{StaticResource ItemUnit}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="0" />
+                            <Label
+                                x:Name="Label_UvPostWait"
+                                Content="{lex:Loc}"
+                                Style="{StaticResource ItemTitle}" />
+                        </DockPanel>
+                    </StackPanel>
+
+                    <!--  UV測試鍵  -->
+                    <Button
+                        x:Name="Button_ExecuteUvTest"
+                        Margin="0,5"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource FuncButton_Big}" />
+                </StackPanel>
+            </GroupBox>
+            <!--  UV照射參數 END  -->
+
+            <!--  參數代號 START  -->
+            <Border
+                Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
+                BorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                BorderThickness="1.5"
+                CornerRadius="5"
+                DockPanel.Dock="Bottom">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Content="GroupNo"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_GroupNo"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Content="DispSpeed"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_DspSpeed"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Content="Speed R"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_SpeedR"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Content="SWait"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_SWait"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Content="EShot"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_EShot"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Content="PreStop"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_PreStop"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Content="EWait"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_EWait"
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="7"
+                        Grid.Column="0"
+                        Content="UpXY"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_UpXY"
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="8"
+                        Grid.Column="0"
+                        Content="UpZ"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_UpZ"
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="9"
+                        Grid.Column="0"
+                        Content="UpSpeed"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_UpSpeed"
+                        Grid.Row="9"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="10"
+                        Grid.Column="0"
+                        Content="UpDelay"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_UpDelay"
+                        Grid.Row="10"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+
+                    <Label
+                        Grid.Row="11"
+                        Grid.Column="0"
+                        Content="UpWay"
+                        Style="{StaticResource Note_Key}" />
+                    <Label
+                        x:Name="Note_UpWay"
+                        Grid.Row="11"
+                        Grid.Column="1"
+                        Content="{lex:Loc}"
+                        Style="{StaticResource Note}" />
+                </Grid>
+            </Border>
+            <!--  參數代號 END  -->
+        </DockPanel>
+        <!--  右版面 END  -->
+    </Grid>
+
+</UserControl>

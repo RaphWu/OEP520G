@@ -142,22 +142,22 @@
             <Label
                 Canvas.Left="358"
                 Canvas.Top="100"
-                Content="{Binding CommandPositionAxisX, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisX, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="358"
                 Canvas.Top="80"
-                Content="{Binding PositionAxisX, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisX, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="453"
                 Canvas.Top="100"
-                Content="{Binding PulseAxisX, StringFormat=\{0:D\}}"
+                Content="{Binding PulseAxisX, StringFormat=D}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="453"
                 Canvas.Top="80"
-                Content="{Binding EncAxisX, StringFormat=\{0:D\}}"
+                Content="{Binding EncAxisX, StringFormat=D}"
                 Style="{StaticResource EncLabel}" />
             <Label
                 Canvas.Left="442"
@@ -196,22 +196,22 @@
             <Label
                 Canvas.Left="200"
                 Canvas.Top="300"
-                Content="{Binding CommandPositionAxisY, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisY, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="200"
                 Canvas.Top="279"
-                Content="{Binding PositionAxisY, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisY, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="200"
                 Canvas.Top="258"
-                Content="{Binding PulseAxisY, StringFormat=\{0:D\}}"
+                Content="{Binding PulseAxisY, StringFormat=D}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="200"
                 Canvas.Top="225"
-                Content="{Binding EncAxisY, StringFormat=\{0:D\}}"
+                Content="{Binding EncAxisY, StringFormat=D}"
                 Style="{StaticResource EncLabel}" />
             <Button
                 x:Name="ResetButtonY"
@@ -259,22 +259,22 @@
             <Label
                 Canvas.Left="678"
                 Canvas.Top="76"
-                Content="{Binding CommandPositionAxisZ, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisZ, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="678"
                 Canvas.Top="55"
-                Content="{Binding PositionAxisZ, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisZ, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="678"
                 Canvas.Top="34"
-                Content="{Binding PulseAxisZ, StringFormat=\{0:D\}}"
+                Content="{Binding PulseAxisZ, StringFormat=D}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="678"
                 Canvas.Top="13"
-                Content="{Binding EncAxisZ, StringFormat=\{0:D\}}"
+                Content="{Binding EncAxisZ, StringFormat=D}"
                 Style="{StaticResource EncLabel}" />
             <Label
                 Canvas.Left="763"
@@ -319,12 +319,12 @@
             <Label
                 Canvas.Left="368"
                 Canvas.Top="363"
-                Content="{Binding PulseAxisR, StringFormat=\{0:D\}}"
+                Content="{Binding PulseAxisR, StringFormat=D}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="368"
                 Canvas.Top="339"
-                Content="{Binding EncAxisR, StringFormat=\{0:D\}}"
+                Content="{Binding EncAxisR, StringFormat=D}"
                 Style="{StaticResource EncLabel}" />
             <Button
                 x:Name="ResetButtonR"
@@ -354,22 +354,22 @@
             <Label
                 Canvas.Left="647"
                 Canvas.Top="300"
-                Content="{Binding CommandPositionAxisTray, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisTray, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="647"
                 Canvas.Top="279"
-                Content="{Binding PositionAxisTray, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisTray, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="647"
                 Canvas.Top="258"
-                Content="{Binding PulseAxisTray, StringFormat=\{0:D\}}"
+                Content="{Binding PulseAxisTray, StringFormat=D}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="647"
                 Canvas.Top="224"
-                Content="{Binding EncAxisTray, StringFormat=\{0:D\}}"
+                Content="{Binding EncAxisTray, StringFormat=D}"
                 Style="{StaticResource EncLabel}" />
             <materialDesign:PackIcon
                 Canvas.Left="682"
@@ -433,22 +433,22 @@
             <Label
                 Canvas.Left="506"
                 Canvas.Top="680"
-                Content="{Binding CommandPositionAxisClamp, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisClamp, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="506"
                 Canvas.Top="660"
-                Content="{Binding PositionAxisClamp, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisClamp, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="410"
                 Canvas.Top="680"
-                Content="{Binding PulseAxisClamp, StringFormat=\{0:D\}}"
+                Content="{Binding PulseAxisClamp, StringFormat=D}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="410"
                 Canvas.Top="660"
-                Content="{Binding EncAxisClamp, StringFormat=\{0:D\}}"
+                Content="{Binding EncAxisClamp, StringFormat=D}"
                 Style="{StaticResource EncLabel}" />
             <Button
                 x:Name="ResetButtonClamp"

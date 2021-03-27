@@ -234,10 +234,10 @@
                             Binding="{Binding Angle, StringFormat={}{0:D}}"
                             Header="角度"
                             TextBlock.TextAlignment="Center" />
-                        <DataGridTextColumn Binding="{Binding ShiftX, StringFormat=\{0:F3\}}" Header="X位移" />
-                        <DataGridTextColumn Binding="{Binding ShiftY, StringFormat=\{0:F3\}}" Header="Y位移" />
-                        <DataGridTextColumn Binding="{Binding MeasureX, StringFormat=\{0:F3\}}" Header="本次X" />
-                        <DataGridTextColumn Binding="{Binding MeasureY, StringFormat=\{0:F3\}}" Header="本次Y" />
+                        <DataGridTextColumn Binding="{Binding ShiftX, StringFormat=F3}" Header="X位移" />
+                        <DataGridTextColumn Binding="{Binding ShiftY, StringFormat=F3}" Header="Y位移" />
+                        <DataGridTextColumn Binding="{Binding MeasureX, StringFormat=F3}" Header="本次X" />
+                        <DataGridTextColumn Binding="{Binding MeasureY, StringFormat=F3}" Header="本次Y" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

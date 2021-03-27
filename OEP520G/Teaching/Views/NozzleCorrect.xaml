@@ -168,15 +168,15 @@
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="1"
-                    Text="{Binding DispenserNeedleX, StringFormat=\{0:F3\}}" />
+                    Text="{Binding DispenserNeedleX, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="2"
-                    Text="{Binding DispenserNeedleY, StringFormat=\{0:F3\}}" />
+                    Text="{Binding DispenserNeedleY, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="3"
-                    Text="{Binding DispenserNeedleZ, StringFormat=\{0:F3\}}" />
+                    Text="{Binding DispenserNeedleZ, StringFormat=F3}" />
 
                 <RadioButton
                     Grid.Row="2"
@@ -186,15 +186,15 @@
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="1"
-                    Text="{Binding Nozzle1X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle1X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="2"
-                    Text="{Binding Nozzle1Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle1Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="3"
-                    Text="{Binding Nozzle1Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle1Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="2"
                     Grid.Column="4"
@@ -211,15 +211,15 @@
                 <TextBox
                     Grid.Row="3"
                     Grid.Column="1"
-                    Text="{Binding Nozzle2X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle2X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="3"
                     Grid.Column="2"
-                    Text="{Binding Nozzle2Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle2Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="3"
                     Grid.Column="3"
-                    Text="{Binding Nozzle2Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle2Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="3"
                     Grid.Column="4"
@@ -237,15 +237,15 @@
                 <TextBox
                     Grid.Row="4"
                     Grid.Column="1"
-                    Text="{Binding Nozzle3X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle3X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="4"
                     Grid.Column="2"
-                    Text="{Binding Nozzle3Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle3Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="4"
                     Grid.Column="3"
-                    Text="{Binding Nozzle3Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle3Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="4"
                     Grid.Column="4"
@@ -262,15 +262,15 @@
                 <TextBox
                     Grid.Row="5"
                     Grid.Column="1"
-                    Text="{Binding Nozzle4X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle4X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="5"
                     Grid.Column="2"
-                    Text="{Binding Nozzle4Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle4Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="5"
                     Grid.Column="3"
-                    Text="{Binding Nozzle4Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle4Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="5"
                     Grid.Column="4"
@@ -287,15 +287,15 @@
                 <TextBox
                     Grid.Row="6"
                     Grid.Column="1"
-                    Text="{Binding Nozzle5X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle5X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="6"
                     Grid.Column="2"
-                    Text="{Binding Nozzle5Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle5Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="6"
                     Grid.Column="3"
-                    Text="{Binding Nozzle5Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle5Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="6"
                     Grid.Column="4"
@@ -312,15 +312,15 @@
                 <TextBox
                     Grid.Row="7"
                     Grid.Column="1"
-                    Text="{Binding Nozzle6X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle6X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="7"
                     Grid.Column="2"
-                    Text="{Binding Nozzle6Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle6Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="7"
                     Grid.Column="3"
-                    Text="{Binding Nozzle6Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle6Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="7"
                     Grid.Column="4"
@@ -337,15 +337,15 @@
                 <TextBox
                     Grid.Row="8"
                     Grid.Column="1"
-                    Text="{Binding Nozzle7X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle7X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="8"
                     Grid.Column="2"
-                    Text="{Binding Nozzle7Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle7Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="8"
                     Grid.Column="3"
-                    Text="{Binding Nozzle7Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle7Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="8"
                     Grid.Column="4"
@@ -362,15 +362,15 @@
                 <TextBox
                     Grid.Row="9"
                     Grid.Column="1"
-                    Text="{Binding Nozzle8X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle8X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="9"
                     Grid.Column="2"
-                    Text="{Binding Nozzle8Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle8Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="9"
                     Grid.Column="3"
-                    Text="{Binding Nozzle8Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle8Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="9"
                     Grid.Column="4"
@@ -387,15 +387,15 @@
                 <TextBox
                     Grid.Row="10"
                     Grid.Column="1"
-                    Text="{Binding Nozzle9X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle9X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="10"
                     Grid.Column="2"
-                    Text="{Binding Nozzle9Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle9Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="10"
                     Grid.Column="3"
-                    Text="{Binding Nozzle9Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle9Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="10"
                     Grid.Column="4"
@@ -412,15 +412,15 @@
                 <TextBox
                     Grid.Row="11"
                     Grid.Column="1"
-                    Text="{Binding Nozzle10X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle10X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="11"
                     Grid.Column="2"
-                    Text="{Binding Nozzle10Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle10Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="11"
                     Grid.Column="3"
-                    Text="{Binding Nozzle10Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle10Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="11"
                     Grid.Column="4"
@@ -437,15 +437,15 @@
                 <TextBox
                     Grid.Row="12"
                     Grid.Column="1"
-                    Text="{Binding Nozzle11X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle11X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="12"
                     Grid.Column="2"
-                    Text="{Binding Nozzle11Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle11Y, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="12"
                     Grid.Column="3"
-                    Text="{Binding Nozzle11Z, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Nozzle11Z, StringFormat=F3}" />
                 <ComboBox
                     Grid.Row="12"
                     Grid.Column="4"

@@ -212,7 +212,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding MoveToCoorX, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding MoveToCoorX, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -255,22 +255,22 @@
             <Label
                 Canvas.Left="432"
                 Canvas.Top="150"
-                Content="{Binding CommandPositionAxisX, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisX, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="432"
                 Canvas.Top="129"
-                Content="{Binding PositionAxisX, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisX, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="351"
                 Canvas.Top="150"
-                Content="{Binding PulseAxisX, StringFormat=\{0:F3\}}"
+                Content="{Binding PulseAxisX, StringFormat=F3}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="513"
                 Canvas.Top="150"
-                Content="{Binding EncAxisX, StringFormat=\{0:F3\}}"
+                Content="{Binding EncAxisX, StringFormat=F3}"
                 Style="{StaticResource EncLabel}" />
             <Label
                 Canvas.Left="352"
@@ -288,7 +288,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding RepeatMoveToStartX, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding RepeatMoveToStartX, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -323,7 +323,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding RepeatMoveToEndX, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding RepeatMoveToEndX, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -361,22 +361,22 @@
             <Label
                 Canvas.Left="190"
                 Canvas.Top="335"
-                Content="{Binding CommandPositionAxisY, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisY, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="190"
                 Canvas.Top="315"
-                Content="{Binding PositionAxisY, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisY, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="190"
                 Canvas.Top="294"
-                Content="{Binding PulseAxisY, StringFormat=\{0:F3\}}"
+                Content="{Binding PulseAxisY, StringFormat=F3}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="190"
                 Canvas.Top="273"
-                Content="{Binding EncAxisY, StringFormat=\{0:F3\}}"
+                Content="{Binding EncAxisY, StringFormat=F3}"
                 Style="{StaticResource EncLabel}" />
             <Slider
                 x:Name="AxisYSlider"
@@ -409,7 +409,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding MoveToCoorY, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding MoveToCoorY, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -453,7 +453,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding RepeatMoveToStartY, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding RepeatMoveToStartY, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -488,7 +488,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding RepeatMoveToEndY, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding RepeatMoveToEndY, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -540,22 +540,22 @@
             <Label
                 Canvas.Left="355"
                 Canvas.Top="475"
-                Content="{Binding CommandPositionAxisR, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisR, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="355"
                 Canvas.Top="454"
-                Content="{Binding PositionAxisR, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisR, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="436"
                 Canvas.Top="454"
-                Content="{Binding PulseAxisR, StringFormat=\{0:F3\}}"
+                Content="{Binding PulseAxisR, StringFormat=F3}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="436"
                 Canvas.Top="433"
-                Content="{Binding EncAxisR, StringFormat=\{0:F3\}}"
+                Content="{Binding EncAxisR, StringFormat=F3}"
                 Style="{StaticResource EncLabel}" />
 
             <Border
@@ -575,7 +575,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding MoveToCoorR, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding MoveToCoorR, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -613,22 +613,22 @@
             <Label
                 Canvas.Left="667"
                 Canvas.Top="40"
-                Content="{Binding CommandPositionAxisZ, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisZ, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="667"
                 Canvas.Top="20"
-                Content="{Binding PositionAxisZ, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisZ, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="585"
                 Canvas.Top="40"
-                Content="{Binding PulseAxisZ, StringFormat=\{0:D\}}"
+                Content="{Binding PulseAxisZ, StringFormat=D}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="585"
                 Canvas.Top="20"
-                Content="{Binding EncAxisZ, StringFormat=\{0:D\}}"
+                Content="{Binding EncAxisZ, StringFormat=D}"
                 Style="{StaticResource EncLabel}" />
 
             <Border
@@ -648,7 +648,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding MoveToCoorZ, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding MoveToCoorZ, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -713,7 +713,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding RepeatMoveToStartZ, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding RepeatMoveToStartZ, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -748,7 +748,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding RepeatMoveToEndZ, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding RepeatMoveToEndZ, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -786,22 +786,22 @@
             <Label
                 Canvas.Left="550"
                 Canvas.Top="335"
-                Content="{Binding CommandPositionAxisTray, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisTray, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="550"
                 Canvas.Top="314"
-                Content="{Binding PositionAxisTray, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisTray, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="550"
                 Canvas.Top="293"
-                Content="{Binding PulseAxisTray, StringFormat=\{0:F3\}}"
+                Content="{Binding PulseAxisTray, StringFormat=F3}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="550"
                 Canvas.Top="272"
-                Content="{Binding EncAxisTray, StringFormat=\{0:F3\}}"
+                Content="{Binding EncAxisTray, StringFormat=F3}"
                 Style="{StaticResource EncLabel}" />
 
             <Border
@@ -821,7 +821,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding MoveToCoorTray, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding MoveToCoorTray, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -878,7 +878,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding RepeatMoveToStartTray, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding RepeatMoveToStartTray, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -913,7 +913,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding RepeatMoveToEndTray, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding RepeatMoveToEndTray, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -951,22 +951,22 @@
             <Label
                 Canvas.Left="430"
                 Canvas.Top="745"
-                Content="{Binding CommandPositionAxisClamp, StringFormat=\{0:F3\}}"
+                Content="{Binding CommandPositionAxisClamp, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="430"
                 Canvas.Top="725"
-                Content="{Binding PositionAxisClamp, StringFormat=\{0:F3\}}"
+                Content="{Binding PositionAxisClamp, StringFormat=F3}"
                 Style="{StaticResource PositionLabel}" />
             <Label
                 Canvas.Left="347"
                 Canvas.Top="745"
-                Content="{Binding PulseAxisClamp, StringFormat=\{0:F3\}}"
+                Content="{Binding PulseAxisClamp, StringFormat=F3}"
                 Style="{StaticResource PulseLabel}" />
             <Label
                 Canvas.Left="509"
                 Canvas.Top="745"
-                Content="{Binding EncAxisClamp, StringFormat=\{0:F3\}}"
+                Content="{Binding EncAxisClamp, StringFormat=F3}"
                 Style="{StaticResource EncLabel}" />
 
             <Border
@@ -986,7 +986,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding MoveToCoorClamp, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding MoveToCoorClamp, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -1043,7 +1043,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding RepeatMoveToStartClamp, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding RepeatMoveToStartClamp, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -1078,7 +1078,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="{DynamicResource SecondaryAccentBrush}"
-                Text="{Binding RepeatMoveToEndClamp, StringFormat=\{0:F3\}, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding RepeatMoveToEndClamp, StringFormat=F3, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem

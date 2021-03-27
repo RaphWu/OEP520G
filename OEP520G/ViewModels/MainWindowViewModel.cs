@@ -37,7 +37,7 @@ namespace OEP520G.ViewModels
         private readonly ProductManager pm = new ProductManager();
         private readonly SQLiteService sqlite = new SQLiteService();
         private readonly TcpipServerService _tcpipServer;
-        private readonly ImageService _camera;
+        private readonly CameraService _camera;
 
         // StatusBar更新Timer
         private readonly Timer StatusBarUpdateTimer = new Timer { Interval = 500 };
@@ -78,7 +78,7 @@ namespace OEP520G.ViewModels
             Common.DS = ds;
 
             _tcpipServer = new TcpipServerService(_ea);
-            _camera = new ImageService(_ea, _tcpipServer);
+            _camera = new CameraService(_ea, _tcpipServer);
 
             statusBar.ShowStatusBarMessage("系統初始化中...");
 
@@ -303,7 +303,7 @@ namespace OEP520G.ViewModels
         void ExecuteFixCameraDeviceSetting()
         {
             TcpipServerService tcpip = new TcpipServerService(_ea);
-            ImageService image = new ImageService(_ea, tcpip);
+            CameraService image = new CameraService(_ea, tcpip);
             image.FixCameraDeviceSetting();
         }
 
@@ -313,7 +313,7 @@ namespace OEP520G.ViewModels
         void ExecuteMoveCameraDeviceSetting()
         {
             TcpipServerService tcpip = new TcpipServerService(_ea);
-            ImageService image = new ImageService(_ea, tcpip);
+            CameraService image = new CameraService(_ea, tcpip);
             image.MoveCameraDeviceSetting();
         }
 
@@ -323,7 +323,7 @@ namespace OEP520G.ViewModels
         void ExecuteFixCameraPropertSetting()
         {
             TcpipServerService tcpip = new TcpipServerService(_ea);
-            ImageService image = new ImageService(_ea, tcpip);
+            CameraService image = new CameraService(_ea, tcpip);
             image.FixCameraPropertSetting();
         }
 
@@ -333,7 +333,7 @@ namespace OEP520G.ViewModels
         void ExecuteMoveCameraPropertSetting()
         {
             TcpipServerService tcpip = new TcpipServerService(_ea);
-            ImageService image = new ImageService(_ea, tcpip);
+            CameraService image = new CameraService(_ea, tcpip);
             image.MoveCameraPropertSetting();
         }
 

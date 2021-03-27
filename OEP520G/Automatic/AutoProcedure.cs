@@ -50,12 +50,12 @@ namespace OEP520G.Automatic
         // 取消權杖；中斷作業；機台遺留半成品
         private CancellationTokenSource _cts = null;
 
-        private readonly IImage _image;
+        private readonly ICamera _image;
 
         /// <summary>
         /// 建構函式
         /// </summary>
-        public AutoProcedure(IImage image)
+        public AutoProcedure(ICamera image)
         {
             _image = image;
 

@@ -102,10 +102,10 @@
                             Binding="{Binding StageNo}"
                             Header="小車"
                             IsReadOnly="True" />
-                        <DataGridTextColumn Binding="{Binding X, StringFormat=\{0:F3\}}" Header="X" />
-                        <DataGridTextColumn Binding="{Binding Y, StringFormat=\{0:F3\}}" Header="Y" />
-                        <DataGridTextColumn Binding="{Binding R, StringFormat=\{0:F3\}}" Header="R" />
-                        <DataGridTextColumn Binding="{Binding Z, StringFormat=\{0:F3\}}" Header="Z" />
+                        <DataGridTextColumn Binding="{Binding X, StringFormat=F3}" Header="X" />
+                        <DataGridTextColumn Binding="{Binding Y, StringFormat=F3}" Header="Y" />
+                        <DataGridTextColumn Binding="{Binding R, StringFormat=F3}" Header="R" />
+                        <DataGridTextColumn Binding="{Binding Z, StringFormat=F3}" Header="Z" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

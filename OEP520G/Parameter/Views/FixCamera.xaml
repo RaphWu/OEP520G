@@ -93,17 +93,17 @@
 
                 <StackPanel Style="{StaticResource DataBlock}">
                     <Label Content="原點 X" Style="{StaticResource ItemTitle}" />
-                    <TextBox Style="{StaticResource ItemField}" Text="{Binding OriginXField, StringFormat=\{0:F3\}}" />
+                    <TextBox Style="{StaticResource ItemField}" Text="{Binding OriginXField, StringFormat=F3}" />
                 </StackPanel>
 
                 <StackPanel Style="{StaticResource DataBlock}">
                     <Label Content="原點 Y" Style="{StaticResource ItemTitle}" />
-                    <TextBox Style="{StaticResource ItemField}" Text="{Binding OriginYField, StringFormat=\{0:F3\}}" />
+                    <TextBox Style="{StaticResource ItemField}" Text="{Binding OriginYField, StringFormat=F3}" />
                 </StackPanel>
 
                 <StackPanel Style="{StaticResource DataBlock}">
                     <Label Content="原點 Z" Style="{StaticResource ItemTitle}" />
-                    <TextBox Style="{StaticResource ItemField}" Text="{Binding OriginZField, StringFormat=\{0:F3\}}" />
+                    <TextBox Style="{StaticResource ItemField}" Text="{Binding OriginZField, StringFormat=F3}" />
                 </StackPanel>
 
                 <StackPanel Style="{StaticResource DataBlock}">

@@ -94,8 +94,8 @@
                 <StackPanel Style="{StaticResource Block}">
                     <Label Content="旋轉中心座標" />
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding RotateCenterCoorX, StringFormat=\{0:F3\}}" />
-                        <TextBox Text="{Binding RotateCenterCoorY, StringFormat=\{0:F3\}}" />
+                        <TextBox Text="{Binding RotateCenterCoorX, StringFormat=F3}" />
+                        <TextBox Text="{Binding RotateCenterCoorY, StringFormat=F3}" />
                     </StackPanel>
                     <Button Command="{Binding MoveHereCommand}" Content="移到旋轉中心" />
                 </StackPanel>
@@ -105,8 +105,8 @@
                 <StackPanel Style="{StaticResource Block}">
                     <Label Content="畫像處理座標" />
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding VisionCoorX, StringFormat=\{0:F3\}}" />
-                        <TextBox Text="{Binding VisionCoorY, StringFormat=\{0:F3\}}" />
+                        <TextBox Text="{Binding VisionCoorX, StringFormat=F3}" />
+                        <TextBox Text="{Binding VisionCoorY, StringFormat=F3}" />
                     </StackPanel>
                     <Button Command="{Binding GetCoorCommand}" Content="取得座標" />
                 </StackPanel>
@@ -121,8 +121,8 @@
                 <StackPanel Style="{StaticResource Block}">
                     <Label Content="計算結果中心座標" />
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding VisionCoorX, StringFormat=\{0:F3\}}" />
-                        <TextBox Text="{Binding VisionCoorY, StringFormat=\{0:F3\}}" />
+                        <TextBox Text="{Binding VisionCoorX, StringFormat=F3}" />
+                        <TextBox Text="{Binding VisionCoorY, StringFormat=F3}" />
                     </StackPanel>
                     <Button
                         Width="140"

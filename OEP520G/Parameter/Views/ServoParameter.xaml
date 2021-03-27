@@ -491,7 +491,7 @@
 
                         <DockPanel>
                             <Label Content="mm/sec" Style="{StaticResource ItemUnit}" />
-                            <TextBox Style="{StaticResource ItemField}" Text="{Binding BaseSpeed, StringFormat=\{0:F3\}}" />
+                            <TextBox Style="{StaticResource ItemField}" Text="{Binding BaseSpeed, StringFormat=F3}" />
                             <Label Content="基準進給速度" Style="{StaticResource ItemTitle}" />
                         </DockPanel>
                         <DockPanel>

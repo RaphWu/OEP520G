@@ -22,7 +22,7 @@ using System.Windows.Forms;
 
 namespace Imageproject.Services
 {
-    public class ImageService : IImage
+    public class CameraService : ICamera
     {
         //private readonly Logger _log = Logger.Instance;
 
@@ -45,28 +45,28 @@ namespace Imageproject.Services
         private readonly ITcpipServer _tcpipServer;
 
         // ctor
-        public ImageService(IEventAggregator ea, ITcpipServer tcpipServer)
+        public CameraService(IEventAggregator ea, ITcpipServer tcpipServer)
         {
             _ea = ea;
             _tcpipServer = tcpipServer;
 
-            if (ImageParameters.FixCamera == null)
+            if (CameraParameters.FixCamera == null)
             {
-                ImageParameters.FixCamera = new ICImagingControl
+                CameraParameters.FixCamera = new ICImagingControl
                 {
                     Name = CameraId.FixCamera.ToString()
                 };
-                ImageParameters.FixSnapSink = new FrameSnapSink();
+                CameraParameters.FixSnapSink = new FrameSnapSink();
                 LoadFixCamera();
             }
 
-            if (ImageParameters.MoveCamera == null)
+            if (CameraParameters.MoveCamera == null)
             {
-                ImageParameters.MoveCamera = new ICImagingControl
+                CameraParameters.MoveCamera = new ICImagingControl
                 {
                     Name = CameraId.MoveCamera.ToString()
                 };
-                ImageParameters.MoveSnapSink = new FrameSnapSink();
+                CameraParameters.MoveSnapSink = new FrameSnapSink();
                 LoadMoveCamera();
             }
 
@@ -93,15 +93,15 @@ namespace Imageproject.Services
             //    LiveOff();
             //}
 
-            ImageParameters.FrameList = new IFrameQueueBuffer[ImageParameters.MAX_IMAGE_COUNT];
+            CameraParameters.FrameList = new IFrameQueueBuffer[CameraParameters.MAX_FRAMES];
 
-            if (!Directory.Exists(FileString.ImageDirectoty))
-                Directory.CreateDirectory(FileString.ImageDirectoty);
+            if (!Directory.Exists(FileString.IMAGE_DIRECTORY))
+                Directory.CreateDirectory(FileString.IMAGE_DIRECTORY);
 
             _ea.GetEvent<PublishSolve>().Subscribe(ReceiveSolve);
         }
 
-        public IFrameQueueBuffer[] FrameList => ImageParameters.FrameList;
+        public IFrameQueueBuffer[] FrameList => CameraParameters.FrameList;
 
         /// <summary>
         /// 載入固定相機參數
@@ -112,7 +112,7 @@ namespace Imageproject.Services
             FixCameraOff();
             try
             {
-                ImageParameters.FixCamera.LoadDeviceStateFromFile(CameraCfgFile.FixCameraXmlFile, true);
+                CameraParameters.FixCamera.LoadDeviceStateFromFile(CameraCfgFile.FIX_CAMERA_XML_FILE, true);
             }
             catch (Exception e)
             {
@@ -129,7 +129,7 @@ namespace Imageproject.Services
             MoveCameraOff();
             try
             {
-                ImageParameters.MoveCamera.LoadDeviceStateFromFile(CameraCfgFile.MoveCameraXmlFile, true);
+                CameraParameters.MoveCamera.LoadDeviceStateFromFile(CameraCfgFile.MOVE_CAMERA_XML_FILE, true);
             }
             catch (Exception e)
             {
@@ -143,8 +143,8 @@ namespace Imageproject.Services
         /// <inheritdoc/>
         public void FixCameraOn(Func<IFrameQueueBuffer, FrameQueuedResult> frameQueuedFunc)
         {
-            var fc = ImageParameters.FixCamera;
-            var fcs = ImageParameters.FixCameraStatus;
+            var fc = CameraParameters.FixCamera;
+            var fcs = CameraParameters.FixCameraStatus;
 
             if (fc.DeviceValid)
             {
@@ -166,7 +166,7 @@ namespace Imageproject.Services
                 if (frameQueuedFunc == null)
                 {
                     // SnapSink
-                    fc.Sink = ImageParameters.FixSnapSink;
+                    fc.Sink = CameraParameters.FixSnapSink;
                     fcs = CameraStatus.SnapSink;
                 }
                 else
@@ -174,7 +174,7 @@ namespace Imageproject.Services
                     // QueueSink
                     fc.Sink = new FrameQueueSink(frameQueuedFunc,
                                                  MediaSubtypes.Y800,
-                                                 ImageParameters.MAX_IMAGE_COUNT);
+                                                 CameraParameters.MAX_FRAMES);
                     fcs = CameraStatus.QueueSink;
                 }
 
@@ -190,12 +190,12 @@ namespace Imageproject.Services
         /// <inheritdoc/>
         public void FixCameraOff()
         {
-            if (ImageParameters.FixCamera.DeviceValid)
-                if (ImageParameters.FixCamera.LiveVideoRunning)
-                    ImageParameters.FixCamera.LiveStop();
+            if (CameraParameters.FixCamera.DeviceValid)
+                if (CameraParameters.FixCamera.LiveVideoRunning)
+                    CameraParameters.FixCamera.LiveStop();
 
-            if (ImageParameters.FixCameraStatus != CameraStatus.Disable)
-                ImageParameters.FixCameraStatus = CameraStatus.Disable;
+            if (CameraParameters.FixCameraStatus != CameraStatus.Disable)
+                CameraParameters.FixCameraStatus = CameraStatus.Disable;
         }
 
         /// <inheritdoc/>
@@ -204,8 +204,8 @@ namespace Imageproject.Services
         /// <inheritdoc/>
         public void MoveCameraOn(Func<IFrameQueueBuffer, FrameQueuedResult> frameQueuedFunc)
         {
-            var mc = ImageParameters.MoveCamera;
-            var mcs = ImageParameters.MoveCameraStatus;
+            var mc = CameraParameters.MoveCamera;
+            var mcs = CameraParameters.MoveCameraStatus;
 
             if (mc.DeviceValid)
             {
@@ -227,7 +227,7 @@ namespace Imageproject.Services
                 if (frameQueuedFunc == null)
                 {
                     // SnapSink
-                    mc.Sink = ImageParameters.MoveSnapSink;
+                    mc.Sink = CameraParameters.MoveSnapSink;
                     mcs = CameraStatus.SnapSink;
                 }
                 else
@@ -235,7 +235,7 @@ namespace Imageproject.Services
                     // QueueSink
                     mc.Sink = new FrameQueueSink(frameQueuedFunc,
                                                   MediaSubtypes.Y800,
-                                                  ImageParameters.MAX_IMAGE_COUNT);
+                                                  CameraParameters.MAX_FRAMES);
                     mcs = CameraStatus.QueueSink;
                 }
 
@@ -251,12 +251,12 @@ namespace Imageproject.Services
         /// <inheritdoc/>
         public void MoveCameraOff()
         {
-            if (ImageParameters.MoveCamera.DeviceValid)
-                if (ImageParameters.MoveCamera.LiveVideoRunning)
-                    ImageParameters.MoveCamera.LiveStop();
+            if (CameraParameters.MoveCamera.DeviceValid)
+                if (CameraParameters.MoveCamera.LiveVideoRunning)
+                    CameraParameters.MoveCamera.LiveStop();
 
-            if (ImageParameters.MoveCameraStatus != CameraStatus.Disable)
-                ImageParameters.MoveCameraStatus = CameraStatus.Disable;
+            if (CameraParameters.MoveCameraStatus != CameraStatus.Disable)
+                CameraParameters.MoveCameraStatus = CameraStatus.Disable;
         }
 
         ///// <summary>
@@ -277,8 +277,8 @@ namespace Imageproject.Services
         /// <inheritdoc/>
         public IFrameQueueBuffer TakePictureWithFixCamera()
         {
-            if (ImageParameters.FixCameraStatus == CameraStatus.SnapSink)
-                return ImageParameters.FixSnapSink.SnapSingle(_timeOut);
+            if (CameraParameters.FixCameraStatus == CameraStatus.SnapSink)
+                return CameraParameters.FixSnapSink.SnapSingle(_timeOut);
             else
                 return null;
         }
@@ -286,8 +286,8 @@ namespace Imageproject.Services
         /// <inheritdoc/>
         public IFrameQueueBuffer TakePictureWithMoveCamera()
         {
-            if (ImageParameters.MoveCameraStatus == CameraStatus.SnapSink)
-                return ImageParameters.MoveSnapSink.SnapSingle(_timeOut);
+            if (CameraParameters.MoveCameraStatus == CameraStatus.SnapSink)
+                return CameraParameters.MoveSnapSink.SnapSingle(_timeOut);
             else
                 return null;
         }
@@ -298,8 +298,8 @@ namespace Imageproject.Services
         /// <inheritdoc/>
         public void FixCameraHwTriggerOn()
         {
-            var fc = ImageParameters.FixCamera;
-            var fcs = ImageParameters.FixCameraStatus;
+            var fc = CameraParameters.FixCamera;
+            var fcs = CameraParameters.FixCameraStatus;
 
             if (!fc.DeviceValid)
                 return;
@@ -317,7 +317,7 @@ namespace Imageproject.Services
 
             fc.Sink = new FrameQueueSink(FixCameraHwTriggerFunc,
                                          MediaSubtypes.Y800,
-                                         ImageParameters.MAX_IMAGE_COUNT);
+                                         CameraParameters.MAX_FRAMES);
             _countFrameList = 0;
             fc.DeviceTrigger = true;
             fc.LiveStart();
@@ -327,8 +327,8 @@ namespace Imageproject.Services
         /// <inheritdoc/>
         public void FixCameraHwTriggerOff()
         {
-            var fc = ImageParameters.FixCamera;
-            var fcs = ImageParameters.FixCameraStatus;
+            var fc = CameraParameters.FixCamera;
+            var fcs = CameraParameters.FixCameraStatus;
 
             if (!fc.DeviceValid)
                 return;
@@ -351,10 +351,10 @@ namespace Imageproject.Services
         /// <see cref="https://www.theimagingsource.com/support/documentation/ic-imaging-control-net/meth_descFrameQueueSink_FrameQueueSink.htm"/>
         private FrameQueuedResult FixCameraHwTriggerFunc(IFrameQueueBuffer frame)
         {
-            if (_countFrameList >= ImageParameters.MAX_IMAGE_COUNT)
+            if (_countFrameList >= CameraParameters.MAX_FRAMES)
                 return FrameQueuedResult.SkipReQueue;
 
-            ImageParameters.FrameList[_countFrameList++] = frame;
+            CameraParameters.FrameList[_countFrameList++] = frame;
             return FrameQueuedResult.ReQueue;
         }
 
@@ -364,33 +364,33 @@ namespace Imageproject.Services
         /// <inheritdoc/>
         public void FixCameraDeviceSetting()
         {
-            if (ImageParameters.FixCamera.ShowDeviceSettingsDialog() == DialogResult.OK)
-                if (ImageParameters.FixCamera.DeviceValid)
-                    ImageParameters.FixCamera.SaveDeviceStateToFile(CameraCfgFile.FixCameraXmlFile);
+            if (CameraParameters.FixCamera.ShowDeviceSettingsDialog() == DialogResult.OK)
+                if (CameraParameters.FixCamera.DeviceValid)
+                    CameraParameters.FixCamera.SaveDeviceStateToFile(CameraCfgFile.FIX_CAMERA_XML_FILE);
         }
 
         /// <inheritdoc/>
         public void FixCameraPropertSetting()
         {
-            ImageParameters.FixCamera.ShowPropertyDialog();
-            if (ImageParameters.FixCamera.DeviceValid)
-                ImageParameters.FixCamera.SaveDeviceStateToFile(CameraCfgFile.FixCameraXmlFile);
+            CameraParameters.FixCamera.ShowPropertyDialog();
+            if (CameraParameters.FixCamera.DeviceValid)
+                CameraParameters.FixCamera.SaveDeviceStateToFile(CameraCfgFile.FIX_CAMERA_XML_FILE);
         }
 
         /// <inheritdoc/>
         public void MoveCameraDeviceSetting()
         {
-            if (ImageParameters.MoveCamera.ShowDeviceSettingsDialog() == DialogResult.OK)
-                if (ImageParameters.MoveCamera.DeviceValid)
-                    ImageParameters.MoveCamera.SaveDeviceStateToFile(CameraCfgFile.MoveCameraXmlFile);
+            if (CameraParameters.MoveCamera.ShowDeviceSettingsDialog() == DialogResult.OK)
+                if (CameraParameters.MoveCamera.DeviceValid)
+                    CameraParameters.MoveCamera.SaveDeviceStateToFile(CameraCfgFile.MOVE_CAMERA_XML_FILE);
         }
 
         /// <inheritdoc/>
         public void MoveCameraPropertSetting()
         {
-            ImageParameters.MoveCamera.ShowPropertyDialog();
-            if (ImageParameters.MoveCamera.DeviceValid)
-                ImageParameters.MoveCamera.SaveDeviceStateToFile(CameraCfgFile.MoveCameraXmlFile);
+            CameraParameters.MoveCamera.ShowPropertyDialog();
+            if (CameraParameters.MoveCamera.DeviceValid)
+                CameraParameters.MoveCamera.SaveDeviceStateToFile(CameraCfgFile.MOVE_CAMERA_XML_FILE);
         }
 
         /********************
@@ -399,7 +399,7 @@ namespace Imageproject.Services
         /// <inheritdoc/>
         public void SaveImageToFile(string imgName, IFrameQueueBuffer frame)
         {
-            string dir = $@"{FileString.ImageDirectoty}\{imgName}";
+            string dir = $@"{FileString.IMAGE_DIRECTORY}\{imgName}";
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 

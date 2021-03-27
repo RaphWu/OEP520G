@@ -371,7 +371,7 @@
                             DockPanel.Dock="Left"
                             Foreground="Brown" />
                         <Label
-                            Content="{Binding AxisZCoordinate, StringFormat=\{0:F3\}}"
+                            Content="{Binding AxisZCoordinate, StringFormat=F3}"
                             DockPanel.Dock="Right"
                             IsEnabled="{Binding AxisZEnabled, Converter={StaticResource BooleanToStringConverter}}" />
                     </DockPanel>

@@ -102,11 +102,11 @@
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="1"
-                    Text="{Binding Clamp1X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Clamp1X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="2"
-                    Text="{Binding Clamp1Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Clamp1Y, StringFormat=F3}" />
 
                 <RadioButton
                     Grid.Row="2"
@@ -116,11 +116,11 @@
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="1"
-                    Text="{Binding Clamp2X, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Clamp2X, StringFormat=F3}" />
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="2"
-                    Text="{Binding Clamp2Y, StringFormat=\{0:F3\}}" />
+                    Text="{Binding Clamp2Y, StringFormat=F3}" />
             </Grid>
         </StackPanel>
         <!--  座標資訊 END  -->

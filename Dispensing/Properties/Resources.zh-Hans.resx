@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle_DispensingSetting_Text" xml:space="preserve">
+    <value>点胶参数设定</value>
+  </data>
+  <data name="Note_GroupNo_Content" xml:space="preserve">
+    <value>群组编号</value>
+  </data>
+  <data name="Note_DispSpeed_Content" xml:space="preserve">
+    <value>点胶XY轴移动速度(mm/秒)</value>
+  </data>
+  <data name="Note_EShot_Content" xml:space="preserve">
+    <value>续吐胶时间(毫秒)；
+移动完等待时间后停胶</value>
+  </data>
+  <data name="Note_EWait_Content" xml:space="preserve">
+    <value>停胶后等待时间接(毫秒)后再断胶</value>
+  </data>
+  <data name="Note_PreStop_Content" xml:space="preserve">
+    <value>预停胶距离(毫秒)/角度</value>
+  </data>
+  <data name="Note_SpeedR_Content" xml:space="preserve">
+    <value>R轴点胶旋转速度(度/秒)</value>
+  </data>
+  <data name="Note_SWait_Content" xml:space="preserve">
+    <value>预点胶时间(毫秒)
+正值：到达点胶位置前提早出胶的时间
+0：到达点胶位置后再出胶
+负值：到达点胶位置后等待时间后再出胶</value>
+  </data>
+  <data name="Note_UpDelay_Content" xml:space="preserve">
+    <value>断胶延迟时间(毫秒)</value>
+  </data>
+  <data name="Note_UpSpeed_Content" xml:space="preserve">
+    <value>断胶速度(mm/秒)</value>
+  </data>
+  <data name="Note_UpWay_Content" xml:space="preserve">
+    <value>断胶方式   0：无
+　１：一般回移　２：方形回移</value>
+  </data>
+  <data name="Note_UpXY_Content" xml:space="preserve">
+    <value>断胶距离(mm)：第一次XY轴回移距离</value>
+  </data>
+  <data name="Note_UpZ_Content" xml:space="preserve">
+    <value>断胶高度(mm)：第一次Z轴上升高度</value>
+  </data>
+  <data name="Subtitle_DispensingShape_Header" xml:space="preserve">
+    <value>点胶品种</value>
+  </data>
+  <data name="Subtitle_DispensingParameter_Text" xml:space="preserve">
+    <value>点胶参数</value>
+  </data>
+  <data name="Subtitle_UvParameter_Header" xml:space="preserve">
+    <value>UV照射参数</value>
+  </data>
+  <data name="Button_NewShape_Content" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="Button_CopyShape_Content" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Button_DeleteShape_Content" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DispensingActionColumn_No" xml:space="preserve">
+    <value>序号</value>
+  </data>
+  <data name="DispensingActionColumn_Type" xml:space="preserve">
+    <value>点胶动作</value>
+  </data>
+  <data name="DispensingActionColumn_Group" xml:space="preserve">
+    <value>群组编号</value>
+  </data>
+  <data name="UvPosition_GroupBox_Header" xml:space="preserve">
+    <value>UV照射位置</value>
+  </data>
+  <data name="UvPositionNone_Content" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="UvPositionStage_Content" xml:space="preserve">
+    <value>台车</value>
+  </data>
+  <data name="UvPositionTray_Content" xml:space="preserve">
+    <value>托盘</value>
+  </data>
+  <data name="Button_ExecuteUvTest_Content" xml:space="preserve">
+    <value>UV测试</value>
+  </data>
+  <data name="DispensingParameter_Group" xml:space="preserve">
+    <value>群组
+编号</value>
+  </data>
+  <data name="Button_PreDispensingSetting_Content" xml:space="preserve">
+    <value>预吐胶
+设定及测试</value>
+  </data>
+  <data name="Button_DispenseTest_Content" xml:space="preserve">
+    <value>点胶测试</value>
+  </data>
+  <data name="Label_Dispense_Content" xml:space="preserve">
+    <value>实际点胶</value>
+  </data>
+  <data name="Button_Restore_Content" xml:space="preserve">
+    <value>回复原先资料</value>
+  </data>
+  <data name="Button_DispensingSet_Content" xml:space="preserve">
+    <value>点胶资料产生</value>
+  </data>
+  <data name="Label_VisionInspection_Content" xml:space="preserve">
+    <value>画像检查</value>
+  </data>
+  <data name="Button_VisionData_Content" xml:space="preserve">
+    <value>画像参数</value>
+  </data>
+  <data name="Button_SetCenter_Content" xml:space="preserve">
+    <value>设定中心</value>
+  </data>
+  <data name="Label_Follow_Content" xml:space="preserve">
+    <value>跟随选择</value>
+  </data>
+  <data name="Button_MovtXYTo_Content" xml:space="preserve">
+    <value>移动XY至</value>
+  </data>
+  <data name="Button_MoveZTo_Content" xml:space="preserve">
+    <value>移动Z至</value>
+  </data>
+  <data name="Button_GetXYPos_Content" xml:space="preserve">
+    <value>取得XY座标</value>
+  </data>
+  <data name="Button_GetXPos_Content" xml:space="preserve">
+    <value>取得Z座标</value>
+  </data>
+  <data name="Radio_ByCamera_Content" xml:space="preserve">
+    <value>以相机为参考</value>
+  </data>
+  <data name="Radio_ByNeedle_Content" xml:space="preserve">
+    <value>以针头为参考</value>
+  </data>
+  <data name="Button_GlueTest_Content" xml:space="preserve">
+    <value>胶重测试</value>
+  </data>
+  <data name="Label_UvPreWait_Content" xml:space="preserve">
+    <value>UV前等待时间</value>
+  </data>
+  <data name="Label_UvTime_Content" xml:space="preserve">
+    <value>UV照射时间</value>
+  </data>
+  <data name="Label_UvPostWait_Content" xml:space="preserve">
+    <value>UV后等待时间</value>
+  </data>
+  <data name="Button_OffsetAdjustment_Content" xml:space="preserve">
+    <value>补差值</value>
+  </data>
+  <data name="CRUD_New_Title" xml:space="preserve">
+    <value>建立新点胶品种</value>
+  </data>
+  <data name="CRUD_New_NewTitle" xml:space="preserve">
+    <value>新品种名称</value>
+  </data>
+  <data name="ErrorMsg_ShapeExist" xml:space="preserve">
+    <value>点胶品种已存在: </value>
+  </data>
+</root>

@@ -50,6 +50,7 @@ namespace OEP520G
         {
             moduleCatalog.AddModule<ImageprojectModule>();
             moduleCatalog.AddModule<OEP520G.EPRegulator.EPRegulatorModule>();
+            //moduleCatalog.AddModule<OEP520G.Dispensing.DispensingModule>();
             moduleCatalog.AddModule<TcpipServer.TcpipServerModule>();
         }
     }

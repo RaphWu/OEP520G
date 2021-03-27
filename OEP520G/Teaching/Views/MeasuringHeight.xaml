@@ -175,7 +175,7 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight1, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight1, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="1"
                             Grid.Column="2"
@@ -191,7 +191,7 @@
                             Grid.Row="1"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH1, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH1, StringFormat=F3}" />
 
                         <ToggleButton
                             Grid.Row="2"
@@ -208,7 +208,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight2, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight2, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="2"
                             Grid.Column="2"
@@ -224,7 +224,7 @@
                             Grid.Row="2"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH2, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH2, StringFormat=F3}" />
 
                         <ToggleButton
                             Grid.Row="3"
@@ -241,7 +241,7 @@
                             Grid.Row="3"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight3, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight3, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="3"
                             Grid.Column="2"
@@ -257,7 +257,7 @@
                             Grid.Row="3"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH3, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH3, StringFormat=F3}" />
 
                         <ToggleButton
                             Grid.Row="4"
@@ -274,7 +274,7 @@
                             Grid.Row="4"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight4, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight4, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="4"
                             Grid.Column="2"
@@ -290,7 +290,7 @@
                             Grid.Row="4"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH4, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH4, StringFormat=F3}" />
 
                         <ToggleButton
                             Grid.Row="5"
@@ -307,7 +307,7 @@
                             Grid.Row="5"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight5, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight5, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="5"
                             Grid.Column="2"
@@ -323,7 +323,7 @@
                             Grid.Row="5"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH5, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH5, StringFormat=F3}" />
 
                         <ToggleButton
                             Grid.Row="6"
@@ -340,7 +340,7 @@
                             Grid.Row="6"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight6, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight6, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="6"
                             Grid.Column="2"
@@ -356,7 +356,7 @@
                             Grid.Row="6"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH6, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH6, StringFormat=F3}" />
 
                         <ToggleButton
                             Grid.Row="7"
@@ -373,7 +373,7 @@
                             Grid.Row="7"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight7, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight7, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="7"
                             Grid.Column="2"
@@ -389,7 +389,7 @@
                             Grid.Row="7"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH7, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH7, StringFormat=F3}" />
 
                         <ToggleButton
                             Grid.Row="8"
@@ -406,7 +406,7 @@
                             Grid.Row="8"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight8, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight8, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="8"
                             Grid.Column="2"
@@ -422,7 +422,7 @@
                             Grid.Row="8"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH8, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH8, StringFormat=F3}" />
 
                         <ToggleButton
                             Grid.Row="9"
@@ -439,7 +439,7 @@
                             Grid.Row="9"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight9, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight9, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="9"
                             Grid.Column="2"
@@ -455,7 +455,7 @@
                             Grid.Row="9"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH9, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH9, StringFormat=F3}" />
 
                         <ToggleButton
                             Grid.Row="10"
@@ -472,7 +472,7 @@
                             Grid.Row="10"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight10, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight10, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="10"
                             Grid.Column="2"
@@ -488,7 +488,7 @@
                             Grid.Row="10"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH10, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH10, StringFormat=F3}" />
 
                         <ToggleButton
                             Grid.Row="11"
@@ -505,7 +505,7 @@
                             Grid.Row="11"
                             Grid.Column="1"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleHeight11, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleHeight11, StringFormat=F3}" />
                         <CheckBox
                             Grid.Row="11"
                             Grid.Column="2"
@@ -521,7 +521,7 @@
                             Grid.Row="11"
                             Grid.Column="3"
                             Style="{StaticResource Data}"
-                            Text="{Binding NozzleNewH11, StringFormat=\{0:F3\}}" />
+                            Text="{Binding NozzleNewH11, StringFormat=F3}" />
                     </Grid>
 
                     <StackPanel
@@ -572,15 +572,15 @@
 
                         <StackPanel Style="{StaticResource CoorBlock}">
                             <Label Content="X" Style="{StaticResource Title}" />
-                            <TextBox Style="{StaticResource Coor}" Text="{Binding MeasuringPlatformX, StringFormat=\{0:F3\}}" />
+                            <TextBox Style="{StaticResource Coor}" Text="{Binding MeasuringPlatformX, StringFormat=F3}" />
                         </StackPanel>
                         <StackPanel Grid.Column="1" Style="{StaticResource CoorBlock}">
                             <Label Content="Y" Style="{StaticResource Title}" />
-                            <TextBox Style="{StaticResource Coor}" Text="{Binding MeasuringPlatformY, StringFormat=\{0:F3\}}" />
+                            <TextBox Style="{StaticResource Coor}" Text="{Binding MeasuringPlatformY, StringFormat=F3}" />
                         </StackPanel>
                         <StackPanel Grid.Column="2" Style="{StaticResource CoorBlock}">
                             <Label Content="Z" Style="{StaticResource Title}" />
-                            <TextBox Style="{StaticResource Coor}" Text="{Binding MeasuringPlatformZ, StringFormat=\{0:F3\}}" />
+                            <TextBox Style="{StaticResource Coor}" Text="{Binding MeasuringPlatformZ, StringFormat=F3}" />
                         </StackPanel>
 
                         <Button

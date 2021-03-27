@@ -657,14 +657,14 @@
                             <DataGridTextColumn Binding="{Binding Path=NozzleName}" Header="吸嘴" />
 
                             <!--  測試資料，正式版本須刪除  -->
-                            <!--<DataGridTextColumn Binding="{Binding Path=NozzleX, StringFormat=\{0:F3\}}" Header="NozzleX" />
-                            <DataGridTextColumn Binding="{Binding Path=NozzleY, StringFormat=\{0:F3\}}" Header="NozzleY" />-->
+                            <!--<DataGridTextColumn Binding="{Binding Path=NozzleX, StringFormat=F3}" Header="NozzleX" />
+                            <DataGridTextColumn Binding="{Binding Path=NozzleY, StringFormat=F3}" Header="NozzleY" />-->
                             <!--  測試資料，正式版本須刪除  -->
 
-                            <DataGridTextColumn Binding="{Binding Path=X, StringFormat=\{0:F3\}}" Header="X" />
-                            <DataGridTextColumn Binding="{Binding Path=Y, StringFormat=\{0:F3\}}" Header="Y" />
-                            <DataGridTextColumn Binding="{Binding Path=NewX, StringFormat=\{0:F3\}}" Header="新X" />
-                            <DataGridTextColumn Binding="{Binding Path=NewY, StringFormat=\{0:F3\}}" Header="新Y" />
+                            <DataGridTextColumn Binding="{Binding Path=X, StringFormat=F3}" Header="X" />
+                            <DataGridTextColumn Binding="{Binding Path=Y, StringFormat=F3}" Header="Y" />
+                            <DataGridTextColumn Binding="{Binding Path=NewX, StringFormat=F3}" Header="新X" />
+                            <DataGridTextColumn Binding="{Binding Path=NewY, StringFormat=F3}" Header="新Y" />
                             <DataGridTextColumn Binding="{Binding Path=TimeMarker}" Header="時間" />
                             <DataGridTemplateColumn Header="更新">
                                 <DataGridTemplateColumn.CellTemplate>

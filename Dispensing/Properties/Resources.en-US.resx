@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle_DispensingSetting_Text" xml:space="preserve">
+    <value>Dispensing Setting</value>
+  </data>
+  <data name="Note_GroupNo_Content" xml:space="preserve">
+    <value>Group No</value>
+  </data>
+  <data name="Note_DispSpeed_Content" xml:space="preserve">
+    <value>Axis X, Y Moving speed when dispensing.(mm/sec)</value>
+  </data>
+  <data name="Note_EShot_Content" xml:space="preserve">
+    <value>Continuous shot time(msec),
+Delay time after move end when stop shot</value>
+  </data>
+  <data name="Note_EWait_Content" xml:space="preserve">
+    <value>Delay time after stop shot then broken glue.(msec)</value>
+  </data>
+  <data name="Note_PreStop_Content" xml:space="preserve">
+    <value>The advance distance to stop shot.(mm/deg)</value>
+  </data>
+  <data name="Note_SpeedR_Content" xml:space="preserve">
+    <value>Rotation speed when dispensing.(deg/sec)</value>
+  </data>
+  <data name="Note_SWait_Content" xml:space="preserve">
+    <value>Pre-shot time(msec)
+Positive: The advance time before inposition to Shot.
+0: Shot when inposition.
+Negative: Wait the time after inposition then shot</value>
+  </data>
+  <data name="Note_UpDelay_Content" xml:space="preserve">
+    <value>The delay time for broken glue.(mm/sec)</value>
+  </data>
+  <data name="Note_UpSpeed_Content" xml:space="preserve">
+    <value>The speed for broken glue.(mm/sec)</value>
+  </data>
+  <data name="Note_UpWay_Content" xml:space="preserve">
+    <value>Broken glue method. 0: None  1: Normal  2: Trapezoid</value>
+  </data>
+  <data name="Note_UpXY_Content" xml:space="preserve">
+    <value>The distance for broken glue.(mm)</value>
+  </data>
+  <data name="Note_UpZ_Content" xml:space="preserve">
+    <value>The height for broken glue.(mm)</value>
+  </data>
+  <data name="Subtitle_DispensingShape_Header" xml:space="preserve">
+    <value>Dispensing Shape</value>
+  </data>
+  <data name="Subtitle_DispensingParameter_Text" xml:space="preserve">
+    <value>Dispensing Parameter</value>
+  </data>
+  <data name="Subtitle_UvParameter_Header" xml:space="preserve">
+    <value>UV Parameters</value>
+  </data>
+  <data name="Button_NewShape_Content" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Button_CopyShape_Content" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Button_DeleteShape_Content" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DispensingActionColumn_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DispensingActionColumn_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="DispensingActionColumn_Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="UvPosition_GroupBox_Header" xml:space="preserve">
+    <value>UV Position</value>
+  </data>
+  <data name="UvPositionNone_Content" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="UvPositionStage_Content" xml:space="preserve">
+    <value>Stage</value>
+  </data>
+  <data name="UvPositionTray_Content" xml:space="preserve">
+    <value>Tray</value>
+  </data>
+  <data name="Button_ExecuteUvTest_Content" xml:space="preserve">
+    <value>UV Test</value>
+  </data>
+  <data name="DispensingParameter_Group" xml:space="preserve">
+    <value>Group
+No</value>
+  </data>
+  <data name="Button_PreDispensingSetting_Content" xml:space="preserve">
+    <value>PreDispense
+Setting</value>
+  </data>
+  <data name="Button_DispenseTest_Content" xml:space="preserve">
+    <value>Dispense Test</value>
+  </data>
+  <data name="Label_Dispense_Content" xml:space="preserve">
+    <value>Dispense</value>
+  </data>
+  <data name="Button_Restore_Content" xml:space="preserve">
+    <value>Restore Data</value>
+  </data>
+  <data name="Button_DispensingSet_Content" xml:space="preserve">
+    <value>Dispensing
+Position Set</value>
+  </data>
+  <data name="Label_VisionInspection_Content" xml:space="preserve">
+    <value>Vision Inspection</value>
+  </data>
+  <data name="Button_VisionData_Content" xml:space="preserve">
+    <value>Vision Data</value>
+  </data>
+  <data name="Button_SetCenter_Content" xml:space="preserve">
+    <value>Set Center</value>
+  </data>
+  <data name="Label_Follow_Content" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="Button_MovtXYTo_Content" xml:space="preserve">
+    <value>Move XY To</value>
+  </data>
+  <data name="Button_MoveZTo_Content" xml:space="preserve">
+    <value>Move Z To</value>
+  </data>
+  <data name="Button_GetXYPos_Content" xml:space="preserve">
+    <value>Get XY Pos</value>
+  </data>
+  <data name="Button_GetXPos_Content" xml:space="preserve">
+    <value>Get Z Pos</value>
+  </data>
+  <data name="Radio_ByCamera_Content" xml:space="preserve">
+    <value>By Camera</value>
+  </data>
+  <data name="Radio_ByNeedle_Content" xml:space="preserve">
+    <value>By Needle</value>
+  </data>
+  <data name="Button_GlueTest_Content" xml:space="preserve">
+    <value>Glue Test</value>
+  </data>
+  <data name="Label_UvPreWait_Content" xml:space="preserve">
+    <value>UV PreWait</value>
+  </data>
+  <data name="Label_UvTime_Content" xml:space="preserve">
+    <value>UV Time</value>
+  </data>
+  <data name="Label_UvPostWait_Content" xml:space="preserve">
+    <value>UV PostWait</value>
+  </data>
+  <data name="Button_OffsetAdjustment_Content" xml:space="preserve">
+    <value>Offset</value>
+  </data>
+  <data name="CRUD_New_Title" xml:space="preserve">
+    <value>Create New Dispensing Shape</value>
+  </data>
+  <data name="CRUD_New_NewTitle" xml:space="preserve">
+    <value>New Shape Name</value>
+  </data>
+  <data name="ErrorMsg_ShapeExist" xml:space="preserve">
+    <value>The dispensing shape already exists: </value>
+  </data>
+</root>

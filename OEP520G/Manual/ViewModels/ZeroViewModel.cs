@@ -76,13 +76,13 @@ namespace OEP520G.Manual.ViewModels
 
         // 事件聚合器引用
         private readonly IEventAggregator _ea;
-        private readonly IImage _image;
+        private readonly ICamera _image;
 
         /// <summary>
         /// 建構函式
         /// </summary>
         public ZeroViewModel(IEventAggregator ea,
-            IImage image)
+            ICamera image)
         {
             _ea = ea;
             _image = image;

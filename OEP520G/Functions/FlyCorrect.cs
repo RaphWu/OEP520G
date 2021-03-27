@@ -43,12 +43,12 @@ namespace OEP520G.Functions
         // 取消權杖
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        private readonly IImage _image;
+        private readonly ICamera _image;
 
         /// <summary>
         /// 建構函式
         /// </summary>
-        public FlyCorrect(IImage image, bool hasPartOnNozzle)
+        public FlyCorrect(ICamera image, bool hasPartOnNozzle)
         {
             _image = image;
 
@@ -172,8 +172,8 @@ namespace OEP520G.Functions
             epcio.StartPolling();
 
             // 圖片存檔
-            IFrameQueueBuffer[] frame = ImageParameters.FrameList;
-            for (int cnt = 0; cnt < ImageParameters.MAX_IMAGE_COUNT; cnt++)
+            IFrameQueueBuffer[] frame = CameraParameters.FrameList;
+            for (int cnt = 0; cnt < CameraParameters.MAX_FRAMES; cnt++)
             {
                 _image.SaveImageToFile($"Nozzle{cnt}", frame[cnt]);
             }

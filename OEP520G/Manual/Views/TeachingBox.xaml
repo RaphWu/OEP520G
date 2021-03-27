@@ -609,13 +609,13 @@
                 Grid.Column="1"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="1"
-                Text="{Binding MoveToX, StringFormat=\{0:F3\}}" />
+                Text="{Binding MoveToX, StringFormat=F3}" />
             <TextBox
                 Grid.Row="1"
                 Grid.Column="2"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="11"
-                Text="{Binding ShiftToX, StringFormat=\{0:F3\}}" />
+                Text="{Binding ShiftToX, StringFormat=F3}" />
 
             <Label
                 Grid.Row="2"
@@ -626,13 +626,13 @@
                 Grid.Column="1"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="2"
-                Text="{Binding MoveToY, StringFormat=\{0:F3\}}" />
+                Text="{Binding MoveToY, StringFormat=F3}" />
             <TextBox
                 Grid.Row="2"
                 Grid.Column="2"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="12"
-                Text="{Binding ShiftToY, StringFormat=\{0:F3\}}" />
+                Text="{Binding ShiftToY, StringFormat=F3}" />
 
             <Label
                 Grid.Row="3"
@@ -643,13 +643,13 @@
                 Grid.Column="1"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="3"
-                Text="{Binding MoveToZ, StringFormat=\{0:F3\}}" />
+                Text="{Binding MoveToZ, StringFormat=F3}" />
             <TextBox
                 Grid.Row="3"
                 Grid.Column="2"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="13"
-                Text="{Binding ShiftToZ, StringFormat=\{0:F3\}}" />
+                Text="{Binding ShiftToZ, StringFormat=F3}" />
 
             <Label
                 Grid.Row="4"
@@ -660,13 +660,13 @@
                 Grid.Column="1"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="4"
-                Text="{Binding MoveToR, StringFormat=\{0:F3\}}" />
+                Text="{Binding MoveToR, StringFormat=F3}" />
             <TextBox
                 Grid.Row="4"
                 Grid.Column="2"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="14"
-                Text="{Binding ShiftToR, StringFormat=\{0:F3\}}" />
+                Text="{Binding ShiftToR, StringFormat=F3}" />
 
             <Label
                 Grid.Row="5"
@@ -677,13 +677,13 @@
                 Grid.Column="1"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="5"
-                Text="{Binding MoveToClamp, StringFormat=\{0:F3\}}" />
+                Text="{Binding MoveToClamp, StringFormat=F3}" />
             <TextBox
                 Grid.Row="5"
                 Grid.Column="2"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="15"
-                Text="{Binding ShiftToClamp, StringFormat=\{0:F3\}}" />
+                Text="{Binding ShiftToClamp, StringFormat=F3}" />
 
             <Label
                 Grid.Row="6"
@@ -694,13 +694,13 @@
                 Grid.Column="1"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="6"
-                Text="{Binding MoveToTray, StringFormat=\{0:F3\}}" />
+                Text="{Binding MoveToTray, StringFormat=F3}" />
             <TextBox
                 Grid.Row="6"
                 Grid.Column="2"
                 Style="{StaticResource CoorListStyle}"
                 TabIndex="16"
-                Text="{Binding ShiftToTray, StringFormat=\{0:F3\}}" />
+                Text="{Binding ShiftToTray, StringFormat=F3}" />
 
             <!--<StackPanel
                 Grid.Row="7"

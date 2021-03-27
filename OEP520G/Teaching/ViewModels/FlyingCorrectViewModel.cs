@@ -53,12 +53,12 @@ namespace OEP520G.Teaching.ViewModels
             }
         }
 
-        private readonly IImage _image;
+        private readonly ICamera _image;
 
         /// <summary>
         /// 建構函式
         /// </summary>
-        public FlyingCorrectViewModel(IImage image)
+        public FlyingCorrectViewModel(ICamera image)
         {
             _image = image;
             flyCorrect = new FlyCorrect(_image, false);

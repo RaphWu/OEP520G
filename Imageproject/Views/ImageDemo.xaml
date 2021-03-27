@@ -60,15 +60,15 @@
                             Header="Image Name" />
                         <GridViewColumn
                             Width="60"
-                            DisplayMemberBinding="{Binding X, StringFormat=\{0:F3\}}"
+                            DisplayMemberBinding="{Binding X, StringFormat=F3}"
                             Header="X" />
                         <GridViewColumn
                             Width="60"
-                            DisplayMemberBinding="{Binding Y, StringFormat=\{0:F3\}}"
+                            DisplayMemberBinding="{Binding Y, StringFormat=F3}"
                             Header="Y" />
                         <GridViewColumn
                             Width="60"
-                            DisplayMemberBinding="{Binding A, StringFormat=\{0:F3\}}"
+                            DisplayMemberBinding="{Binding A, StringFormat=F3}"
                             Header="Angle" />
                     </GridView.Columns>
                 </GridView>

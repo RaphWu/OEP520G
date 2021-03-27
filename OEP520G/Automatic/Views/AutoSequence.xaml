@@ -445,15 +445,15 @@
 
                     <materialDesign:DataGridTextColumn
                         MinWidth="80"
-                        Binding="{Binding Path=PosX, StringFormat=\{0:F3\}}"
+                        Binding="{Binding Path=PosX, StringFormat=F3}"
                         Header="X" />
                     <materialDesign:DataGridTextColumn
                         MinWidth="80"
-                        Binding="{Binding Path=PosY, StringFormat=\{0:F3\}}"
+                        Binding="{Binding Path=PosY, StringFormat=F3}"
                         Header="Y" />
                     <materialDesign:DataGridTextColumn
                         MinWidth="80"
-                        Binding="{Binding Path=PosZ, StringFormat=\{0:F3\}}"
+                        Binding="{Binding Path=PosZ, StringFormat=F3}"
                         Header="Z" />
 
                 </DataGrid.Columns>

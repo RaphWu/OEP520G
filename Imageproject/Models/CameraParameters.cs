@@ -7,9 +7,9 @@ using TIS.Imaging;
 
 namespace Imageproject.Models
 {
-    public class ImageParameters
+    public class CameraParameters
     {
-        public const int MAX_IMAGE_COUNT = 11;
+        public const int MAX_FRAMES = 11;
 
         // 固定相機
         public static ICImagingControl FixCamera = null;
@@ -25,6 +25,6 @@ namespace Imageproject.Models
         public static IFrameQueueBuffer SnapShot;
 
         // 連續拍照存放區(飛拍)
-        public static IFrameQueueBuffer[] FrameList = new IFrameQueueBuffer[MAX_IMAGE_COUNT];
+        public static IFrameQueueBuffer[] FrameList = new IFrameQueueBuffer[MAX_FRAMES];
     }
 }

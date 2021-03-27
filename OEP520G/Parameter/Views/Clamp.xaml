@@ -86,17 +86,17 @@
 
                     <DockPanel>
                         <Label Content="mm" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1StageCoordinationX, StringFormat=\{0:F3\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1StageCoordinationX, StringFormat=F3}" />
                         <Label Content="X" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel>
                         <Label Content="mm" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1StageCoordinationY, StringFormat=\{0:F3\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1StageCoordinationY, StringFormat=F3}" />
                         <Label Content="Y" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel IsEnabled="False">
                         <Label Content="mm" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1StageCoordinationZ, StringFormat=\{0:F3\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1StageCoordinationZ, StringFormat=F3}" />
                         <Label Content="Z" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
 
@@ -125,12 +125,12 @@
 
                     <DockPanel>
                         <Label Content="ms" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1DelayTime1, StringFormat=\{0:D\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1DelayTime1, StringFormat=D}" />
                         <Label Content="定位後等待時間" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel>
                         <Label Content="ms" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1DelayTime2, StringFormat=\{0:D\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp1DelayTime2, StringFormat=D}" />
                         <Label Content="放置後等待時間" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                 </StackPanel>
@@ -147,17 +147,17 @@
 
                     <DockPanel>
                         <Label Content="mm" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2StageCoordinationX, StringFormat=\{0:F3\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2StageCoordinationX, StringFormat=F3}" />
                         <Label Content="X" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel>
                         <Label Content="mm" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2StageCoordinationY, StringFormat=\{0:F3\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2StageCoordinationY, StringFormat=F3}" />
                         <Label Content="Y" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel IsEnabled="False">
                         <Label Content="mm" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2StageCoordinationZ, StringFormat=\{0:F3\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2StageCoordinationZ, StringFormat=F3}" />
                         <Label Content="Z" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
 
@@ -186,12 +186,12 @@
 
                     <DockPanel>
                         <Label Content="ms" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2DelayTime1, StringFormat=\{0:D\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2DelayTime1, StringFormat=D}" />
                         <Label Content="夾取前等待時間" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel>
                         <Label Content="ms" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2DelayTime2, StringFormat=\{0:D\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding Clamp2DelayTime2, StringFormat=D}" />
                         <Label Content="夾取後等待時間" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                 </StackPanel>

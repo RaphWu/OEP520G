@@ -156,11 +156,11 @@
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Margin="5,0,0,0" Content="X:" />
-                                    <Label Content="{Binding Path=X, StringFormat=\{0:F3\}}" />
+                                    <Label Content="{Binding Path=X, StringFormat=F3}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Margin="5,0,0,0" Content="Y:" />
-                                    <Label Content="{Binding Path=Y, StringFormat=\{0:F3\}}" />
+                                    <Label Content="{Binding Path=Y, StringFormat=F3}" />
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
@@ -183,7 +183,7 @@
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                         Header="座標" />-->
                         <DataGridTextColumn
-                            Binding="{Binding Path=Height, StringFormat=\{0:F3\}}"
+                            Binding="{Binding Path=Height, StringFormat=F3}"
                             CanUserReorder="False"
                             CanUserSort="False"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
@@ -195,7 +195,7 @@
                             ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                             Header="更新" />
                         <DataGridTextColumn
-                            Binding="{Binding Path=NewHeight, StringFormat=\{0:F3\}}"
+                            Binding="{Binding Path=NewHeight, StringFormat=F3}"
                             CanUserReorder="False"
                             CanUserSort="False"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"

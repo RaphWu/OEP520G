@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OEP520G", "OEP520G\OEP520G.csproj", "{710AA705-F73D-4412-8E82-E7411EF7AED8}"
 	ProjectSection(ProjectDependencies) = postProject
+		{41DC7484-393D-4FFC-8519-BCE854CA8C5C} = {41DC7484-393D-4FFC-8519-BCE854CA8C5C}
 		{DEA9E3F1-A134-4EEC-9684-06AD6FFEB42B} = {DEA9E3F1-A134-4EEC-9684-06AD6FFEB42B}
 	EndProjectSection
 EndProject
@@ -20,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imageproject", "Imageprojec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcpipServer", "Server\TcpipServer.csproj", "{41DC7484-393D-4FFC-8519-BCE854CA8C5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EP_Regulator", "EP_Regulator\EP_Regulator.csproj", "{DEA9E3F1-A134-4EEC-9684-06AD6FFEB42B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EP_Regulator", "EP_Regulator\EP_Regulator.csproj", "{DEA9E3F1-A134-4EEC-9684-06AD6FFEB42B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

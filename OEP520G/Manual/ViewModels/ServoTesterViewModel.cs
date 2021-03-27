@@ -110,15 +110,15 @@ namespace OEP520G.Manual.ViewModels
             // 往返測試
             RepeatTestSwicth = false;
             RepeatTestTimes = 0;
-            PauseTimes = 500;
+            PauseTime = 500;
 
             TestAxisSelected = "X";
 
-            RepeatAxisEnabledX = true;
-            RepeatAxisEnabledY = true;
-            RepeatAxisEnabledZ = true;
-            RepeatAxisEnabledTray = true;
-            RepeatAxisEnabledClamp = true;
+            //RepeatAxisEnabledX = true;
+            //RepeatAxisEnabledY = true;
+            //RepeatAxisEnabledZ = true;
+            //RepeatAxisEnabledTray = true;
+            //RepeatAxisEnabledClamp = true;
 
             RepeatStartButtonEnabled = true;
             StopTestButtonEnabled = false;
@@ -242,9 +242,9 @@ namespace OEP520G.Manual.ViewModels
             {
                 case "X":
                     if (para[1] == "START")
-                        pos = RepeatMoveToStartX;
+                        pos = StartingPointX;
                     else if (para[1] == "END")
-                        pos = RepeatMoveToEndX;
+                        pos = FinishPointX;
                     else
                         pos = MoveToCoorX;
 
@@ -253,9 +253,9 @@ namespace OEP520G.Manual.ViewModels
 
                 case "Y":
                     if (para[1] == "START")
-                        pos = RepeatMoveToStartY;
+                        pos = StartingPointY;
                     else if (para[1] == "END")
-                        pos = RepeatMoveToEndY;
+                        pos = FinishPointY;
                     else
                         pos = MoveToCoorY;
 
@@ -264,9 +264,9 @@ namespace OEP520G.Manual.ViewModels
 
                 case "Z":
                     if (para[1] == "START")
-                        pos = RepeatMoveToStartZ;
+                        pos = StartingPointZ;
                     else if (para[1] == "END")
-                        pos = RepeatMoveToEndZ;
+                        pos = FinishPointZ;
                     else
                         pos = MoveToCoorZ;
 
@@ -282,9 +282,9 @@ namespace OEP520G.Manual.ViewModels
 
                 case "TRAY":
                     if (para[1] == "START")
-                        pos = RepeatMoveToStartTray;
+                        pos = StartingPointTray;
                     else if (para[1] == "END")
-                        pos = RepeatMoveToEndTray;
+                        pos = FinishPointTray;
                     else
                         pos = MoveToCoorTray;
 
@@ -293,9 +293,9 @@ namespace OEP520G.Manual.ViewModels
 
                 case "CLAMP":
                     if (para[1] == "START")
-                        pos = RepeatMoveToStartClamp;
+                        pos = StartingPointClamp;
                     else if (para[1] == "END")
-                        pos = RepeatMoveToEndClamp;
+                        pos = FinishPointClamp;
                     else
                         pos = MoveToCoorClamp;
 
@@ -355,7 +355,7 @@ namespace OEP520G.Manual.ViewModels
         //    => Task.Run(() => RepeatTestTask());
 
         /// <summary>
-        /// 往返測試啟動(新執行緒部分)
+        /// 往返測試動作
         /// </summary>
         private async void RepeatTestTask()
         {
@@ -401,9 +401,9 @@ namespace OEP520G.Manual.ViewModels
                             {
                                 if (epcio.IsMotionStop(checkServoX: true))
                                 {
-                                    Task.Delay(PauseTimes).Wait();
-                                    NextPosX = (Math.Floor(NextPosX) == Math.Floor(RepeatMoveToEndX))
-                                        ? RepeatMoveToStartX : RepeatMoveToEndX;
+                                    Task.Delay(PauseTime).Wait();
+                                    NextPosX = (Math.Floor(NextPosX) == Math.Floor(FinishPointX))
+                                        ? StartingPointX : FinishPointX;
                                     epcio.MoveTo(positionX: NextPosX);
                                     AxisCounterX = (++MovesRemainderX).ToString();
                                 }
@@ -421,9 +421,9 @@ namespace OEP520G.Manual.ViewModels
                             {
                                 if (epcio.IsMotionStop(checkServoX: true))
                                 {
-                                    Task.Delay(PauseTimes).Wait();
-                                    NextPosY = (Math.Floor(NextPosY) == Math.Floor(RepeatMoveToEndY))
-                                        ? RepeatMoveToStartY : RepeatMoveToEndY;
+                                    Task.Delay(PauseTime).Wait();
+                                    NextPosY = (Math.Floor(NextPosY) == Math.Floor(FinishPointY))
+                                        ? StartingPointY : FinishPointY;
                                     epcio.MoveTo(positionY: NextPosY);
                                     AxisCounterY = (++MovesRemainderY).ToString();
                                 }
@@ -441,9 +441,9 @@ namespace OEP520G.Manual.ViewModels
                             {
                                 if (epcio.IsMotionStop(checkServoZ: true))
                                 {
-                                    Task.Delay(PauseTimes).Wait();
-                                    NextPosZ = (Math.Floor(NextPosZ) == Math.Floor(RepeatMoveToEndZ))
-                                        ? RepeatMoveToStartZ : RepeatMoveToEndZ;
+                                    Task.Delay(PauseTime).Wait();
+                                    NextPosZ = (Math.Floor(NextPosZ) == Math.Floor(FinishPointZ))
+                                        ? StartingPointZ : FinishPointZ;
                                     epcio.MoveTo(positionZ: NextPosZ);
                                     AxisCounterZ = (++MovesRemainderZ).ToString();
                                 }
@@ -461,9 +461,9 @@ namespace OEP520G.Manual.ViewModels
                             {
                                 if (epcio.IsMotionStop(checkServoTray: true))
                                 {
-                                    Task.Delay(PauseTimes).Wait();
-                                    NextPosTray = (Math.Floor(NextPosTray) == Math.Floor(RepeatMoveToEndTray))
-                                        ? RepeatMoveToStartTray : RepeatMoveToEndTray;
+                                    Task.Delay(PauseTime).Wait();
+                                    NextPosTray = (Math.Floor(NextPosTray) == Math.Floor(FinishPointTray))
+                                        ? StartingPointTray : FinishPointTray;
                                     epcio.MoveTo(positionTray: NextPosTray);
                                     AxisCounterTray = (++MovesRemainderTray).ToString();
                                 }
@@ -481,9 +481,9 @@ namespace OEP520G.Manual.ViewModels
                             {
                                 if (epcio.IsMotionStop(checkServoClamp: true))
                                 {
-                                    Task.Delay(PauseTimes).Wait();
-                                    NextPosClamp = (Math.Floor(NextPosClamp) == Math.Floor(RepeatMoveToEndClamp))
-                                        ? RepeatMoveToStartClamp : RepeatMoveToEndClamp;
+                                    Task.Delay(PauseTime).Wait();
+                                    NextPosClamp = (Math.Floor(NextPosClamp) == Math.Floor(FinishPointClamp))
+                                        ? StartingPointClamp : FinishPointClamp;
                                     epcio.MoveTo(positionClamp: NextPosClamp);
                                     AxisCounterClamp = (++MovesRemainderClamp).ToString();
                                 }
@@ -533,54 +533,54 @@ namespace OEP520G.Manual.ViewModels
             {
                 case "X":
                     if (para[2] == "START")
-                        pos = RepeatMoveToStartX;
+                        pos = StartingPointX;
                     else if (para[2] == "END")
-                        pos = RepeatMoveToEndX;
+                        pos = FinishPointX;
                     else if (para[2] == "AXIS")
                         pos = epcio.ServoX.GetCurrentPosition();
                     else // SETTING
                         pos = MoveToCoorX;
 
                     if (para[1] == "START")
-                        RepeatMoveToStartX = pos;
+                        StartingPointX = pos;
                     else if (para[1] == "END")
-                        RepeatMoveToEndX = pos;
+                        FinishPointX = pos;
                     else
                         MoveToCoorX = pos;
 
                     break;
                 case "Y":
                     if (para[2] == "START")
-                        pos = RepeatMoveToStartY;
+                        pos = StartingPointY;
                     else if (para[2] == "END")
-                        pos = RepeatMoveToEndY;
+                        pos = FinishPointY;
                     else if (para[2] == "AXIS")
                         pos = epcio.ServoY.GetCurrentPosition();
                     else
                         pos = MoveToCoorY;
 
                     if (para[1] == "START")
-                        RepeatMoveToStartY = pos;
+                        StartingPointY = pos;
                     else if (para[1] == "END")
-                        RepeatMoveToEndY = pos;
+                        FinishPointY = pos;
                     else
                         MoveToCoorY = pos;
 
                     break;
                 case "Z":
                     if (para[2] == "START")
-                        pos = RepeatMoveToStartZ;
+                        pos = StartingPointZ;
                     else if (para[2] == "END")
-                        pos = RepeatMoveToEndZ;
+                        pos = FinishPointZ;
                     else if (para[2] == "AXIS")
                         pos = epcio.ServoZ.GetCurrentPosition();
                     else
                         pos = MoveToCoorZ;
 
                     if (para[1] == "START")
-                        RepeatMoveToStartZ = pos;
+                        StartingPointZ = pos;
                     else if (para[1] == "END")
-                        RepeatMoveToEndZ = pos;
+                        FinishPointZ = pos;
                     else
                         MoveToCoorZ = pos;
 
@@ -590,36 +590,36 @@ namespace OEP520G.Manual.ViewModels
                     break;
                 case "TRAY":
                     if (para[2] == "START")
-                        pos = RepeatMoveToStartTray;
+                        pos = StartingPointTray;
                     else if (para[2] == "END")
-                        pos = RepeatMoveToEndTray;
+                        pos = FinishPointTray;
                     else if (para[2] == "AXIS")
                         pos = epcio.ServoTray.GetCurrentPosition();
                     else
                         pos = MoveToCoorTray;
 
                     if (para[1] == "START")
-                        RepeatMoveToStartTray = pos;
+                        StartingPointTray = pos;
                     else if (para[1] == "END")
-                        RepeatMoveToEndTray = pos;
+                        FinishPointTray = pos;
                     else
                         MoveToCoorTray = pos;
 
                     break;
                 case "CLAMP":
                     if (para[2] == "START")
-                        pos = RepeatMoveToStartClamp;
+                        pos = StartingPointClamp;
                     else if (para[2] == "END")
-                        pos = RepeatMoveToEndClamp;
+                        pos = FinishPointClamp;
                     else if (para[2] == "AXIS")
                         pos = epcio.ServoClamp.GetCurrentPosition();
                     else
                         pos = MoveToCoorClamp;
 
                     if (para[1] == "START")
-                        RepeatMoveToStartClamp = pos;
+                        StartingPointClamp = pos;
                     else if (para[1] == "END")
-                        RepeatMoveToEndClamp = pos;
+                        FinishPointClamp = pos;
                     else
                         MoveToCoorClamp = pos;
 
@@ -823,14 +823,14 @@ namespace OEP520G.Manual.ViewModels
         // TODO: 安全極限值判斷
 
         private double _repeatMoveToStartX;
-        public double RepeatMoveToStartX
+        public double StartingPointX
         {
             get { return _repeatMoveToStartX; }
             set { SetProperty(ref _repeatMoveToStartX, value); }
         }
 
         private double _repeatMoveToEndX;
-        public double RepeatMoveToEndX
+        public double FinishPointX
         {
             get { return _repeatMoveToEndX; }
             set { SetProperty(ref _repeatMoveToEndX, value); }
@@ -845,14 +845,14 @@ namespace OEP520G.Manual.ViewModels
         }
 
         private double _repeatMoveToStartY;
-        public double RepeatMoveToStartY
+        public double StartingPointY
         {
             get { return _repeatMoveToStartY; }
             set { SetProperty(ref _repeatMoveToStartY, value); }
         }
 
         private double _repeatMoveToEndY;
-        public double RepeatMoveToEndY
+        public double FinishPointY
         {
             get { return _repeatMoveToEndY; }
             set { SetProperty(ref _repeatMoveToEndY, value); }
@@ -867,14 +867,14 @@ namespace OEP520G.Manual.ViewModels
         }
 
         private double _repeatMoveToStartZ;
-        public double RepeatMoveToStartZ
+        public double StartingPointZ
         {
             get { return _repeatMoveToStartZ; }
             set { SetProperty(ref _repeatMoveToStartZ, value); }
         }
 
         private double _repeatMoveToEndZ;
-        public double RepeatMoveToEndZ
+        public double FinishPointZ
         {
             get { return _repeatMoveToEndZ; }
             set { SetProperty(ref _repeatMoveToEndZ, value); }
@@ -889,14 +889,14 @@ namespace OEP520G.Manual.ViewModels
         }
 
         //private double _repeatMoveToStartR;
-        //public double RepeatMoveToStartR
+        //public double StartingPointR
         //{
         //    get { return _repeatMoveToStartR; }
         //    set { SetProperty(ref _repeatMoveToStartR, value); }
         //}
 
         //private double _repeatMoveToEndR;
-        //public double RepeatMoveToEndR
+        //public double FinishPointR
         //{
         //    get { return _repeatMoveToEndR; }
         //    set { SetProperty(ref _repeatMoveToEndR, value); }
@@ -911,14 +911,14 @@ namespace OEP520G.Manual.ViewModels
         }
 
         private double _repeatMoveToStartTray;
-        public double RepeatMoveToStartTray
+        public double StartingPointTray
         {
             get { return _repeatMoveToStartTray; }
             set { SetProperty(ref _repeatMoveToStartTray, value); }
         }
 
         private double _repeatMoveToEndTray;
-        public double RepeatMoveToEndTray
+        public double FinishPointTray
         {
             get { return _repeatMoveToEndTray; }
             set { SetProperty(ref _repeatMoveToEndTray, value); }
@@ -933,14 +933,14 @@ namespace OEP520G.Manual.ViewModels
         }
 
         private double _repeatMoveToStartClamp;
-        public double RepeatMoveToStartClamp
+        public double StartingPointClamp
         {
             get { return _repeatMoveToStartClamp; }
             set { SetProperty(ref _repeatMoveToStartClamp, value); }
         }
 
         private double _repeatMoveToEndClamp;
-        public double RepeatMoveToEndClamp
+        public double FinishPointClamp
         {
             get { return _repeatMoveToEndClamp; }
             set { SetProperty(ref _repeatMoveToEndClamp, value); }
@@ -1098,7 +1098,7 @@ namespace OEP520G.Manual.ViewModels
 
         // 往返測試運轉中?
         private int _pauseTimes;
-        public int PauseTimes
+        public int PauseTime
         {
             get { return _pauseTimes; }
             set { SetProperty(ref _pauseTimes, value); }

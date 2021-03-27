@@ -266,7 +266,7 @@
                             DockPanel.Dock="Left"
                             Orientation="Horizontal">
                             <Label Content="整體位移 X:" Style="{StaticResource FieldLabel}" />
-                            <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.OffsetX, StringFormat=\{0:F3\}}">
+                            <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.OffsetX, StringFormat=F3}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="TextChanged">
                                         <i:InvokeCommandAction Command="{Binding TextChangedCommand}" />
@@ -280,7 +280,7 @@
                             DockPanel.Dock="Left"
                             Orientation="Horizontal">
                             <Label Content="Y:" Style="{StaticResource FieldLabel}" />
-                            <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.OffsetY, StringFormat=\{0:F3\}}">
+                            <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.OffsetY, StringFormat=F3}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="TextChanged">
                                         <i:InvokeCommandAction Command="{Binding TextChangedCommand}" />
@@ -345,7 +345,7 @@
                         DockPanel.Dock="Left"
                         Orientation="Horizontal">
                         <Label Content="分組長寬 X:" Style="{StaticResource FieldLabel}" />
-                        <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.TotalX, StringFormat=\{0:D\}}">
+                        <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.TotalX, StringFormat=D}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="LostFocus">
                                     <i:InvokeCommandAction Command="{Binding RenewPointMatrixCommand}" />
@@ -359,7 +359,7 @@
                         DockPanel.Dock="Left"
                         Orientation="Horizontal">
                         <Label Content="Y:" Style="{StaticResource FieldLabel}" />
-                        <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.TotalY, StringFormat=\{0:D\}}">
+                        <TextBox Style="{StaticResource Field}" Text="{Binding ElementName=TrayListDataGrid, Path=SelectedItem.TotalY, StringFormat=D}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="LostFocus">
                                     <i:InvokeCommandAction Command="{Binding RenewPointMatrixCommand}" />

@@ -97,12 +97,12 @@
 
                     <DockPanel>
                         <Label Content="mm" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding AssembleDiscardBoxPositionX, StringFormat=\{0:F3\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding AssembleDiscardBoxPositionX, StringFormat=F3}" />
                         <Label Content="抛料盒座標 X" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel>
                         <Label Content="mm" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding AssembleDiscardBoxPositionZ, StringFormat=\{0:F3\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding AssembleDiscardBoxPositionZ, StringFormat=F3}" />
                         <Label Content="抛料盒座標 Z" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
 
@@ -113,17 +113,17 @@
 
                     <DockPanel>
                         <Label Content="ms" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding AssembleDiscardExhaleTime, StringFormat=\{0:D\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding AssembleDiscardExhaleTime, StringFormat=D}" />
                         <Label Content="破真空時間" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel>
                         <Label Content="次" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding AssembleDiscardExhaleNumbers, StringFormat=\{0:D\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding AssembleDiscardExhaleNumbers, StringFormat=D}" />
                         <Label Content="破真空次數" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel IsEnabled="{Binding AssembleDiscardGapTimeEnabled, Converter={StaticResource BooleanToStringConverter}}">
                         <Label Content="ms" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding AssembleDiscardGapTime, StringFormat=\{0:D\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding AssembleDiscardGapTime, StringFormat=D}" />
                         <Label Content="間隔時間" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                 </StackPanel>
@@ -141,12 +141,12 @@
 
                     <DockPanel>
                         <Label Content="mm" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding SemiFinishedDiscardBoxPositionX, StringFormat=\{0:F3\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding SemiFinishedDiscardBoxPositionX, StringFormat=F3}" />
                         <Label Content="抛料盒座標 X" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel>
                         <Label Content="mm" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding SemiFinishedDiscardBoxPositionY, StringFormat=\{0:F3\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding SemiFinishedDiscardBoxPositionY, StringFormat=F3}" />
                         <Label Content="抛料盒座標 Y" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
 
@@ -163,12 +163,12 @@
 
                     <DockPanel>
                         <Label Content="ms" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding SemiFinishedDiscardOpenCloseTime, StringFormat=\{0:D\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding SemiFinishedDiscardOpenCloseTime, StringFormat=D}" />
                         <Label Content="夾爪開合時間" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                     <DockPanel>
                         <Label Content="次" Style="{StaticResource ItemUnit}" />
-                        <TextBox Style="{StaticResource ItemField}" Text="{Binding SemiFinishedDiscardOpenCloseNumbers, StringFormat=\{0:D\}}" />
+                        <TextBox Style="{StaticResource ItemField}" Text="{Binding SemiFinishedDiscardOpenCloseNumbers, StringFormat=D}" />
                         <Label Content="夾爪開合次數" Style="{StaticResource ItemTitle}" />
                     </DockPanel>
                 </StackPanel>

@@ -54,12 +54,12 @@ namespace OEP520G.Automatic.ViewModels
         // 全域Save事件
         public DelegateCommand WriteDataCommand { get; private set; }
 
-        private readonly IImage _image;
+        private readonly ICamera _image;
 
         /// <summary>
         /// 建構函式
         /// </summary>
-        public AutoOperationViewModel(IImage image)
+        public AutoOperationViewModel(ICamera image)
         {
             _image = image;
             autoProcedure = new AutoProcedure(_image);

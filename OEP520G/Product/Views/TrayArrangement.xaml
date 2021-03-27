@@ -290,11 +290,11 @@
                                 IsReadOnly="True" />
                             <DataGridTextColumn
                                 Width="80"
-                                Binding="{Binding Path=OriginX, StringFormat=\{0:F3\}}"
+                                Binding="{Binding Path=OriginX, StringFormat=F3}"
                                 Header="X" />
                             <DataGridTextColumn
                                 Width="80"
-                                Binding="{Binding Path=OriginY, StringFormat=\{0:F3\}}"
+                                Binding="{Binding Path=OriginY, StringFormat=F3}"
                                 Header="Y" />
                             <DataGridTextColumn
                                 Width="60"
@@ -329,11 +329,11 @@
                                 IsReadOnly="True" />
                             <DataGridTextColumn
                                 Width="80"
-                                Binding="{Binding Path=MatrixX, StringFormat=\{0:F3\}}"
+                                Binding="{Binding Path=MatrixX, StringFormat=F3}"
                                 Header="X" />
                             <DataGridTextColumn
                                 Width="80"
-                                Binding="{Binding Path=MatrixY, StringFormat=\{0:F3\}}"
+                                Binding="{Binding Path=MatrixY, StringFormat=F3}"
                                 Header="Y" />
                             <DataGridTextColumn
                                 Width="60"

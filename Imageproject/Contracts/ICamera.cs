@@ -10,7 +10,7 @@ using TIS.Imaging;
 
 namespace Imageproject.Contracts
 {
-    public interface IImage
+    public interface ICamera
     {
         /// <summary>
         /// 連續拍照的存放區

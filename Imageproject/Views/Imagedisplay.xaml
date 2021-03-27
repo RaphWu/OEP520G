@@ -634,7 +634,7 @@
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"
                                         DockPanel.Dock="Top"
-                                        Text="{Binding left, StringFormat=\{0:F3\}}" />
+                                        Text="{Binding left, StringFormat=F3}" />
                                     <TextBox
                                         MinWidth="50"
                                         Margin="0,12,0,0"
@@ -659,7 +659,7 @@
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"
                                         DockPanel.Dock="Top"
-                                        Text="{Binding top, StringFormat=\{0:F3\}}" />
+                                        Text="{Binding top, StringFormat=F3}" />
                                     <Label
                                         Width="32"
                                         Height="25"

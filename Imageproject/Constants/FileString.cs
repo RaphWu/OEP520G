@@ -6,6 +6,6 @@ namespace Imageproject.Constants
 {
     internal class FileString
     {
-        internal const string ImageDirectoty = @".\ImagePhoto";
+        internal const string IMAGE_DIRECTORY = @".\Images";
     }
 }

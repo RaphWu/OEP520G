@@ -104,12 +104,12 @@
                             Binding="{Binding ObjName}"
                             IsReadOnly="True"
                             TextBlock.TextAlignment="Center" />
-                        <DataGridTextColumn Binding="{Binding X.Position, StringFormat=\{0:F3\}}" Header="偏移X" />
-                        <DataGridTextColumn Binding="{Binding Y.Position, StringFormat=\{0:F3\}}" Header="偏移Y" />
-                        <DataGridTextColumn Binding="{Binding Z.Position, StringFormat=\{0:F3\}}" Header="偏移Z" />
-                        <DataGridTextColumn Binding="{Binding OffsetX, StringFormat=\{0:F3\}}" Header="求心偏移X" />
-                        <DataGridTextColumn Binding="{Binding OffsetY, StringFormat=\{0:F3\}}" Header="求心偏移Y" />
-                        <DataGridTextColumn Binding="{Binding OffsetZ, StringFormat=\{0:F3\}}" Header="間隙值Z" />
+                        <DataGridTextColumn Binding="{Binding X.Position, StringFormat=F3}" Header="偏移X" />
+                        <DataGridTextColumn Binding="{Binding Y.Position, StringFormat=F3}" Header="偏移Y" />
+                        <DataGridTextColumn Binding="{Binding Z.Position, StringFormat=F3}" Header="偏移Z" />
+                        <DataGridTextColumn Binding="{Binding OffsetX, StringFormat=F3}" Header="求心偏移X" />
+                        <DataGridTextColumn Binding="{Binding OffsetY, StringFormat=F3}" Header="求心偏移Y" />
+                        <DataGridTextColumn Binding="{Binding OffsetZ, StringFormat=F3}" Header="間隙值Z" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

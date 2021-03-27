@@ -13,7 +13,7 @@ namespace Imageproject
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<IImage, ImageService>();
+            containerRegistry.Register<ICamera, CameraService>();
             containerRegistry.Register<ILighting, LightService>();
             containerRegistry.Register<IShapeManager, ShapeManager>();
 

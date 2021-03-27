@@ -150,12 +150,12 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding DatumPoint1X, StringFormat=\{0:F3\}}" />
+                                Text="{Binding DatumPoint1X, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding DatumPoint1Y, StringFormat=\{0:F3\}}" />
+                                Text="{Binding DatumPoint1Y, StringFormat=F3}" />
                             <Button
                                 Grid.Row="1"
                                 Grid.Column="3"
@@ -219,7 +219,7 @@
                                 Grid.Row="4"
                                 Grid.Column="2"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding Tolerance1, StringFormat=\{0:F3\}}" />
+                                Text="{Binding Tolerance1, StringFormat=F3}" />
                             <!--  容許誤差 END  -->
                         </Grid>
 
@@ -232,7 +232,7 @@
                             CornerRadius="5">
                             <StackPanel Orientation="Horizontal">
                                 <Label VerticalAlignment="Center" Content="第一基準點基準高度" />
-                                <TextBox Style="{StaticResource Coordinate}" Text="{Binding DatumPoint1Z, StringFormat=\{0:F3\}}" />
+                                <TextBox Style="{StaticResource Coordinate}" Text="{Binding DatumPoint1Z, StringFormat=F3}" />
                                 <Label VerticalAlignment="Center" Content="mm" />
                             </StackPanel>
                         </Border>
@@ -288,12 +288,12 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding DatumPoint2X, StringFormat=\{0:F3\}}" />
+                                Text="{Binding DatumPoint2X, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding DatumPoint2Y, StringFormat=\{0:F3\}}" />
+                                Text="{Binding DatumPoint2Y, StringFormat=F3}" />
                             <Button
                                 Grid.Row="1"
                                 Grid.Column="4"
@@ -357,7 +357,7 @@
                                 Grid.Row="4"
                                 Grid.Column="2"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding Tolerance2, StringFormat=\{0:F3\}}" />
+                                Text="{Binding Tolerance2, StringFormat=F3}" />
                             <!--  容許誤差 END  -->
                         </Grid>
 
@@ -370,7 +370,7 @@
                             CornerRadius="5">
                             <StackPanel Orientation="Horizontal">
                                 <Label VerticalAlignment="Center" Content="第二基準點基準高度" />
-                                <TextBox Style="{StaticResource Coordinate}" Text="{Binding DatumPoint2Z, StringFormat=\{0:F3\}}" />
+                                <TextBox Style="{StaticResource Coordinate}" Text="{Binding DatumPoint2Z, StringFormat=F3}" />
                                 <Label VerticalAlignment="Center" Content="mm" />
                             </StackPanel>
                         </Border>
@@ -433,18 +433,18 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding AssembleDiscardBoxX, StringFormat=\{0:F3\}}" />
+                                Text="{Binding AssembleDiscardBoxX, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding AssembleDiscardBoxY, StringFormat=\{0:F3\}}"
+                                Text="{Binding AssembleDiscardBoxY, StringFormat=F3}"
                                 Visibility="Hidden" />
                             <TextBox
                                 Grid.Row="1"
                                 Grid.Column="3"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding AssembleDiscardBoxZ, StringFormat=\{0:F3\}}" />
+                                Text="{Binding AssembleDiscardBoxZ, StringFormat=F3}" />
                             <Button
                                 Grid.Row="1"
                                 Grid.Column="5"
@@ -470,17 +470,17 @@
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding AssembleMeasureHeightPlatformX, StringFormat=\{0:F3\}}" />
+                                Text="{Binding AssembleMeasureHeightPlatformX, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="2"
                                 Grid.Column="2"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding AssembleMeasureHeightPlatformY, StringFormat=\{0:F3\}}" />
+                                Text="{Binding AssembleMeasureHeightPlatformY, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="2"
                                 Grid.Column="3"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding AssembleMeasureHeightPlatformZ, StringFormat=\{0:F3\}}" />
+                                Text="{Binding AssembleMeasureHeightPlatformZ, StringFormat=F3}" />
                             <Button
                                 Grid.Row="2"
                                 Grid.Column="5"
@@ -506,17 +506,17 @@
                                 Grid.Row="3"
                                 Grid.Column="1"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding AssembleClayX, StringFormat=\{0:F3\}}" />
+                                Text="{Binding AssembleClayX, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="3"
                                 Grid.Column="2"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding AssembleClayY, StringFormat=\{0:F3\}}" />
+                                Text="{Binding AssembleClayY, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="3"
                                 Grid.Column="3"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding AssembleClayZ, StringFormat=\{0:F3\}}" />
+                                Text="{Binding AssembleClayZ, StringFormat=F3}" />
                             <Button
                                 Grid.Row="3"
                                 Grid.Column="5"
@@ -590,17 +590,17 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding SemiFinishedDiscardBoxX, StringFormat=\{0:F3\}}" />
+                                Text="{Binding SemiFinishedDiscardBoxX, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding SemiFinishedDiscardBoxY, StringFormat=\{0:F3\}}" />
+                                Text="{Binding SemiFinishedDiscardBoxY, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="1"
                                 Grid.Column="3"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding SemiFinishedDiscardBoxZ, StringFormat=\{0:F3\}}"
+                                Text="{Binding SemiFinishedDiscardBoxZ, StringFormat=F3}"
                                 Visibility="Hidden" />
                             <Button
                                 Grid.Row="1"
@@ -629,19 +629,19 @@
                                 Grid.Column="1"
                                 IsEnabled="False"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding SemiFinishedMeasureHeightPlatformX, StringFormat=\{0:F3\}}" />
+                                Text="{Binding SemiFinishedMeasureHeightPlatformX, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="2"
                                 Grid.Column="2"
                                 IsEnabled="False"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding SemiFinishedMeasureHeightPlatformY, StringFormat=\{0:F3\}}" />
+                                Text="{Binding SemiFinishedMeasureHeightPlatformY, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="2"
                                 Grid.Column="3"
                                 IsEnabled="False"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding SemiFinishedMeasureHeightPlatformZ, StringFormat=\{0:F3\}}" />
+                                Text="{Binding SemiFinishedMeasureHeightPlatformZ, StringFormat=F3}" />
                             <Button
                                 Grid.Row="2"
                                 Grid.Column="5"
@@ -673,19 +673,19 @@
                                 Grid.Column="1"
                                 IsEnabled="False"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding SemiFinishedClayX, StringFormat=\{0:F3\}}" />
+                                Text="{Binding SemiFinishedClayX, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="3"
                                 Grid.Column="2"
                                 IsEnabled="False"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding SemiFinishedClayY, StringFormat=\{0:F3\}}" />
+                                Text="{Binding SemiFinishedClayY, StringFormat=F3}" />
                             <TextBox
                                 Grid.Row="3"
                                 Grid.Column="3"
                                 IsEnabled="False"
                                 Style="{StaticResource Coordinate}"
-                                Text="{Binding SemiFinishedClayZ, StringFormat=\{0:F3\}}" />
+                                Text="{Binding SemiFinishedClayZ, StringFormat=F3}" />
                             <Button
                                 Grid.Row="3"
                                 Grid.Column="5"

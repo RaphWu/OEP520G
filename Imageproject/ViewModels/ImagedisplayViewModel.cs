@@ -23,22 +23,21 @@ namespace Imageproject.ViewModels
         public DelegateCommand ResetCommand { get; private set; }
         private double camera;
 
-        private readonly IImage _image;
+        private readonly ICamera _camera;
+        private readonly ILighting _lighting;
 
         // ctor
-        public ImagedisplayViewModel(IImage image)
+        public ImagedisplayViewModel(ICamera camera, ILighting lighting)
         {
             FixedCommand = new DelegateCommand(Fixed);
             MobileCommand = new DelegateCommand(Mobile);
             lockingCommand = new DelegateCommand(locking);
             widthlessCommand = new DelegateCommand(widthless);
             ResetCommand = new DelegateCommand(Reset);
-            camera = 0;
+            this.camera = 0;
 
-            _image = image;
-
-
-
+            _camera = camera;
+            _lighting = lighting;
         }
 
 
@@ -56,8 +55,8 @@ namespace Imageproject.ViewModels
             //ImageParameters.FixCamera.LiveDisplay = true;
             //ImageParameters.FixCamera.LiveStart();
 
-            _image.MoveCameraOff();
-            _image.FixCameraOn(VideoDemoFunc);
+            _camera.MoveCameraOff();
+            _camera.FixCameraOn(VideoDemoFunc);
         }
 
         public void Mobile()
@@ -74,8 +73,8 @@ namespace Imageproject.ViewModels
             //ImageParameters.MoveCamera.LiveDisplay = true;
             //ImageParameters.MoveCamera.LiveStart();
 
-            _image.FixCameraOff();
-            _image.MoveCameraOn(VideoDemoFunc);
+            _camera.FixCameraOff();
+            _camera.MoveCameraOn(VideoDemoFunc);
         }
 
         public void locking()
@@ -142,8 +141,8 @@ namespace Imageproject.ViewModels
             => _Unloaded ??= new DelegateCommand(ExecuteUnloaded);
         void ExecuteUnloaded()
         {
-            ImageParameters.FixCamera.LiveStop();
-            ImageParameters.FixCamera.DeviceTrigger = false;
+            CameraParameters.FixCamera.LiveStop();
+            CameraParameters.FixCamera.DeviceTrigger = false;
         }
 
         private BitmapImage _VideoSource;

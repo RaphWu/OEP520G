@@ -17,18 +17,18 @@ namespace Imageproject.ViewModels
 
         public RealTimeVideoDemoViewModel()
         {
-            ImageParameters.FixCamera = new ICImagingControl();
-            ImageParameters.FixCamera.Name = "FixCamera";
-            ImageParameters.FixCamera.LoadDeviceStateFromFile(CameraCfgFile.FixCameraXmlFile, true);
+            CameraParameters.FixCamera = new ICImagingControl();
+            CameraParameters.FixCamera.Name = "FixCamera";
+            CameraParameters.FixCamera.LoadDeviceStateFromFile(CameraCfgFile.FIX_CAMERA_XML_FILE, true);
 
              VideoDemoSink = new FrameQueueSink(VideoDemoFunc, MediaSubtypes.Y800, 5);
-            ImageParameters.FixCamera.Sink = VideoDemoSink;
+            CameraParameters.FixCamera.Sink = VideoDemoSink;
 
-            if (ImageParameters.FixCamera.LiveVideoRunning)
-                ImageParameters.FixCamera.LiveStop();
-            ImageParameters.FixCamera.DeviceTrigger = false;
-            ImageParameters.FixCamera.LiveDisplay = true;
-            ImageParameters.FixCamera.LiveStart();
+            if (CameraParameters.FixCamera.LiveVideoRunning)
+                CameraParameters.FixCamera.LiveStop();
+            CameraParameters.FixCamera.DeviceTrigger = false;
+            CameraParameters.FixCamera.LiveDisplay = true;
+            CameraParameters.FixCamera.LiveStart();
         }
 
         private FrameQueuedResult VideoDemoFunc(IFrameQueueBuffer img)
@@ -46,8 +46,8 @@ namespace Imageproject.ViewModels
             => _Unloaded ??= new DelegateCommand(ExecuteUnloaded);
         void ExecuteUnloaded()
         {
-            ImageParameters.FixCamera.LiveStop();
-            ImageParameters.FixCamera.DeviceTrigger = false;
+            CameraParameters.FixCamera.LiveStop();
+            CameraParameters.FixCamera.DeviceTrigger = false;
         }
 
         private DelegateCommand _SnapCommand;

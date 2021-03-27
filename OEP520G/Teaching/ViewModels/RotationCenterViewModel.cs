@@ -36,7 +36,7 @@ namespace OEP520G.Teaching.ViewModels
             set { _isActive = value; }
         }
 
-        private readonly IImage _image;
+        private readonly ICamera _image;
 
         // 全域Save事件
         public DelegateCommand WriteDataCommand { get; private set; }
@@ -44,7 +44,7 @@ namespace OEP520G.Teaching.ViewModels
         /// <summary>
         /// 建構函式
         /// </summary>
-        public RotationCenterViewModel(IImage image)
+        public RotationCenterViewModel(ICamera image)
         {
             _image = image;
 
